@@ -31,12 +31,16 @@ namespace Screeps3D {
             var newPos = GetPos(obj);
             var delta = transform.position - newPos;
             if (delta.sqrMagnitude > .1) {
+                enabled = true;
                 rotTarget = Quaternion.LookRotation(delta);
             }
             posTarget = newPos;
         }
 
         private void Update() {
+            if ((transform.position - posTarget).sqrMagnitude < .1) {
+                enabled = false;
+            }
             transform.position = Vector3.SmoothDamp(transform.position, posTarget, ref posRef, .5f);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime);
         }

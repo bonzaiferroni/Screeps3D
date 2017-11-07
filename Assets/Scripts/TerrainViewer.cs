@@ -9,7 +9,7 @@ namespace Screeps3D {
 
         [SerializeField] private ScreepsAPI api;
         [SerializeField] private GameObject[] wallPrototypes;
-        [SerializeField] private GameObject plainsPrototype;
+        // [SerializeField] private GameObject plainsPrototype;
         [SerializeField] private GameObject swampPrototype;
         [SerializeField] private RoomChooser chooser;
 
@@ -18,7 +18,7 @@ namespace Screeps3D {
         public void Start() {
             chooser.OnChooseRoom += ViewRoom;
             
-            plainsPrototype.SetActive(false);
+            // plainsPrototype.SetActive(false);
             swampPrototype.SetActive(false);
             foreach (var wall in wallPrototypes) {
                 wall.SetActive(false);
@@ -45,7 +45,7 @@ namespace Screeps3D {
                 for (var y = 0; y < 50; y++) {
                     var unit = terrain[x + y * 50];
                     if (unit == '0' || unit == '1') {
-                        RenderTerrain(x, y, TerrainType.Plains);
+                        // RenderTerrain(x, y, TerrainType.Plains);
                     }
                     if (unit == '2' || unit == '3') {
                         RenderTerrain(x, y, TerrainType.Swamp);
@@ -73,9 +73,7 @@ namespace Screeps3D {
 
         private GameObject CloneTerrain(TerrainType type) {
             GameObject prototype;
-            if (type == TerrainType.Plains) {
-                prototype = plainsPrototype;
-            } else if (type == TerrainType.Swamp) {
+             if (type == TerrainType.Swamp) {
                 prototype = swampPrototype;
             } else if (type == TerrainType.Wall) {
                 prototype = wallPrototypes[(int) (wallPrototypes.Length * Random.value)];
@@ -85,7 +83,7 @@ namespace Screeps3D {
                 throw new Exception("invalid terrain type: " + type);
             }
             var go = Instantiate(prototype);
-            // go.transform.SetParent(prototype.transform);
+            go.transform.SetParent(prototype.transform.parent);
             return go;
         }
     }

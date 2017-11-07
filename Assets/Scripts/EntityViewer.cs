@@ -17,6 +17,7 @@ namespace Screeps3D {
             chooser.OnChooseRoom += ViewRoom;
             for (var i = 0; i < transform.childCount; i++) {
                 var prototype = transform.GetChild(i).gameObject.GetComponent<ScreepsObject>();
+                if (!prototype.gameObject.activeInHierarchy) continue; 
                 prototypes[prototype.name] = prototype;
                 prototype.gameObject.SetActive(false);
             }
@@ -49,6 +50,7 @@ namespace Screeps3D {
                     var newSo = Instantiate(prototypes[type.str].gameObject).GetComponent<ScreepsObject>();
                     newSo.LoadObject(obj);
                     newSo.gameObject.SetActive(true);
+                    newSo.transform.SetParent(transform);
                     this.objects[id] = newSo;
                 }
                 var so = this.objects[id];
