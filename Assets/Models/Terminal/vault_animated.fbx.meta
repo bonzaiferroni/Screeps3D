@@ -1,0 +1,234 @@
+fileFormatVersion: 2
+guid: a337f143b8b36f644adf37bfb1ade049
+timeCreated: 1509984487
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: base
+    100002: display
+    100004: door
+    100006: group201
+    100008: hydraulics
+    100010: lock
+    100012: lock1
+    100014: lock2
+    100016: polySurface507
+    100018: polySurface512
+    100020: polySurface513
+    100022: polySurface535
+    100024: polySurface560
+    100026: polySurface561
+    100028: polySurface562
+    100030: polySurface563
+    100032: polySurface564
+    100034: polySurface565
+    100036: polySurface566
+    100038: polySurface567
+    100040: sketch_animated_polySurface419_group200_polySurface506
+    100042: SzeChuan2
+    100044: SzeChuan3
+    100046: SzeChuan4
+    100048: SzeChuan5
+    100050: SzeChuan6
+    100052: SzeChuan7
+    100054: SzeChuan8
+    100056: SzeChuan_grp
+    100058: //RootNode
+    400000: base
+    400002: display
+    400004: door
+    400006: group201
+    400008: hydraulics
+    400010: lock
+    400012: lock1
+    400014: lock2
+    400016: polySurface507
+    400018: polySurface512
+    400020: polySurface513
+    400022: polySurface535
+    400024: polySurface560
+    400026: polySurface561
+    400028: polySurface562
+    400030: polySurface563
+    400032: polySurface564
+    400034: polySurface565
+    400036: polySurface566
+    400038: polySurface567
+    400040: sketch_animated_polySurface419_group200_polySurface506
+    400042: SzeChuan2
+    400044: SzeChuan3
+    400046: SzeChuan4
+    400048: SzeChuan5
+    400050: SzeChuan6
+    400052: SzeChuan7
+    400054: SzeChuan8
+    400056: SzeChuan_grp
+    400058: //RootNode
+    2300000: door
+    2300002: lock
+    2300004: lock1
+    2300006: lock2
+    2300008: polySurface507
+    2300010: polySurface512
+    2300012: polySurface513
+    2300014: polySurface535
+    2300016: polySurface560
+    2300018: polySurface561
+    2300020: polySurface562
+    2300022: polySurface563
+    2300024: polySurface564
+    2300026: polySurface565
+    2300028: polySurface566
+    2300030: polySurface567
+    2300032: sketch_animated_polySurface419_group200_polySurface506
+    2300034: SzeChuan2
+    2300036: SzeChuan3
+    2300038: SzeChuan4
+    2300040: SzeChuan5
+    2300042: SzeChuan6
+    2300044: SzeChuan7
+    2300046: SzeChuan8
+    3300000: door
+    3300002: lock
+    3300004: lock1
+    3300006: lock2
+    3300008: polySurface507
+    3300010: polySurface512
+    3300012: polySurface513
+    3300014: polySurface535
+    3300016: polySurface560
+    3300018: polySurface561
+    3300020: polySurface562
+    3300022: polySurface563
+    3300024: polySurface564
+    3300026: polySurface565
+    3300028: polySurface566
+    3300030: polySurface567
+    3300032: sketch_animated_polySurface419_group200_polySurface506
+    3300034: SzeChuan2
+    3300036: SzeChuan3
+    3300038: SzeChuan4
+    3300040: SzeChuan5
+    3300042: SzeChuan6
+    3300044: SzeChuan7
+    3300046: SzeChuan8
+    4300000: SzeChuan2
+    4300002: SzeChuan3
+    4300004: SzeChuan4
+    4300006: SzeChuan5
+    4300008: SzeChuan6
+    4300010: SzeChuan7
+    4300012: SzeChuan8
+    4300014: polySurface567
+    4300016: polySurface513
+    4300018: door
+    4300020: polySurface512
+    4300022: sketch_animated_polySurface419_group200_polySurface506
+    4300024: polySurface535
+    4300026: polySurface507
+    4300028: polySurface560
+    4300030: polySurface565
+    4300032: polySurface564
+    4300034: polySurface563
+    4300036: polySurface562
+    4300038: polySurface561
+    4300040: polySurface566
+    4300042: lock
+    4300044: lock1
+    4300046: lock2
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SzeChuan
+    second: {fileID: 2100000, guid: b2003a2012296ae42b097fbd6be332a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vault_base
+    second: {fileID: 2100000, guid: bd219b51a03e697409ce27997cd960e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: screenmat
+    second: {fileID: 2100000, guid: 7dcc6dfaf7acd0e4ca060c6c4c9e9067, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
