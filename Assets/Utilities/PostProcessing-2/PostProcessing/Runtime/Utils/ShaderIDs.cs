@@ -21,6 +21,23 @@ namespace UnityEngine.Rendering.PostProcessing
         internal static readonly int OcclusionTexture2               = Shader.PropertyToID("_OcclusionTexture2");
         internal static readonly int SAOcclusionTexture              = Shader.PropertyToID("_SAOcclusionTexture");
         internal static readonly int MSVOcclusionTexture             = Shader.PropertyToID("_MSVOcclusionTexture");
+        internal static readonly int DepthCopy                       = Shader.PropertyToID("DepthCopy");
+        internal static readonly int LinearDepth                     = Shader.PropertyToID("LinearDepth");
+        internal static readonly int LowDepth1                       = Shader.PropertyToID("LowDepth1");
+        internal static readonly int LowDepth2                       = Shader.PropertyToID("LowDepth2");
+        internal static readonly int LowDepth3                       = Shader.PropertyToID("LowDepth3");
+        internal static readonly int LowDepth4                       = Shader.PropertyToID("LowDepth4");
+        internal static readonly int TiledDepth1                     = Shader.PropertyToID("TiledDepth1");
+        internal static readonly int TiledDepth2                     = Shader.PropertyToID("TiledDepth2");
+        internal static readonly int TiledDepth3                     = Shader.PropertyToID("TiledDepth3");
+        internal static readonly int TiledDepth4                     = Shader.PropertyToID("TiledDepth4");
+        internal static readonly int Occlusion1                      = Shader.PropertyToID("Occlusion1");
+        internal static readonly int Occlusion2                      = Shader.PropertyToID("Occlusion2");
+        internal static readonly int Occlusion3                      = Shader.PropertyToID("Occlusion3");
+        internal static readonly int Occlusion4                      = Shader.PropertyToID("Occlusion4");
+        internal static readonly int Combined1                       = Shader.PropertyToID("Combined1");
+        internal static readonly int Combined2                       = Shader.PropertyToID("Combined2");
+        internal static readonly int Combined3                       = Shader.PropertyToID("Combined3");
         
         internal static readonly int SSRResolveTemp                  = Shader.PropertyToID("_SSRResolveTemp");
         internal static readonly int Noise                           = Shader.PropertyToID("_Noise");
@@ -94,6 +111,13 @@ namespace UnityEngine.Rendering.PostProcessing
         internal static readonly int InvGamma                        = Shader.PropertyToID("_InvGamma");
         internal static readonly int Gain                            = Shader.PropertyToID("_Gain");
         internal static readonly int Curves                          = Shader.PropertyToID("_Curves");
+        internal static readonly int CustomToneCurve                 = Shader.PropertyToID("_CustomToneCurve");
+        internal static readonly int ToeSegmentA                     = Shader.PropertyToID("_ToeSegmentA");
+        internal static readonly int ToeSegmentB                     = Shader.PropertyToID("_ToeSegmentB");
+        internal static readonly int MidSegmentA                     = Shader.PropertyToID("_MidSegmentA");
+        internal static readonly int MidSegmentB                     = Shader.PropertyToID("_MidSegmentB");
+        internal static readonly int ShoSegmentA                     = Shader.PropertyToID("_ShoSegmentA");
+        internal static readonly int ShoSegmentB                     = Shader.PropertyToID("_ShoSegmentB");
 
         internal static readonly int Vignette_Color                  = Shader.PropertyToID("_Vignette_Color");
         internal static readonly int Vignette_Center                 = Shader.PropertyToID("_Vignette_Center");
