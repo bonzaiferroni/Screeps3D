@@ -1,0 +1,877 @@
+fileFormatVersion: 2
+guid: 5d80262c8983bbe498e54f992a09e76b
+timeCreated: 1509982166
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: ambientLight1
+    100002: ambientLight2
+    100004: directionalLight1
+    100006: group1
+    100008: group10
+    100010: group11
+    100012: group12
+    100014: group13
+    100016: group14
+    100018: group14 1
+    100020: group14 2
+    100022: group14 3
+    100024: group15
+    100026: group16
+    100028: group17
+    100030: group18
+    100032: group19
+    100034: group19 1
+    100036: group19 2
+    100038: group2
+    100040: group20
+    100042: group21
+    100044: group23
+    100046: group24
+    100048: group25
+    100050: group26
+    100052: group26 1
+    100054: group27
+    100056: group28
+    100058: group29
+    100060: group29 1
+    100062: group29 2
+    100064: group29 3
+    100066: group3
+    100068: group30
+    100070: group31
+    100072: group32
+    100074: group33
+    100076: group34
+    100078: group35
+    100080: group36
+    100082: group37
+    100084: group38
+    100086: group39
+    100088: group4
+    100090: group40
+    100092: group41
+    100094: group42
+    100096: group5
+    100098: group6
+    100100: group7
+    100102: group8
+    100104: group9
+    100106: pCylinder1
+    100108: pCylinder2
+    100110: polySurface2
+    100112: //RootNode
+    100114: Shield_generator:group1
+    100116: Shield_generator:group10
+    100118: Shield_generator:group11
+    100120: Shield_generator:group12
+    100122: Shield_generator:group13
+    100124: Shield_generator:group14
+    100126: Shield_generator:group14 1
+    100128: Shield_generator:group14 2
+    100130: Shield_generator:group14 3
+    100132: Shield_generator:group15
+    100134: Shield_generator:group16
+    100136: Shield_generator:group17
+    100138: Shield_generator:group18
+    100140: Shield_generator:group19
+    100142: Shield_generator:group19 1
+    100144: Shield_generator:group19 2
+    100146: Shield_generator:group2
+    100148: Shield_generator:group20
+    100150: Shield_generator:group21
+    100152: Shield_generator:group23
+    100154: Shield_generator:group24
+    100156: Shield_generator:group25
+    100158: Shield_generator:group26
+    100160: Shield_generator:group26 1
+    100162: Shield_generator:group27
+    100164: Shield_generator:group28
+    100166: Shield_generator:group29
+    100168: Shield_generator:group29 1
+    100170: Shield_generator:group29 2
+    100172: Shield_generator:group29 3
+    100174: Shield_generator:group3
+    100176: Shield_generator:group30
+    100178: Shield_generator:group30_Shield_generator:group29_Shield_generator:pCylinder20
+    100180: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform1
+    100182: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform10
+    100184: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform11
+    100186: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform12
+    100188: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform13
+    100190: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform14
+    100192: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform15
+    100194: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform16
+    100196: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform17
+    100198: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform18
+    100200: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform19
+    100202: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform2
+    100204: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform20
+    100206: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform21
+    100208: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform22
+    100210: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform23
+    100212: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform24
+    100214: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform25
+    100216: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform26
+    100218: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform27
+    100220: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform28
+    100222: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform29
+    100224: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform3
+    100226: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform30
+    100228: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform31
+    100230: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform32
+    100232: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform33
+    100234: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform34
+    100236: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform35
+    100238: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform36
+    100240: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform37
+    100242: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform38
+    100244: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform39
+    100246: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform4
+    100248: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform40
+    100250: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform41
+    100252: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform42
+    100254: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform43
+    100256: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform44
+    100258: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform45
+    100260: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform46
+    100262: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform47
+    100264: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform48
+    100266: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform49
+    100268: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform5
+    100270: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform50
+    100272: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform51
+    100274: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform52
+    100276: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform53
+    100278: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform54
+    100280: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform55
+    100282: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform56
+    100284: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform57
+    100286: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform58
+    100288: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform59
+    100290: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform6
+    100292: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform60
+    100294: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform61
+    100296: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform62
+    100298: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform63
+    100300: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform7
+    100302: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform8
+    100304: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform9
+    100306: Shield_generator:group31
+    100308: Shield_generator:group32
+    100310: Shield_generator:group33
+    100312: Shield_generator:group4
+    100314: Shield_generator:group5
+    100316: Shield_generator:group6
+    100318: Shield_generator:group7
+    100320: Shield_generator:group8
+    100322: Shield_generator:group9
+    100324: Shield_generator:pCube1
+    100326: Shield_generator:pCube1 1
+    100328: Shield_generator:pCube1 2
+    100330: Shield_generator:pCube1 3
+    100332: Shield_generator:pCube3
+    100334: Shield_generator:pCube3 1
+    100336: Shield_generator:pCube3 2
+    100338: Shield_generator:pCube3 3
+    100340: Shield_generator:pCube4
+    100342: Shield_generator:pCube4 1
+    100344: Shield_generator:pCube4 2
+    100346: Shield_generator:pCube4 3
+    100348: Shield_generator:pCube5
+    100350: Shield_generator:pCube5 1
+    100352: Shield_generator:pCube5 2
+    100354: Shield_generator:pCube5 3
+    100356: Shield_generator:pCylinder1
+    100358: Shield_generator:pCylinder11
+    100360: Shield_generator:pCylinder11 1
+    100362: Shield_generator:pCylinder11 2
+    100364: Shield_generator:pCylinder11 3
+    100366: Shield_generator:pCylinder13
+    100368: Shield_generator:pCylinder13 1
+    100370: Shield_generator:pCylinder13 2
+    100372: Shield_generator:pCylinder13 3
+    100374: Shield_generator:pCylinder14
+    100376: Shield_generator:pCylinder14 1
+    100378: Shield_generator:pCylinder14 2
+    100380: Shield_generator:pCylinder14 3
+    100382: Shield_generator:pCylinder15
+    100384: Shield_generator:pCylinder15 1
+    100386: Shield_generator:pCylinder15 2
+    100388: Shield_generator:pCylinder15 3
+    100390: Shield_generator:pCylinder16
+    100392: Shield_generator:pCylinder16 1
+    100394: Shield_generator:pCylinder16 2
+    100396: Shield_generator:pCylinder16 3
+    100398: Shield_generator:pCylinder17
+    100400: Shield_generator:pCylinder17 1
+    100402: Shield_generator:pCylinder17 2
+    100404: Shield_generator:pCylinder17 3
+    100406: Shield_generator:pCylinder2
+    100408: Shield_generator:pCylinder20
+    100410: Shield_generator:pCylinder20 1
+    100412: Shield_generator:pCylinder20 2
+    100414: Shield_generator:pCylinder20 3
+    100416: Shield_generator:pCylinder22
+    100418: Shield_generator:pCylinder22 1
+    100420: Shield_generator:pCylinder22 2
+    100422: Shield_generator:pCylinder22 3
+    100424: Shield_generator:pCylinder24
+    100426: Shield_generator:pCylinder24 1
+    100428: Shield_generator:pCylinder24 2
+    100430: Shield_generator:pCylinder24 3
+    100432: Shield_generator:pCylinder27
+    100434: Shield_generator:pCylinder27 1
+    100436: Shield_generator:pCylinder27 2
+    100438: Shield_generator:pCylinder27 3
+    100440: Shield_generator:pCylinder28
+    100442: Shield_generator:pCylinder28 1
+    100444: Shield_generator:pCylinder28 2
+    100446: Shield_generator:pCylinder28 3
+    100448: Shield_generator:pCylinder29
+    100450: Shield_generator:pCylinder29 1
+    100452: Shield_generator:pCylinder29 2
+    100454: Shield_generator:pCylinder29 3
+    100456: Shield_generator:pCylinder3
+    100458: Shield_generator:pCylinder30
+    100460: Shield_generator:pCylinder30 1
+    100462: Shield_generator:pCylinder30 2
+    100464: Shield_generator:pCylinder30 3
+    100466: Shield_generator:pCylinder31
+    100468: Shield_generator:pCylinder31 1
+    100470: Shield_generator:pCylinder31 2
+    100472: Shield_generator:pCylinder31 3
+    100474: Shield_generator:pCylinder32
+    100476: Shield_generator:pCylinder32 1
+    100478: Shield_generator:pCylinder32 2
+    100480: Shield_generator:pCylinder32 3
+    100482: Shield_generator:pCylinder33
+    100484: Shield_generator:pCylinder33 1
+    100486: Shield_generator:pCylinder33 2
+    100488: Shield_generator:pCylinder33 3
+    100490: Shield_generator:pCylinder34
+    100492: Shield_generator:pCylinder34 1
+    100494: Shield_generator:pCylinder34 2
+    100496: Shield_generator:pCylinder34 3
+    100498: Shield_generator:pCylinder35
+    100500: Shield_generator:pCylinder35 1
+    100502: Shield_generator:pCylinder35 2
+    100504: Shield_generator:pCylinder35 3
+    100506: Shield_generator:pCylinder36
+    100508: Shield_generator:pCylinder4
+    100510: Shield_generator:pCylinder5
+    100512: Shield_generator:pCylinder6
+    100514: Shield_generator:pCylinder7
+    100516: Shield_generator:pCylinder8
+    100518: Shield_generator:pCylinder9
+    100520: Shield_generator:polySurface1
+    100522: Shield_generator:polySurface2
+    100524: Shield_generator:polySurface3
+    100526: Shield_generator:polySurface3 1
+    100528: Shield_generator:polySurface3 2
+    100530: Shield_generator:polySurface3 3
+    100532: Shield_generator:polySurface4
+    100534: Shield_generator:polySurface4 1
+    100536: Shield_generator:polySurface4 2
+    100538: Shield_generator:polySurface4 3
+    100540: Shield_generator:polySurface5
+    100542: Shield_generator:polySurface5 1
+    100544: Shield_generator:polySurface5 2
+    100546: Shield_generator:polySurface5 3
+    100548: Shield_generator:polySurface6
+    100550: Shield_generator:polySurface6 1
+    100552: Shield_generator:polySurface6 2
+    100554: Shield_generator:polySurface6 3
+    100556: Shield_generator:polySurface7
+    100558: Shield_generator:polySurface7 1
+    100560: Shield_generator:polySurface7 2
+    100562: Shield_generator:polySurface7 3
+    100564: Shield_generator:polySurface8
+    100566: Shield_generator:polySurface8 1
+    100568: Shield_generator:polySurface8 2
+    100570: Shield_generator:polySurface8 3
+    100572: transform1
+    400000: ambientLight1
+    400002: ambientLight2
+    400004: directionalLight1
+    400006: group1
+    400008: group10
+    400010: group11
+    400012: group12
+    400014: group13
+    400016: group14
+    400018: group14 1
+    400020: group14 2
+    400022: group14 3
+    400024: group15
+    400026: group16
+    400028: group17
+    400030: group18
+    400032: group19
+    400034: group19 1
+    400036: group19 2
+    400038: group2
+    400040: group20
+    400042: group21
+    400044: group23
+    400046: group24
+    400048: group25
+    400050: group26
+    400052: group26 1
+    400054: group27
+    400056: group28
+    400058: group29
+    400060: group29 1
+    400062: group29 2
+    400064: group29 3
+    400066: group3
+    400068: group30
+    400070: group31
+    400072: group32
+    400074: group33
+    400076: group34
+    400078: group35
+    400080: group36
+    400082: group37
+    400084: group38
+    400086: group39
+    400088: group4
+    400090: group40
+    400092: group41
+    400094: group42
+    400096: group5
+    400098: group6
+    400100: group7
+    400102: group8
+    400104: group9
+    400106: pCylinder1
+    400108: pCylinder2
+    400110: polySurface2
+    400112: //RootNode
+    400114: Shield_generator:group1
+    400116: Shield_generator:group10
+    400118: Shield_generator:group11
+    400120: Shield_generator:group12
+    400122: Shield_generator:group13
+    400124: Shield_generator:group14
+    400126: Shield_generator:group14 1
+    400128: Shield_generator:group14 2
+    400130: Shield_generator:group14 3
+    400132: Shield_generator:group15
+    400134: Shield_generator:group16
+    400136: Shield_generator:group17
+    400138: Shield_generator:group18
+    400140: Shield_generator:group19
+    400142: Shield_generator:group19 1
+    400144: Shield_generator:group19 2
+    400146: Shield_generator:group2
+    400148: Shield_generator:group20
+    400150: Shield_generator:group21
+    400152: Shield_generator:group23
+    400154: Shield_generator:group24
+    400156: Shield_generator:group25
+    400158: Shield_generator:group26
+    400160: Shield_generator:group26 1
+    400162: Shield_generator:group27
+    400164: Shield_generator:group28
+    400166: Shield_generator:group29
+    400168: Shield_generator:group29 1
+    400170: Shield_generator:group29 2
+    400172: Shield_generator:group29 3
+    400174: Shield_generator:group3
+    400176: Shield_generator:group30
+    400178: Shield_generator:group30_Shield_generator:group29_Shield_generator:pCylinder20
+    400180: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform1
+    400182: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform10
+    400184: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform11
+    400186: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform12
+    400188: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform13
+    400190: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform14
+    400192: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform15
+    400194: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform16
+    400196: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform17
+    400198: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform18
+    400200: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform19
+    400202: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform2
+    400204: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform20
+    400206: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform21
+    400208: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform22
+    400210: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform23
+    400212: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform24
+    400214: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform25
+    400216: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform26
+    400218: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform27
+    400220: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform28
+    400222: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform29
+    400224: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform3
+    400226: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform30
+    400228: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform31
+    400230: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform32
+    400232: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform33
+    400234: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform34
+    400236: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform35
+    400238: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform36
+    400240: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform37
+    400242: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform38
+    400244: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform39
+    400246: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform4
+    400248: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform40
+    400250: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform41
+    400252: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform42
+    400254: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform43
+    400256: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform44
+    400258: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform45
+    400260: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform46
+    400262: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform47
+    400264: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform48
+    400266: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform49
+    400268: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform5
+    400270: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform50
+    400272: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform51
+    400274: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform52
+    400276: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform53
+    400278: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform54
+    400280: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform55
+    400282: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform56
+    400284: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform57
+    400286: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform58
+    400288: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform59
+    400290: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform6
+    400292: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform60
+    400294: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform61
+    400296: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform62
+    400298: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform63
+    400300: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform7
+    400302: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform8
+    400304: Shield_generator:group30_Shield_generator:group29_Shield_generator:transform9
+    400306: Shield_generator:group31
+    400308: Shield_generator:group32
+    400310: Shield_generator:group33
+    400312: Shield_generator:group4
+    400314: Shield_generator:group5
+    400316: Shield_generator:group6
+    400318: Shield_generator:group7
+    400320: Shield_generator:group8
+    400322: Shield_generator:group9
+    400324: Shield_generator:pCube1
+    400326: Shield_generator:pCube1 1
+    400328: Shield_generator:pCube1 2
+    400330: Shield_generator:pCube1 3
+    400332: Shield_generator:pCube3
+    400334: Shield_generator:pCube3 1
+    400336: Shield_generator:pCube3 2
+    400338: Shield_generator:pCube3 3
+    400340: Shield_generator:pCube4
+    400342: Shield_generator:pCube4 1
+    400344: Shield_generator:pCube4 2
+    400346: Shield_generator:pCube4 3
+    400348: Shield_generator:pCube5
+    400350: Shield_generator:pCube5 1
+    400352: Shield_generator:pCube5 2
+    400354: Shield_generator:pCube5 3
+    400356: Shield_generator:pCylinder1
+    400358: Shield_generator:pCylinder11
+    400360: Shield_generator:pCylinder11 1
+    400362: Shield_generator:pCylinder11 2
+    400364: Shield_generator:pCylinder11 3
+    400366: Shield_generator:pCylinder13
+    400368: Shield_generator:pCylinder13 1
+    400370: Shield_generator:pCylinder13 2
+    400372: Shield_generator:pCylinder13 3
+    400374: Shield_generator:pCylinder14
+    400376: Shield_generator:pCylinder14 1
+    400378: Shield_generator:pCylinder14 2
+    400380: Shield_generator:pCylinder14 3
+    400382: Shield_generator:pCylinder15
+    400384: Shield_generator:pCylinder15 1
+    400386: Shield_generator:pCylinder15 2
+    400388: Shield_generator:pCylinder15 3
+    400390: Shield_generator:pCylinder16
+    400392: Shield_generator:pCylinder16 1
+    400394: Shield_generator:pCylinder16 2
+    400396: Shield_generator:pCylinder16 3
+    400398: Shield_generator:pCylinder17
+    400400: Shield_generator:pCylinder17 1
+    400402: Shield_generator:pCylinder17 2
+    400404: Shield_generator:pCylinder17 3
+    400406: Shield_generator:pCylinder2
+    400408: Shield_generator:pCylinder20
+    400410: Shield_generator:pCylinder20 1
+    400412: Shield_generator:pCylinder20 2
+    400414: Shield_generator:pCylinder20 3
+    400416: Shield_generator:pCylinder22
+    400418: Shield_generator:pCylinder22 1
+    400420: Shield_generator:pCylinder22 2
+    400422: Shield_generator:pCylinder22 3
+    400424: Shield_generator:pCylinder24
+    400426: Shield_generator:pCylinder24 1
+    400428: Shield_generator:pCylinder24 2
+    400430: Shield_generator:pCylinder24 3
+    400432: Shield_generator:pCylinder27
+    400434: Shield_generator:pCylinder27 1
+    400436: Shield_generator:pCylinder27 2
+    400438: Shield_generator:pCylinder27 3
+    400440: Shield_generator:pCylinder28
+    400442: Shield_generator:pCylinder28 1
+    400444: Shield_generator:pCylinder28 2
+    400446: Shield_generator:pCylinder28 3
+    400448: Shield_generator:pCylinder29
+    400450: Shield_generator:pCylinder29 1
+    400452: Shield_generator:pCylinder29 2
+    400454: Shield_generator:pCylinder29 3
+    400456: Shield_generator:pCylinder3
+    400458: Shield_generator:pCylinder30
+    400460: Shield_generator:pCylinder30 1
+    400462: Shield_generator:pCylinder30 2
+    400464: Shield_generator:pCylinder30 3
+    400466: Shield_generator:pCylinder31
+    400468: Shield_generator:pCylinder31 1
+    400470: Shield_generator:pCylinder31 2
+    400472: Shield_generator:pCylinder31 3
+    400474: Shield_generator:pCylinder32
+    400476: Shield_generator:pCylinder32 1
+    400478: Shield_generator:pCylinder32 2
+    400480: Shield_generator:pCylinder32 3
+    400482: Shield_generator:pCylinder33
+    400484: Shield_generator:pCylinder33 1
+    400486: Shield_generator:pCylinder33 2
+    400488: Shield_generator:pCylinder33 3
+    400490: Shield_generator:pCylinder34
+    400492: Shield_generator:pCylinder34 1
+    400494: Shield_generator:pCylinder34 2
+    400496: Shield_generator:pCylinder34 3
+    400498: Shield_generator:pCylinder35
+    400500: Shield_generator:pCylinder35 1
+    400502: Shield_generator:pCylinder35 2
+    400504: Shield_generator:pCylinder35 3
+    400506: Shield_generator:pCylinder36
+    400508: Shield_generator:pCylinder4
+    400510: Shield_generator:pCylinder5
+    400512: Shield_generator:pCylinder6
+    400514: Shield_generator:pCylinder7
+    400516: Shield_generator:pCylinder8
+    400518: Shield_generator:pCylinder9
+    400520: Shield_generator:polySurface1
+    400522: Shield_generator:polySurface2
+    400524: Shield_generator:polySurface3
+    400526: Shield_generator:polySurface3 1
+    400528: Shield_generator:polySurface3 2
+    400530: Shield_generator:polySurface3 3
+    400532: Shield_generator:polySurface4
+    400534: Shield_generator:polySurface4 1
+    400536: Shield_generator:polySurface4 2
+    400538: Shield_generator:polySurface4 3
+    400540: Shield_generator:polySurface5
+    400542: Shield_generator:polySurface5 1
+    400544: Shield_generator:polySurface5 2
+    400546: Shield_generator:polySurface5 3
+    400548: Shield_generator:polySurface6
+    400550: Shield_generator:polySurface6 1
+    400552: Shield_generator:polySurface6 2
+    400554: Shield_generator:polySurface6 3
+    400556: Shield_generator:polySurface7
+    400558: Shield_generator:polySurface7 1
+    400560: Shield_generator:polySurface7 2
+    400562: Shield_generator:polySurface7 3
+    400564: Shield_generator:polySurface8
+    400566: Shield_generator:polySurface8 1
+    400568: Shield_generator:polySurface8 2
+    400570: Shield_generator:polySurface8 3
+    400572: transform1
+    2300000: Shield_generator:group30_Shield_generator:group29_Shield_generator:pCylinder20
+    2300002: Shield_generator:pCube1
+    2300004: Shield_generator:pCube1 1
+    2300006: Shield_generator:pCube1 2
+    2300008: Shield_generator:pCube1 3
+    2300010: Shield_generator:pCube3
+    2300012: Shield_generator:pCube3 1
+    2300014: Shield_generator:pCube3 2
+    2300016: Shield_generator:pCube3 3
+    2300018: Shield_generator:pCylinder1
+    2300020: Shield_generator:pCylinder11
+    2300022: Shield_generator:pCylinder11 1
+    2300024: Shield_generator:pCylinder11 2
+    2300026: Shield_generator:pCylinder11 3
+    2300028: Shield_generator:pCylinder13
+    2300030: Shield_generator:pCylinder13 1
+    2300032: Shield_generator:pCylinder13 2
+    2300034: Shield_generator:pCylinder13 3
+    2300036: Shield_generator:pCylinder14
+    2300038: Shield_generator:pCylinder14 1
+    2300040: Shield_generator:pCylinder14 2
+    2300042: Shield_generator:pCylinder14 3
+    2300044: Shield_generator:pCylinder15
+    2300046: Shield_generator:pCylinder15 1
+    2300048: Shield_generator:pCylinder15 2
+    2300050: Shield_generator:pCylinder15 3
+    2300052: Shield_generator:pCylinder16
+    2300054: Shield_generator:pCylinder16 1
+    2300056: Shield_generator:pCylinder16 2
+    2300058: Shield_generator:pCylinder16 3
+    2300060: Shield_generator:pCylinder17
+    2300062: Shield_generator:pCylinder17 1
+    2300064: Shield_generator:pCylinder17 2
+    2300066: Shield_generator:pCylinder17 3
+    2300068: Shield_generator:pCylinder3
+    2300070: Shield_generator:polySurface1
+    2300072: Shield_generator:polySurface3
+    2300074: Shield_generator:polySurface3 1
+    2300076: Shield_generator:polySurface3 2
+    2300078: Shield_generator:polySurface3 3
+    2300080: Shield_generator:polySurface4
+    2300082: Shield_generator:polySurface4 1
+    2300084: Shield_generator:polySurface4 2
+    2300086: Shield_generator:polySurface4 3
+    2300088: Shield_generator:polySurface5
+    2300090: Shield_generator:polySurface5 1
+    2300092: Shield_generator:polySurface5 2
+    2300094: Shield_generator:polySurface5 3
+    2300096: Shield_generator:polySurface6
+    2300098: Shield_generator:polySurface6 1
+    2300100: Shield_generator:polySurface6 2
+    2300102: Shield_generator:polySurface6 3
+    2300104: Shield_generator:polySurface7
+    2300106: Shield_generator:polySurface7 1
+    2300108: Shield_generator:polySurface7 2
+    2300110: Shield_generator:polySurface7 3
+    2300112: Shield_generator:polySurface8
+    2300114: Shield_generator:polySurface8 1
+    2300116: Shield_generator:polySurface8 2
+    2300118: Shield_generator:polySurface8 3
+    3300000: Shield_generator:group30_Shield_generator:group29_Shield_generator:pCylinder20
+    3300002: Shield_generator:pCube1
+    3300004: Shield_generator:pCube1 1
+    3300006: Shield_generator:pCube1 2
+    3300008: Shield_generator:pCube1 3
+    3300010: Shield_generator:pCube3
+    3300012: Shield_generator:pCube3 1
+    3300014: Shield_generator:pCube3 2
+    3300016: Shield_generator:pCube3 3
+    3300018: Shield_generator:pCylinder1
+    3300020: Shield_generator:pCylinder11
+    3300022: Shield_generator:pCylinder11 1
+    3300024: Shield_generator:pCylinder11 2
+    3300026: Shield_generator:pCylinder11 3
+    3300028: Shield_generator:pCylinder13
+    3300030: Shield_generator:pCylinder13 1
+    3300032: Shield_generator:pCylinder13 2
+    3300034: Shield_generator:pCylinder13 3
+    3300036: Shield_generator:pCylinder14
+    3300038: Shield_generator:pCylinder14 1
+    3300040: Shield_generator:pCylinder14 2
+    3300042: Shield_generator:pCylinder14 3
+    3300044: Shield_generator:pCylinder15
+    3300046: Shield_generator:pCylinder15 1
+    3300048: Shield_generator:pCylinder15 2
+    3300050: Shield_generator:pCylinder15 3
+    3300052: Shield_generator:pCylinder16
+    3300054: Shield_generator:pCylinder16 1
+    3300056: Shield_generator:pCylinder16 2
+    3300058: Shield_generator:pCylinder16 3
+    3300060: Shield_generator:pCylinder17
+    3300062: Shield_generator:pCylinder17 1
+    3300064: Shield_generator:pCylinder17 2
+    3300066: Shield_generator:pCylinder17 3
+    3300068: Shield_generator:pCylinder3
+    3300070: Shield_generator:polySurface1
+    3300072: Shield_generator:polySurface3
+    3300074: Shield_generator:polySurface3 1
+    3300076: Shield_generator:polySurface3 2
+    3300078: Shield_generator:polySurface3 3
+    3300080: Shield_generator:polySurface4
+    3300082: Shield_generator:polySurface4 1
+    3300084: Shield_generator:polySurface4 2
+    3300086: Shield_generator:polySurface4 3
+    3300088: Shield_generator:polySurface5
+    3300090: Shield_generator:polySurface5 1
+    3300092: Shield_generator:polySurface5 2
+    3300094: Shield_generator:polySurface5 3
+    3300096: Shield_generator:polySurface6
+    3300098: Shield_generator:polySurface6 1
+    3300100: Shield_generator:polySurface6 2
+    3300102: Shield_generator:polySurface6 3
+    3300104: Shield_generator:polySurface7
+    3300106: Shield_generator:polySurface7 1
+    3300108: Shield_generator:polySurface7 2
+    3300110: Shield_generator:polySurface7 3
+    3300112: Shield_generator:polySurface8
+    3300114: Shield_generator:polySurface8 1
+    3300116: Shield_generator:polySurface8 2
+    3300118: Shield_generator:polySurface8 3
+    4300000: Shield_generator:polySurface1
+    4300002: Shield_generator:polySurface6
+    4300004: Shield_generator:polySurface5
+    4300006: Shield_generator:pCube1
+    4300008: Shield_generator:polySurface7
+    4300010: Shield_generator:pCylinder11
+    4300012: Shield_generator:pCylinder14
+    4300014: Shield_generator:pCylinder13
+    4300016: Shield_generator:polySurface4
+    4300018: Shield_generator:pCylinder15
+    4300020: Shield_generator:pCylinder16
+    4300022: Shield_generator:pCylinder17
+    4300024: Shield_generator:polySurface8
+    4300026: Shield_generator:polySurface3
+    4300028: Shield_generator:pCube3
+    4300030: Shield_generator:polySurface6
+    4300032: Shield_generator:polySurface5
+    4300034: Shield_generator:pCube1
+    4300036: Shield_generator:polySurface7
+    4300038: Shield_generator:pCylinder11
+    4300040: Shield_generator:pCylinder14
+    4300042: Shield_generator:pCylinder13
+    4300044: Shield_generator:polySurface4
+    4300046: Shield_generator:pCylinder15
+    4300048: Shield_generator:pCylinder16
+    4300050: Shield_generator:pCylinder17
+    4300052: Shield_generator:polySurface8
+    4300054: Shield_generator:polySurface3
+    4300056: Shield_generator:pCube3
+    4300058: Shield_generator:polySurface6
+    4300060: Shield_generator:polySurface5
+    4300062: Shield_generator:pCube1
+    4300064: Shield_generator:polySurface7
+    4300066: Shield_generator:pCylinder11
+    4300068: Shield_generator:pCylinder14
+    4300070: Shield_generator:pCylinder13
+    4300072: Shield_generator:polySurface4
+    4300074: Shield_generator:pCylinder15
+    4300076: Shield_generator:pCylinder16
+    4300078: Shield_generator:pCylinder17
+    4300080: Shield_generator:polySurface8
+    4300082: Shield_generator:polySurface3
+    4300084: Shield_generator:pCube3
+    4300086: Shield_generator:polySurface6
+    4300088: Shield_generator:polySurface5
+    4300090: Shield_generator:pCube1
+    4300092: Shield_generator:polySurface7
+    4300094: Shield_generator:pCylinder11
+    4300096: Shield_generator:pCylinder14
+    4300098: Shield_generator:pCylinder13
+    4300100: Shield_generator:polySurface4
+    4300102: Shield_generator:pCylinder15
+    4300104: Shield_generator:pCylinder16
+    4300106: Shield_generator:pCylinder17
+    4300108: Shield_generator:polySurface8
+    4300110: Shield_generator:polySurface3
+    4300112: Shield_generator:pCube3
+    4300114: Shield_generator:pCylinder1
+    4300116: Shield_generator:pCylinder3
+    4300118: Shield_generator:group30_Shield_generator:group29_Shield_generator:pCylinder20
+    7400000: Take 001
+    9500000: //RootNode
+    10800000: ambientLight1
+    10800002: ambientLight2
+    10800004: directionalLight1
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shield_generator_lambert5
+    second: {fileID: 2100000, guid: 2331cefbfaf2e2241aeddae7086f02c6, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 500
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
