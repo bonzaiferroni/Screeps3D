@@ -19,7 +19,9 @@ namespace Screeps3D {
         }
 
         private void OnDestroy() {
-            api.Socket.Unsub($"room:{coord.shardName}/{coord.roomName}");
+            if (api.Socket != null) {
+                api.Socket.Unsub($"room:{coord.shardName}/{coord.roomName}");
+            }
         }
 
         private void OnRoomData(JSONObject data) {
