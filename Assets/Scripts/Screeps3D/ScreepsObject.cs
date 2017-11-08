@@ -8,28 +8,28 @@ namespace Screeps3D {
         private Vector3 posRef;
 
         public void LoadObject(JSONObject obj) {
-            transform.position = GetPos(obj);
+            transform.localPosition = GetPos(obj);
             rotTarget = transform.rotation;
-            posTarget = transform.position;
+            posTarget = transform.localPosition;
         }
 
         private Vector3 GetPos(JSONObject obj) {
-            var x = transform.position.x;
+            var x = transform.localPosition.x;
             var xObj = obj["x"];
             if (xObj != null) {
-                x = -xObj.n;
+                x = xObj.n;
             }
-            var y = transform.position.z;
+            var y = transform.localPosition.z;
             var yObj = obj["y"];
             if (yObj != null) {
-                y = yObj.n;
+                y = 49 - yObj.n;
             }
-            return new Vector3(x, transform.position.y, y);
+            return new Vector3(x, transform.localPosition.y, y);
         }
 
         public void UpdateObject(JSONObject obj) {
             var newPos = GetPos(obj);
-            var delta = transform.position - newPos;
+            var delta = transform.localPosition - newPos;
             if (delta.sqrMagnitude > .1) {
                 enabled = true;
                 rotTarget = Quaternion.LookRotation(delta);
@@ -38,10 +38,10 @@ namespace Screeps3D {
         }
 
         private void Update() {
-            if ((transform.position - posTarget).sqrMagnitude < .1) {
+            if ((transform.localPosition - posTarget).sqrMagnitude < .1) {
                 enabled = false;
             }
-            transform.position = Vector3.SmoothDamp(transform.position, posTarget, ref posRef, .5f);
+            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, posTarget, ref posRef, .5f);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime);
         }
     }

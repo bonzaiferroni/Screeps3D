@@ -89,17 +89,18 @@ namespace Screeps3D {
         }
 	
         public void Subscribe(string path, Action<JSONObject> callback) {
-            
-            var command = $"subscribe {path}";
-            Debug.Log(command);
-            Socket.Send(command);
+            Socket.Send($"subscribe {path}");
             subscriptions[path] = callback;
+        }
+        
+        public void Unsub(string path) {
+            Socket.Send($"unsubscribe {path}");
         }
 
         private void UnsubAll() {
             if (Socket == null) return;
             foreach (var kvp in subscriptions) {
-                Socket.Send($"unsubscribe {kvp.Key}");
+                Unsub(kvp.Key);
             }
         }
     }

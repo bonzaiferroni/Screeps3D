@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 namespace Utils {
     public class ThirdPersonCamera : MonoBehaviour {
+
+        [SerializeField] private float zoomSpeed = 10;
         [SerializeField] private Transform followTransform;
         private Vector3 posRef;
         private Quaternion camRotation;
@@ -37,7 +39,7 @@ namespace Utils {
                 tether = Vector3.SmoothDamp(tether, tetherGarget, ref tetherRef, .1f);
             }
 
-            zoom -= Input.GetAxis("Mouse ScrollWheel") * 5;
+            zoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
 
             if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButton(1)) {
                 xRot -= Input.GetAxis("Mouse Y") * 5;
