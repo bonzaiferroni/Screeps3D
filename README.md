@@ -5,8 +5,6 @@ A 3D client for the MMORTS Screeps.com
 To build a 3D client for Screeps.
 
 ## Progress
-At the moment everything is the simplest working solution. Only a single room can be loaded per session (close and restart to load a new room). Shard0 is the only working shard.
-
 I think it has a fairly solid foundation so that if anyone wants to contribute to it, it is at a good point. There is a websocket/http client that could be fleshed out more but has all the basic functionality. There is a solid system for rendering rooms/objects. At the moment the project is organized into two systems:
 
 * ScreepsAPI - HTTP/Websocket client for communicating with the server
