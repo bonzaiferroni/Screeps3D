@@ -7,6 +7,9 @@ namespace Screeps3D {
     public class ScreepsLogin : MonoBehaviour {
         [SerializeField] private ScreepsAPI api;
         [SerializeField] private Toggle save;
+        [SerializeField] private Toggle ssl;
+        [SerializeField] private TMP_InputField server;
+        [SerializeField] private TMP_InputField port;
         [SerializeField] private TMP_InputField email;
         [SerializeField] private TMP_InputField password;
         [SerializeField] private Button connect;
@@ -32,6 +35,14 @@ namespace Screeps3D {
             Debug.Log($"save value: {save}");
             if (save == 1) {
                 this.save.isOn = true;
+                var port = PlayerPrefs.GetString("port");
+                if (port != null) {
+                    this.server.text = port;
+                }
+                var server = PlayerPrefs.GetString("server");
+                if (server != null) {
+                    this.server.text = server;
+                }
                 var email = PlayerPrefs.GetString("email");
                 if (email != null) {
                     this.email.text = email;
@@ -52,14 +63,24 @@ namespace Screeps3D {
 
         private void OnClick() {
             if (save.isOn) {
+                PlayerPrefs.SetString("port", port.text);
+                PlayerPrefs.SetString("server", server.text);
                 PlayerPrefs.SetString("email", email.text);
                 var password = this.password.text;
                 var encryptedPassword = Crypto.EncryptStringAES(password, secret);
                 PlayerPrefs.SetString("password", encryptedPassword);
             }
             
-            var credentials = new Credentials {email = email.text, password = password.text};
-            var address = new Address {hostName = "screeps.com", path = "/"};
+            var credentials = new Credentials {
+                email = email.text, 
+                password = password.text
+            };
+            var address = new Address {
+                hostName = server.text, 
+                path = "/", 
+                ssl = this.ssl.isOn, 
+                port = port.text
+            };
             api.Connect(credentials, address);
         }
     }
@@ -70,14 +91,19 @@ namespace Screeps3D {
     }
 	
     public struct Address {
+        public bool ssl;
         public string hostName;
+        public string port;
         public string path;
 	
         public string Http(string path = "") {
             if (path.StartsWith("/") && this.path.EndsWith("/")) {
                 path = path.Substring(1);
-            }
-            return $"https://{hostName}{this.path}{path}";
+            } 
+            var protocol = ssl ? "https" : "http";
+            var port = hostName.ToLowerInvariant() == "screeps.com" ? "" : $":{this.port}";
+            Debug.Log($"{protocol}://{hostName}{port}{this.path}{path}");
+            return $"{protocol}://{hostName}{port}{this.path}{path}";
         }
     }
 }

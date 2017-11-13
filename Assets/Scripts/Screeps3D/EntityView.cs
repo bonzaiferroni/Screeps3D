@@ -19,7 +19,7 @@ namespace Screeps3D {
         }
 
         private void OnDestroy() {
-            if (api.Socket != null) {
+            if (api.Socket != null && coord != null) {
                 api.Socket.Unsub($"room:{coord.shardName}/{coord.roomName}");
             }
         }

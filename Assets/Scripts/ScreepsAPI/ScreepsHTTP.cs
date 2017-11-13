@@ -104,28 +104,5 @@ namespace Screeps3D {
 			};
 			Request("GET", "/api/game/room-terrain", body, callback);
 		}
-
-
-		/*public IEnumerator ConsoleInput(string message) {
-			WWWForm form = new WWWForm();
-			form.AddField("expression", message);
-			form.AddField("shard", "shard0");
-			using (UnityWebRequest www = UnityWebRequest.Post("https://screeps.com/api/user/console", form))
-			{
-				www.SetRequestHeader("X-Token", token);
-				www.SetRequestHeader("X-Username", token);
-				yield return www.Send();
-	
-				if (www.isNetworkError || www.isHttpError) {
-					Debug.Log("HTTP: must have fallen asleep");
-					StartCoroutine(Auth(ConsoleInput(message)));
-				}
-				else
-				{
-					// Show results as text
-					Debug.Log(www.downloadHandler.text);
-				}
-			}
-		}*/
 	}
 }

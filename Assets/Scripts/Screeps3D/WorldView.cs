@@ -45,7 +45,7 @@ namespace Screeps3D {
         }
 
         private void TransportPlayer(Vector3 pos) {
-            playerView.position = pos + new Vector3(25, 2, 25);
+            playerView.position = new Vector3(pos.x + 25, playerView.position.y, pos.z - 10);
         }
     }
 }

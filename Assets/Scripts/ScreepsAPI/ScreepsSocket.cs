@@ -27,7 +27,9 @@ namespace Screeps3D {
 
         public void Connect() {
             Socket?.Close();
-            Socket = new WebSocket($"wss://{api.Address.hostName}:443/socket/websocket");
+            
+            var protocol = api.Address.ssl ? "wss" : "ws";
+            Socket = new WebSocket($"{protocol}://{api.Address.hostName}:443/socket/websocket");
             Socket.OnOpen += Open;
             Socket.OnError += Error;
             Socket.OnMessage += Message;
