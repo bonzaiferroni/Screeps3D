@@ -19,7 +19,7 @@ namespace Screeps3D {
 		private void Request(string requestMethod, string path, RequestBody body = null, 
 			Action<JSONObject> onSuccess = null, Action onError = null) {
 
-			Debug.Log($"HTTP: attempting {requestMethod} to {path}");
+			Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
 			UnityWebRequest www;
 			var fullPath = api.Address.Http(path);
 			if (requestMethod == UnityWebRequest.kHttpVerbGET) {
@@ -30,33 +30,33 @@ namespace Screeps3D {
 			} else if (requestMethod == UnityWebRequest.kHttpVerbPOST) {
 				www = UnityWebRequest.Post(fullPath, body);
 			} else {
-				Debug.Log($"HTTP: request method {requestMethod} unrecognized");
+				Debug.Log(string.Format("HTTP: request method {0} unrecognized", requestMethod));
 				return;
 			}
 
 			Action<UnityWebRequest> onComplete = (UnityWebRequest outcome) => {
 				if (outcome.isNetworkError || outcome.isHttpError) {
-					Debug.Log($"HTTP: network error, reason: {outcome.error}");
+					Debug.Log(string.Format("HTTP: network error, reason: {0}", outcome.error));
 					if (onError != null) {
 						onError();
 					} else {
 						Auth((reply) => {
 							Request(requestMethod, path, body, onSuccess);
 						}, () => {
-							api.OnConnectionStatusChange?.Invoke(false);
+							if (api.OnConnectionStatusChange != null) api.OnConnectionStatusChange.Invoke(false);
 						});
 					}
 				} else {
-					Debug.Log($"HTTP: success, data: \n{outcome.downloadHandler.text}");
+					Debug.Log(string.Format("HTTP: success, data: \n{0}", outcome.downloadHandler.text));
 					var reply = new JSONObject(outcome.downloadHandler.text);
 					var token = reply["token"];
 					if (token != null) {
 						Token = token.str;
-						Debug.Log($"HTTP: found a token! {Token}");
+						Debug.Log(string.Format("HTTP: found a token! {0}", Token));
 					}
 					var status = reply["ok"];
 					if (status != null && status.n == 1) {
-						onSuccess?.Invoke(reply);
+						if (onSuccess != null) onSuccess.Invoke(reply);
 					}
 				}
 			};
@@ -74,10 +74,9 @@ namespace Screeps3D {
 		}
 		
 		public void Auth(Action<JSONObject> onSuccess, Action onError = null) {
-			var body = new RequestBody {
-				["email"] = api.Credentials.email,
-				["password"] = api.Credentials.password
-			};
+			var body = new RequestBody();
+			body["email"] = api.Credentials.email;
+			body["password"] = api.Credentials.password;
 		
 			Request("POST", "/api/auth/signin", body, onSuccess, onError);
 		}
@@ -87,21 +86,19 @@ namespace Screeps3D {
 		}
 		
 		public void ConsoleInput(string message) {
-			var body = new RequestBody {
-				["expression"] = message,
-				["shard"] = "shard0"
-			};
+			var body = new RequestBody();
+			body["expression"] = message;
+			body["shard"] = "shard0";
 			Request("POST", "/api/user/console", body);
 		}
 
 		public void GetRoom(string roomName, string shard, Action<JSONObject> callback) {
 			//return self.req('GET', '/api/game/room-terrain', { room, encoded, shard })
 			//self.req('GET', '/api/user/rooms', { id }).then(this.mapToShard)
-			var body = new RequestBody {
-				["room"] = roomName,
-				["encoded"] = "0",
-				["shard"] = shard,
-			};
+			var body = new RequestBody();
+			body["room"] = roomName;
+			body["encoded"] = "0";
+			body["shard"] = shard;
 			Request("GET", "/api/game/room-terrain", body, callback);
 		}
 	}

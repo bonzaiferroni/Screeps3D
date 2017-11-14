@@ -22,8 +22,8 @@ namespace Screeps3D {
             this.y = y;
             vector = new Vector3(dirX == "E" ? x * 50 : (-x - 1) * 50, shard * 25,
                 dirY == "N" ? y * 50 : (-y - 1) * 50);
-            shardName = $"shard{shard}";
-            roomName = $"{dirX}{x}{dirY}{y}";
+            shardName = string.Format("shard{0}", shard);
+            roomName = string.Format("{0}{1}{2}{3}", dirX, x, dirY, y);
             key = shardName + roomName;
         }
 

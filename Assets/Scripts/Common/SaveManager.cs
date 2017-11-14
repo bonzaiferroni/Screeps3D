@@ -37,7 +37,7 @@ namespace Utils {
         }
 
         private static string GetPath(string identifier) {
-            return $"{Application.persistentDataPath}/{identifier}.dat";
+            return string.Format("{0}/{1}.dat", Application.persistentDataPath, identifier);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Screeps3D {
 
 	    private void AssignUser(JSONObject obj) {
 		    User = new ScreepsUser {_id = obj["_id"].str};
-		    OnConnectionStatusChange?.Invoke(true);
+		    if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
 	    }
 	}
 }

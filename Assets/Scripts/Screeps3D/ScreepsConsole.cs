@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 using Screeps3D;
 
@@ -18,7 +19,7 @@ namespace Screeps3D {
 
         private void OnConnectionStatusChange(bool isConnected) {
             console.panel.Show(isConnected);
-            api.Socket.Subscribe($"user:{api.User._id}/console", OnConsoleData);
+            api.Socket.Subscribe(string.Format("user:{0}/console", api.User._id), OnConsoleData);
         }
 
         private void OnConsoleData(JSONObject obj) {

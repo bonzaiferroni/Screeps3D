@@ -24,7 +24,7 @@ namespace Screeps3D {
                 Debug.Log("invalid room");
                 return;
             }
-            OnChooseRoom?.Invoke(coord);
+            if (OnChooseRoom != null) OnChooseRoom.Invoke(coord);
         }
 
         private int ShardLevel(string shardName) {

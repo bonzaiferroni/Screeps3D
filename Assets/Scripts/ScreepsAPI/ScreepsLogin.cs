@@ -11,7 +11,7 @@ namespace Screeps3D {
         [SerializeField] private TMP_InputField server;
         [SerializeField] private TMP_InputField port;
         [SerializeField] private TMP_InputField email;
-        [SerializeField] private TMP_InputField password;
+        [SerializeField] private TMP_InputField passwordInput;
         [SerializeField] private Button connect;
         [SerializeField] public FadePanel panel;
         public Action<Credentials, Address> OnSubmit;
@@ -32,7 +32,7 @@ namespace Screeps3D {
 
         private void RefreshSavedSettings() {
             var save = PlayerPrefs.GetInt("saveCredentials");
-            Debug.Log($"save value: {save}");
+            Debug.Log(string.Format("save value: {0}", save));
             if (save == 1) {
                 this.save.isOn = true;
                 var port = PlayerPrefs.GetString("port");
@@ -49,7 +49,7 @@ namespace Screeps3D {
                 }
                 var encryptedPassword = PlayerPrefs.GetString("password");
                 var password = Crypto.DecryptStringAES(encryptedPassword, secret);
-                this.password.text = password;
+                this.passwordInput.text = password;
             }
         }
 
@@ -66,14 +66,14 @@ namespace Screeps3D {
                 PlayerPrefs.SetString("port", port.text);
                 PlayerPrefs.SetString("server", server.text);
                 PlayerPrefs.SetString("email", email.text);
-                var password = this.password.text;
+                var password = this.passwordInput.text;
                 var encryptedPassword = Crypto.EncryptStringAES(password, secret);
                 PlayerPrefs.SetString("password", encryptedPassword);
             }
             
             var credentials = new Credentials {
                 email = email.text, 
-                password = password.text
+                password = passwordInput.text
             };
             var address = new Address {
                 hostName = server.text, 
@@ -101,9 +101,9 @@ namespace Screeps3D {
                 path = path.Substring(1);
             } 
             var protocol = ssl ? "https" : "http";
-            var port = hostName.ToLowerInvariant() == "screeps.com" ? "" : $":{this.port}";
-            Debug.Log($"{protocol}://{hostName}{port}{this.path}{path}");
-            return $"{protocol}://{hostName}{port}{this.path}{path}";
+            var port = hostName.ToLowerInvariant() == "screeps.com" ? "" : string.Format(":{0}", this.port);
+            Debug.Log(string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path));
+            return string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path);
         }
     }
 }

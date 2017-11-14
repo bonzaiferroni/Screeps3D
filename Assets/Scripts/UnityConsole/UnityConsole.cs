@@ -25,8 +25,8 @@ public class UnityConsole : MonoBehaviour {
     }
 
     private void OnSubmit(string msg) {
-        OnInput?.Invoke(msg);
-        AddMessage($"> {msg}", Color.cyan);
+        if (OnInput != null) OnInput.Invoke(msg);
+        AddMessage(string.Format("> {0}", msg), Color.cyan);
     }
 
     public void AddMessage(string msg, Color color) {

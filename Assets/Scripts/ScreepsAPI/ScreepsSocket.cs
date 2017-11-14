@@ -22,14 +22,16 @@ namespace Screeps3D {
 	
         private void OnDestroy() {
             UnsubAll();
-            Socket?.Close();
+            if (Socket != null) Socket.Close();
         }
 
         public void Connect() {
-            Socket?.Close();
+            if (Socket != null) {
+                Socket.Close();
+            }
             
             var protocol = api.Address.ssl ? "wss" : "ws";
-            Socket = new WebSocket($"{protocol}://{api.Address.hostName}:443/socket/websocket");
+            Socket = new WebSocket(string.Format("{0}://{1}:443/socket/websocket", protocol, api.Address.hostName));
             Socket.OnOpen += Open;
             Socket.OnError += Error;
             Socket.OnMessage += Message;
@@ -39,45 +41,45 @@ namespace Screeps3D {
 
         private void Open(object sender, EventArgs e) {
             try {
-                Debug.Log($"Socket Open");
-                Socket.Send($"auth {api.Http.Token}");
-                OnOpen?.Invoke(e);
+                Debug.Log("Socket Open");
+                Socket.Send(string.Format("auth {0}", api.Http.Token));
+                if (OnOpen != null) OnOpen.Invoke(e);
             } catch (Exception exception) {
-                Debug.Log($"Exception in ScreepSocket.OnOpen\n{exception}");
+                Debug.Log(string.Format("Exception in ScreepSocket.OnOpen\n{0}", exception));
             }
         }
 
         private void Close(object sender, CloseEventArgs e) {
             try {
-                Debug.Log($"Socket Closing: {e.Reason}");
-                OnClose?.Invoke(e);
+                Debug.Log(string.Format("Socket Closing: {0}", e.Reason));
+                if (OnClose != null) OnClose.Invoke(e);
             } catch (Exception exception) {
-                Debug.Log($"Exception in ScreepSocket.OnClose\n{exception}");
+                Debug.Log(string.Format("Exception in ScreepSocket.OnClose\n{0}", exception));
             }
             
         }
 
         private void Message(object sender, MessageEventArgs e) {
             try {
-                Debug.Log($"Socket Message: {e.Data}");
+                Debug.Log(string.Format("Socket Message: {0}", e.Data));
                 var parse = e.Data.Split(' ');
                 if (parse.Length == 3 && parse[0] == "auth" && parse[1] == "ok") {
                     Debug.Log("socket auth success");
                 }
                 var json = new JSONObject(e.Data);
                 FindSubscription(json);
-                OnMessage?.Invoke(e);
+                if (OnMessage != null) OnMessage.Invoke(e);
             } catch (Exception exception) {
-                Debug.Log($"Exception in ScreepSocket.OnMessage\n{exception}");
+                Debug.Log(string.Format("Exception in ScreepSocket.OnMessage\n{0}", exception));
             }
         }
 
         private void Error(object sender, ErrorEventArgs e) {
             try {
-                Debug.Log($"Socket Error: {e.Message}");
-                OnError?.Invoke(e);
+                Debug.Log(string.Format("Socket Error: {0}", e.Message));
+                if (OnError != null) OnError.Invoke(e);
             } catch (Exception exception) {
-                Debug.Log($"Exception in ScreepSocket.OnError\n{exception}");
+                Debug.Log(string.Format("Exception in ScreepSocket.OnError\n{0}", exception));
             }
         }
 
@@ -87,16 +89,16 @@ namespace Screeps3D {
                 return;
             }
 
-            subscriptions[list[0].str]?.Invoke(list[1]);
+            subscriptions[list[0].str].Invoke(list[1]);
         }
 	
         public void Subscribe(string path, Action<JSONObject> callback) {
-            Socket.Send($"subscribe {path}");
+            Socket.Send(string.Format("subscribe {0}", path));
             subscriptions[path] = callback;
         }
         
         public void Unsub(string path) {
-            Socket.Send($"unsubscribe {path}");
+            Socket.Send(string.Format("unsubscribe {0}", path));
         }
 
         private void UnsubAll() {

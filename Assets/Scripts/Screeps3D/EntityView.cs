@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 
@@ -15,12 +16,12 @@ namespace Screeps3D {
 
         public void Load(WorldCoord coord) {
             this.coord = coord;
-            api.Socket.Subscribe($"room:{coord.shardName}/{coord.roomName}", OnRoomData);
+            api.Socket.Subscribe(string.Format("room:{0}/{1}", coord.shardName, coord.roomName), OnRoomData);
         }
 
         private void OnDestroy() {
             if (api.Socket != null && coord != null) {
-                api.Socket.Unsub($"room:{coord.shardName}/{coord.roomName}");
+                api.Socket.Unsub(string.Format("room:{0}/{1}", coord.shardName, coord.roomName));
             }
         }
 

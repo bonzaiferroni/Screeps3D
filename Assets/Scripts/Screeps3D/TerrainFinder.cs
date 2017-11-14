@@ -17,9 +17,9 @@ namespace Screeps3D {
             }
 
             Action<JSONObject> serverCallback = obj => {
-                var terrain = obj["terrain"].list[0]["terrain"].str;
-                this.terrain[coord.key] = terrain;
-                callback(terrain);
+                var terrainData = obj["terrain"].list[0]["terrain"].str;
+                this.terrain[coord.key] = terrainData;
+                callback(terrainData);
             };
             
             api.Http.GetRoom(coord.roomName, coord.shardName, serverCallback);
