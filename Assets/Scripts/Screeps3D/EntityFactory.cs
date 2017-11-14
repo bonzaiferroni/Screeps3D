@@ -10,7 +10,7 @@ namespace Screeps3D {
         private void Start() {
             for (var i = 0; i < transform.childCount; i++) {
                 var prototype = transform.GetChild(i).gameObject.GetComponent<ScreepsObject>();
-                if (!prototype.gameObject.activeInHierarchy) continue; 
+                if (prototype == null || !prototype.gameObject.activeInHierarchy) continue; 
                 prototypes[prototype.name] = prototype;
                 prototype.gameObject.SetActive(false);
             }

@@ -35,11 +35,9 @@ namespace Screeps3D {
             if (roomName.Contains("E")) {
                 index1 = roomName.IndexOf("E", StringComparison.Ordinal);
                 dirX = "E";
-                Debug.Log("ey");
             } else if (roomName.Contains("W")) {
                 index1 = roomName.IndexOf("W", StringComparison.Ordinal);
                 dirX = "W";
-                Debug.Log("ey");
             } else {
                 return null;
             }
@@ -47,11 +45,9 @@ namespace Screeps3D {
             if (roomName.Contains("N")) {
                 index2 = roomName.IndexOf("N", StringComparison.Ordinal);
                 dirY = "N";
-                Debug.Log("ey");
             } else if (roomName.Contains("S")) {
                 index2 = roomName.IndexOf("S", StringComparison.Ordinal);
                 dirY = "S";
-                Debug.Log("ey");
             } else {
                 return null;
             }
