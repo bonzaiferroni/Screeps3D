@@ -6817,7 +6817,7 @@ MonoBehaviour:
       edgeHoverMovement: 0
       edgeHoverOffset: 10
       defualtHeight: 0
-      useDefualtHeight: 1
+      useDefualtHeight: 0
       useLockTargetHeight: 1
     rotation:
       constRotationRate: 0
