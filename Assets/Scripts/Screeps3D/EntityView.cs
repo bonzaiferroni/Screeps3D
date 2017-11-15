@@ -16,12 +16,21 @@ namespace Screeps3D {
 
         public void Load(WorldCoord coord) {
             this.coord = coord;
-            api.Socket.Subscribe(string.Format("room:{0}/{1}", coord.shardName, coord.roomName), OnRoomData);
+
+            if (api.Address.hostName.ToLowerInvariant() == "screeps.com") {
+                api.Socket.Subscribe(string.Format("room:{0}/{1}", coord.shardName, coord.roomName), OnRoomData);
+            } else {
+                api.Socket.Subscribe(string.Format("room:{0}", coord.roomName), OnRoomData);
+            }
         }
 
         private void OnDestroy() {
             if (api.Socket != null && coord != null) {
-                api.Socket.Unsub(string.Format("room:{0}/{1}", coord.shardName, coord.roomName));
+                if (api.Address.hostName.ToLowerInvariant() == "screeps.com") {
+                    api.Socket.Unsub(string.Format("room:{0}/{1}", coord.shardName, coord.roomName));
+                } else {
+                    api.Socket.Unsub(string.Format("room:{0}", coord.roomName));
+                }
             }
         }
 

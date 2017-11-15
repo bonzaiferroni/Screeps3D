@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
 
-public class RequestBody : Dictionary<string, string> {
-
-    public string GetQueryString() {
-        var count = 0;
-        var str = "?";
-        foreach (var kvp in this) {
-            str += string.Format("{0}={1}", kvp.Key, kvp.Value);
-            count++;
-            if (count < this.Count) {
-                str += "&";
+namespace Screeps3D {
+    
+    public class RequestBody : JSONObject {
+    
+        public string ToQueryString() {
+            var count = 0;
+            var str = "?";
+            foreach (var key in keys) {
+                str += string.Format("{0}={1}", key, this[key].str);
+                count++;
+                if (count < this.Count) {
+                    str += "&";
+                }
             }
+            return str;
         }
-        return str;
     }
+    
+    
 }

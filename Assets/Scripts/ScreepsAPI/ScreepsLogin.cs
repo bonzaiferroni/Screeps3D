@@ -39,6 +39,8 @@ namespace Screeps3D {
                 if (port != null) {
                     this.server.text = port;
                 }
+                
+                
                 var server = PlayerPrefs.GetString("server");
                 if (server != null) {
                     this.server.text = server;
@@ -49,6 +51,8 @@ namespace Screeps3D {
                 }
                 var encryptedPassword = PlayerPrefs.GetString("password");
                 var password = Crypto.DecryptStringAES(encryptedPassword, secret);
+                var ssl = PlayerPrefs.GetInt("ssl");
+                this.ssl.isOn = ssl == 1;
                 this.passwordInput.text = password;
             }
         }
@@ -69,6 +73,7 @@ namespace Screeps3D {
                 var password = this.passwordInput.text;
                 var encryptedPassword = Crypto.EncryptStringAES(password, secret);
                 PlayerPrefs.SetString("password", encryptedPassword);
+                PlayerPrefs.SetInt("ssl", ssl.isOn ? 1 : 0);
             }
             
             var credentials = new Credentials {

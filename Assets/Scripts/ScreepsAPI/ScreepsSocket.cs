@@ -31,7 +31,8 @@ namespace Screeps3D {
             }
             
             var protocol = api.Address.ssl ? "wss" : "ws";
-            Socket = new WebSocket(string.Format("{0}://{1}:443/socket/websocket", protocol, api.Address.hostName));
+            var port = api.Address.ssl ? "443" : api.Address.port;
+            Socket = new WebSocket(string.Format("{0}://{1}:{2}/socket/websocket", protocol, api.Address.hostName, port));
             Socket.OnOpen += Open;
             Socket.OnError += Error;
             Socket.OnMessage += Message;
