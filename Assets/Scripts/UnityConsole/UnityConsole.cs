@@ -58,7 +58,7 @@ public class UnityConsole : MonoBehaviour {
     }
 
     private ConsoleLine GetLine() {
-        if (lines.Count < 100) {
+        if (lines.Count < 20) {
             var line = Instantiate(prototype.gameObject).GetComponent<ConsoleLine>();
             line.transform.SetParent(prototype.transform.parent);
             lines.Add(line);

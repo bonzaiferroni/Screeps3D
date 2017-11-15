@@ -34,16 +34,19 @@ public class ConsoleLine : MonoBehaviour {
     }
 
     public void Hide() {
+        enabled = true;
         Alpha = 0;
         target = 0;
     }
 
     public void Show() {
+        enabled = true;
         target = 1;
     }
 
     public void Update() {
-        if (Alpha == target) {
+        if (Mathf.Abs(Alpha - target) < .01) {
+            enabled = false;
             return;
         }
 

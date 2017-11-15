@@ -13,24 +13,23 @@ namespace Screeps3D {
         
         private JSONObject currentData;
         private WorldCoord coord;
-
+        private string path;
+        
         public void Load(WorldCoord coord) {
             this.coord = coord;
-
+            
             if (api.Address.hostName.ToLowerInvariant() == "screeps.com") {
-                api.Socket.Subscribe(string.Format("room:{0}/{1}", coord.shardName, coord.roomName), OnRoomData);
+                path = string.Format("room:{0}/{1}", coord.shardName, coord.roomName);
             } else {
-                api.Socket.Subscribe(string.Format("room:{0}", coord.roomName), OnRoomData);
+                path = string.Format("room:{0}", coord.roomName);
             }
+            
+            api.Socket.Subscribe(path, OnRoomData);
         }
 
         private void OnDestroy() {
             if (api.Socket != null && coord != null) {
-                if (api.Address.hostName.ToLowerInvariant() == "screeps.com") {
-                    api.Socket.Unsub(string.Format("room:{0}/{1}", coord.shardName, coord.roomName));
-                } else {
-                    api.Socket.Unsub(string.Format("room:{0}", coord.roomName));
-                }
+                api.Socket.Unsub(path);
             }
         }
 
