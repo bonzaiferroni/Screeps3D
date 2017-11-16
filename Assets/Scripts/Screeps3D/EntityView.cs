@@ -11,7 +11,7 @@ namespace Screeps3D {
         
         private Dictionary<string, ScreepsObject> objects = new Dictionary<string, ScreepsObject>();
         
-        private JSONObject currentData;
+        private Queue<JSONObject> roomData = new Queue<JSONObject>();
         private WorldCoord coord;
         private string path;
         
@@ -34,18 +34,17 @@ namespace Screeps3D {
         }
 
         private void OnRoomData(JSONObject data) {
-            currentData = data;
+            roomData.Enqueue(data);
         }
 
         private void Update() {
-            if (currentData != null) {
-                RenderEntities();
-                currentData = null;
-            }
+            if (roomData.Count == 0)
+                return;
+            RenderEntities(roomData.Dequeue());
         }
 
-        private void RenderEntities() {
-            var objects = currentData["objects"];
+        private void RenderEntities(JSONObject data) {
+            var objects = data["objects"];
             foreach (var id in objects.keys) {
                 var obj = objects[id];
                 if (!this.objects.ContainsKey(id)) {
@@ -59,7 +58,7 @@ namespace Screeps3D {
                 }
                 var so = this.objects[id];
                 so.UpdateObject(obj);
-            }
+            } 
         }
     }
 }

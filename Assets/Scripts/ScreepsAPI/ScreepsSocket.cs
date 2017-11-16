@@ -98,8 +98,11 @@ namespace Screeps3D {
             subscriptions[path] = callback;
         }
         
-        public void Unsub(string path) {
+        public void Unsub(string path, Action<JSONObject> callback = null) {
             Socket.Send(string.Format("unsubscribe {0}", path));
+            if (callback != null) {
+                subscriptions[path] = callback;
+            }
         }
 
         private void UnsubAll() {
