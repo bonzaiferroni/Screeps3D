@@ -44,6 +44,10 @@ public class ConsoleLine : MonoBehaviour {
         target = 1;
     }
 
+    public float Height {
+        get { return text.preferredHeight;  }
+    }
+
     public void Update() {
         if (Mathf.Abs(Alpha - target) < .01) {
             enabled = false;

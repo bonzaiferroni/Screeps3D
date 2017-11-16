@@ -13,6 +13,7 @@ public class UnityConsole : MonoBehaviour {
     [SerializeField] private ConsoleLine prototype;
     [SerializeField] private TMP_InputField input;
     [SerializeField] public FadePanel panel;
+    [SerializeField] public RectTransform content;
     private List<ConsoleLine> lines = new List<ConsoleLine>();
     private Queue<Message> messages = new Queue<Message>();
     private int index = 0;
@@ -55,20 +56,31 @@ public class UnityConsole : MonoBehaviour {
             line.Color = message.color;
             line.Show();
         }
+
+        SetGeometry();
+    }
+
+    private void SetGeometry() {
+        float height = 5;
+        for (var i = 0; i < lines.Count; i++) {
+            var line = lines[lines.Count - 1 - i];
+            var rect = line.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(0, height);
+            height += line.Height;
+        }
+        content.sizeDelta = new Vector2(0, height);
     }
 
     private ConsoleLine GetLine() {
-        if (lines.Count < 20) {
+        if (lines.Count < 100) {
             var line = Instantiate(prototype.gameObject).GetComponent<ConsoleLine>();
             line.transform.SetParent(prototype.transform.parent);
             lines.Add(line);
             return line;
         } else {
-            if (index >= lines.Count) {
-                index = 0;
-            }
-            var line = lines[index++];
-            line.transform.SetAsLastSibling();
+            var line = lines[0];
+            lines.RemoveAt(0);
+            lines.Add(line);
             return line;
         }
     }
