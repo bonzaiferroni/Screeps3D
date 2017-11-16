@@ -14,8 +14,13 @@ namespace Screeps3D {
 		public Credentials Credentials { get; private set; }
 		public ScreepsHTTP Http { get; private set; }
 		public ScreepsSocket Socket { get; private set; }
-		public ScreepsUser User { get; private set; }
+		public ScreepsUser Me { get; private set; }
+	    public BadgeGenerator Badges { get; private set; }
+	    public UserManager UserManager { get; private set; }
 	    public Action<bool> OnConnectionStatusChange;
+
+	    [SerializeField] private GameObject test;
+	    [SerializeField] private GameObject test2;
 	    
 		private string token;
 	
@@ -24,9 +29,12 @@ namespace Screeps3D {
 			Http.Init(this);
 			Socket = GetComponent<ScreepsSocket>();
 			Socket.Init(this);
+			Badges = new BadgeGenerator(this);
+			UserManager = new UserManager(this);
 		}
-		
-		// Use this for initialization
+
+
+	    // Use this for initialization
 		public void Connect (Credentials credentials, Address address) {
 			Credentials = credentials;
 			Address = address;
@@ -40,9 +48,17 @@ namespace Screeps3D {
 			});
 		}
 
-	    private void AssignUser(JSONObject obj) {
-		    User = new ScreepsUser {_id = obj["_id"].str};
+	    private void AssignUser(string str) {
+		    var obj = new JSONObject(str);
+		    Me = new ScreepsUser {
+			    _id = obj["_id"].str,
+			    username = obj["username"].str,
+			    cpu = obj["cpu"].n,
+		    };
+		    
+		    Me.badge = Badges.Generate(obj["badge"]);
+		    
 		    if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
 	    }
-	}
+    }
 }

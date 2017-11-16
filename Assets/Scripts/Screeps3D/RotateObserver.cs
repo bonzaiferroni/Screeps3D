@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateObserver : MonoBehaviour {
-	private const float maxRandomDelta = 50;
+	private const float maxRandomDelta = 80;
 	private const float targetDelay = 1;
 	
 	private float nextTarget;

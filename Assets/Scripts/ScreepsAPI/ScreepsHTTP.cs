@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Text;
 using JetBrains.Annotations;
+using Svg;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -17,8 +20,8 @@ namespace Screeps3D {
 			this.api = api;
 		}
 
-		private void Request(string requestMethod, string path, RequestBody body = null, 
-			Action<JSONObject> onSuccess = null, Action onError = null) {
+		public void Request(string requestMethod, string path, RequestBody body = null, 
+			Action<string> onSuccess = null, Action onError = null) {
 
 			Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
 			UnityWebRequest www;
@@ -53,16 +56,16 @@ namespace Screeps3D {
 					}
 				} else {
 					Debug.Log(string.Format("HTTP: success, data: \n{0}", outcome.downloadHandler.text));
-					var reply = new JSONObject(outcome.downloadHandler.text);
-					var token = reply["token"];
-					if (token != null) {
-						Token = token.str;
-						Debug.Log(string.Format("HTTP: found a token! {0}", Token));
+					if (outcome.downloadHandler.text.Contains("token")) {
+						var reply = new JSONObject(outcome.downloadHandler.text);
+						var token = reply["token"];
+						if (token != null) {
+							Token = token.str;
+							Debug.Log(string.Format("HTTP: found a token! {0}", Token));
+						}
 					}
-					var status = reply["ok"];
-					if (status != null && status.n == 1) {
-						if (onSuccess != null) onSuccess.Invoke(reply);
-					}
+					
+					if (onSuccess != null) onSuccess.Invoke(outcome.downloadHandler.text);
 				}
 			};
 
@@ -78,7 +81,7 @@ namespace Screeps3D {
 			onComplete(www);
 		}
 		
-		public void Auth(Action<JSONObject> onSuccess, Action onError = null) {
+		public void Auth(Action<string> onSuccess, Action onError = null) {
 			var body = new RequestBody();
 			body.AddField("email", api.Credentials.email);
 			body.AddField("password", api.Credentials.password);
@@ -86,7 +89,7 @@ namespace Screeps3D {
 			Request("POST", "/api/auth/signin", body, onSuccess, onError);
 		}
 		
-		public void GetUser(Action<JSONObject> onSuccess) {
+		public void GetUser(Action<string> onSuccess) {
 			Request("GET", "/api/auth/me", null, onSuccess);
 		}
 		
@@ -97,13 +100,17 @@ namespace Screeps3D {
 			Request("POST", "/api/user/console", body);
 		}
 
-		public void GetRoom(string roomName, string shard, Action<JSONObject> callback) {
+		public void GetRoom(string roomName, string shard, Action<string> callback) {
 			var body = new RequestBody();
 			body.AddField("room", roomName);
 			body.AddField("encoded", "0");
 			body.AddField("shard", shard);
 			
 			Request("GET", "/api/game/room-terrain", body, callback);
+		}
+
+		private void RenderBadge(string str) {
+			
 		}
 	}
 }

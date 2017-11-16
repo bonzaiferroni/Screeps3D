@@ -16,7 +16,8 @@ namespace Screeps3D {
                 return;
             }
 
-            Action<JSONObject> serverCallback = obj => {
+            Action<string> serverCallback = str => {
+                var obj = new JSONObject(str);
                 var terrainData = obj["terrain"].list[0]["terrain"].str;
                 this.terrain[coord.key] = terrainData;
                 callback(terrainData);
