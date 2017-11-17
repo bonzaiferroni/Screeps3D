@@ -2,13 +2,15 @@
 
 namespace Screeps3D {
     public class PlaneDeformer : MonoBehaviour {
-        private Mesh mesh;
-
-        private void Start() {
-            mesh = GetComponent<MeshFilter>().mesh;
-        }
+        [SerializeField] private MeshFilter filter;
         
         public void Deform(Vector2[] points) {
+        }
+
+        public void SetHeights(bool[,] positions, int i) {
+            foreach (var point in filter.mesh.vertices) {
+                Debug.Log(point);
+            }
         }
     }
 }
