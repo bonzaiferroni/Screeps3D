@@ -9,8 +9,8 @@ namespace Screeps3D {
         [SerializeField] private ScreepsAPI api;
         [SerializeField] private EntityFactory factory;
         
-        private Dictionary<string, ScreepsObject> objects = new Dictionary<string, ScreepsObject>();
-        
+        private Dictionary<string, RoomObjectView> objects = new Dictionary<string, RoomObjectView>();
+        private bool[,] roadPositions = new bool[50, 50];
         private Queue<JSONObject> roomData = new Queue<JSONObject>();
         private WorldCoord coord;
         private string path;
@@ -44,15 +44,15 @@ namespace Screeps3D {
         }
 
         private void RenderEntities(JSONObject data) {
-            
-            // watch out though, it will send values of `<id>: null` in those incremental, those are removed objects
             var objects = data["objects"];
             foreach (var id in objects.keys) {
                 var obj = objects[id];
                 if (!this.objects.ContainsKey(id)) {
+                    
                     var newSo = factory.Get(id, obj);
                     if (newSo == null) 
                         continue;
+                    
                     newSo.transform.SetParent(transform, false);
                     newSo.gameObject.SetActive(true);
                     newSo.LoadObject(obj);
@@ -65,7 +65,7 @@ namespace Screeps3D {
                 } else {
                     so.UpdateObject(obj);   
                 }
-            } 
+            }
         }
     }
 }

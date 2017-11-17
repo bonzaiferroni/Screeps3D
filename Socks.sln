@@ -1,10 +1,11 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{1444F388-92DF-1948-423D-A961EA9BEA35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socks", "Assembly-CSharp.csproj", "{1444F388-92DF-1948-423D-A961EA9BEA35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{0E551705-F3C7-B850-90C2-88B389C09CBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socks", "Assembly-CSharp-Editor.csproj", "{0E551705-F3C7-B850-90C2-88B389C09CBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{5FD57C0D-9986-B169-FBE4-40D3AF5341BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socks", "Assembly-CSharp-Editor-firstpass.csproj", "{5FD57C0D-9986-B169-FBE4-40D3AF5341BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

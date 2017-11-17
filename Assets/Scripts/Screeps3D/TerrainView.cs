@@ -35,7 +35,8 @@ namespace Screeps3D {
                     }
                 }
             }
-            wall.SetHeights(wallPositions, 1);
+            wall.SetHeights(wallPositions, .5f, .5f);
+            swamp.SetHeights(swampPositions, .3f, 0);
         }
 
         /*private void RenderTerrain(int x, int y, TerrainType type) {
