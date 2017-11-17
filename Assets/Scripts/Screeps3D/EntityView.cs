@@ -44,6 +44,8 @@ namespace Screeps3D {
         }
 
         private void RenderEntities(JSONObject data) {
+            
+            // watch out though, it will send values of `<id>: null` in those incremental, those are removed objects
             var objects = data["objects"];
             foreach (var id in objects.keys) {
                 var obj = objects[id];
@@ -57,7 +59,12 @@ namespace Screeps3D {
                     this.objects[id] = newSo;
                 }
                 var so = this.objects[id];
-                so.UpdateObject(obj);
+                if (obj.IsNull) {
+                    so.KillObject();
+                    this.objects.Remove(id);
+                } else {
+                    so.UpdateObject(obj);   
+                }
             } 
         }
     }

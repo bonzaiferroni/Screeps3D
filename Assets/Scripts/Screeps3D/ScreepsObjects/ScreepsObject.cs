@@ -44,5 +44,9 @@ namespace Screeps3D {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, posTarget, ref posRef, .5f);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * 5);
         }
+
+        public void KillObject() {
+            Destroy(gameObject);
+        }
     }
 }
