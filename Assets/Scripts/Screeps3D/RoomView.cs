@@ -5,12 +5,18 @@ namespace Screeps3D {
 
         [SerializeField] private TerrainView terrain;
         [SerializeField] private EntityView entities;
-        
-        public void Load(WorldCoord coord, bool renderEntities) {
+        [SerializeField] private WorldView world;
+        private WorldCoord coord;
+
+        public void Load(WorldCoord coord) {
+            this.coord = coord;
             terrain.Load(coord);
-            if (renderEntities) {
-                entities.Load(coord);   
-            }
+            entities.Load(coord);   
+        }
+
+        public void Target() {
+            entities.Wake();
+            world.LoadNeighbors(coord);
         }
     }
 }

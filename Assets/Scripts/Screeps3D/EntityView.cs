@@ -8,12 +8,16 @@ namespace Screeps3D {
         
         [SerializeField] private ScreepsAPI api;
         [SerializeField] private ObjectManager manager;
+        [SerializeField] private PlainsView plains;
         
         private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
         private Queue<JSONObject> roomData = new Queue<JSONObject>();
         private WorldCoord coord;
         private string path;
+        private bool awake;
         
+        private static Queue<EntityView> queue = new Queue<EntityView>();
+
         public void Load(WorldCoord coord) {
             this.coord = coord;
             
@@ -22,8 +26,28 @@ namespace Screeps3D {
             } else {
                 path = string.Format("room:{0}", coord.roomName);
             }
+        }
+
+        public void Wake() {
+            if (awake)
+                return;
+
+            if (queue.Count >= 2) {
+                var otherView = queue.Dequeue();
+                otherView.Sleep();
+            }
+            queue.Enqueue(this);
             
+            Debug.Log("subscribing: " + path);
             api.Socket.Subscribe(path, OnRoomData);
+            plains.Highlight();
+            awake = true;
+        }
+
+        private void Sleep() {
+            api.Socket.Unsub(path);
+            plains.Dim();
+            awake = false;
         }
 
         private void OnDestroy() {

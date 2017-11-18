@@ -55,7 +55,7 @@ namespace Screeps3D {
 						});
 					}
 				} else {
-					Debug.Log(string.Format("HTTP: success, data: \n{0}", outcome.downloadHandler.text));
+					// Debug.Log(string.Format("HTTP: success, data: \n{0}", outcome.downloadHandler.text));
 					if (outcome.downloadHandler.text.Contains("token")) {
 						var reply = new JSONObject(outcome.downloadHandler.text);
 						var token = reply["token"];

@@ -470,6 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65892187}
   - component: {fileID: 65892186}
+  - component: {fileID: 65892188}
   m_Layer: 0
   m_Name: RoomView
   m_TagString: Untagged
@@ -490,6 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 1739221421}
   entities: {fileID: 1772631666}
+  world: {fileID: 1655190417}
 --- !u!4 &65892187
 Transform:
   m_ObjectHideFlags: 0
@@ -506,6 +508,18 @@ Transform:
   m_Father: {fileID: 1655190418}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65892188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 65892185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 1, z: 50}
+  m_Center: {x: 25, y: 0, z: 25}
 --- !u!1 &73290633
 GameObject:
   m_ObjectHideFlags: 0
@@ -6475,6 +6489,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 991674690}
+  - component: {fileID: 991674691}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -6496,6 +6511,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &991674691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 991674689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5241cdbf45e94425b797ae67c86b80c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1002996917
 GameObject:
   m_ObjectHideFlags: 0
@@ -7522,6 +7548,7 @@ GameObject:
   - component: {fileID: 1137374536}
   - component: {fileID: 1137374535}
   - component: {fileID: 1137374534}
+  - component: {fileID: 1137374537}
   m_Layer: 0
   m_Name: Plains
   m_TagString: Untagged
@@ -7595,6 +7622,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1137374532}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1137374537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1137374532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb31219fdc842cb95a43c1463937738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1143434385
 GameObject:
   m_ObjectHideFlags: 0
@@ -12268,9 +12306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrototype: {fileID: 65892186}
-  api: {fileID: 1015231801}
   chooser: {fileID: 568419311}
-  playerView: {fileID: 991674690}
+  playerGaze: {fileID: 991674691}
 --- !u!4 &1655190418
 Transform:
   m_ObjectHideFlags: 0
@@ -13299,6 +13336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   api: {fileID: 1015231801}
   manager: {fileID: 160662014}
+  plains: {fileID: 1137374537}
 --- !u!1 &1811440189
 GameObject:
   m_ObjectHideFlags: 0

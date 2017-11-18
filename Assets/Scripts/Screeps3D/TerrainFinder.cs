@@ -18,7 +18,13 @@ namespace Screeps3D {
 
             Action<string> serverCallback = str => {
                 var obj = new JSONObject(str);
-                var terrainData = obj["terrain"].list[0]["terrain"].str;
+                var errorObj = obj["error"];
+                string terrainData;
+                if (errorObj != null) {
+                    terrainData = new string('1', 2500);
+                } else {
+                    terrainData = obj["terrain"].list[0]["terrain"].str;
+                }
                 this.terrain[coord.key] = terrainData;
                 callback(terrainData);
             };
