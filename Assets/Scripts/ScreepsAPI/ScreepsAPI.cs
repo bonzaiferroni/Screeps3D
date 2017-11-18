@@ -9,7 +9,9 @@ namespace Screeps3D {
     [RequireComponent(typeof(ScreepsHTTP))]
 	[RequireComponent(typeof(ScreepsSocket))]
 	public class ScreepsAPI : MonoBehaviour {
-	
+
+	    public static ScreepsAPI Instance { get; private set; }
+	    
 		public Address Address { get; private set; }
 		public Credentials Credentials { get; private set; }
 		public ScreepsHTTP Http { get; private set; }
@@ -19,12 +21,11 @@ namespace Screeps3D {
 	    public UserManager UserManager { get; private set; }
 	    public Action<bool> OnConnectionStatusChange;
 
-	    [SerializeField] private GameObject test;
-	    [SerializeField] private GameObject test2;
-	    
 		private string token;
 	
 		public void Awake() {
+			Instance = this;
+			
 			Http = GetComponent<ScreepsHTTP>();
 			Http.Init(this);
 			Socket = GetComponent<ScreepsSocket>();

@@ -62,7 +62,7 @@ namespace Screeps3D {
 
         private void Message(object sender, MessageEventArgs e) {
             try {
-                Debug.Log(string.Format("Socket Message: {0}", e.Data));
+                // Debug.Log(string.Format("Socket Message: {0}", e.Data));
                 var parse = e.Data.Split(' ');
                 if (parse.Length == 3 && parse[0] == "auth" && parse[1] == "ok") {
                     Debug.Log("socket auth success");

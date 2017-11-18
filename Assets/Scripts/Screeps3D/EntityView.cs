@@ -7,10 +7,9 @@ namespace Screeps3D {
     public class EntityView : MonoBehaviour {
         
         [SerializeField] private ScreepsAPI api;
-        [SerializeField] private EntityFactory factory;
+        [SerializeField] private ObjectManager manager;
         
-        private Dictionary<string, RoomObjectView> objects = new Dictionary<string, RoomObjectView>();
-        private bool[,] roadPositions = new bool[50, 50];
+        private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
         private Queue<JSONObject> roomData = new Queue<JSONObject>();
         private WorldCoord coord;
         private string path;
@@ -46,24 +45,28 @@ namespace Screeps3D {
         private void RenderEntities(JSONObject data) {
             var objects = data["objects"];
             foreach (var id in objects.keys) {
-                var obj = objects[id];
-                if (!this.objects.ContainsKey(id)) {
-                    
-                    var newSo = factory.Get(id, obj);
-                    if (newSo == null) 
-                        continue;
-                    
-                    newSo.transform.SetParent(transform, false);
-                    newSo.gameObject.SetActive(true);
-                    newSo.LoadObject(obj);
-                    this.objects[id] = newSo;
+                var datum = objects[id];
+                
+                if (datum["type"] && datum["type"].str == "wall") {
+                    Debug.Log(datum);
                 }
-                var so = this.objects[id];
-                if (obj.IsNull) {
-                    so.KillObject();
-                    this.objects.Remove(id);
+
+                RoomObject roomObject;
+                if (roomObjects.ContainsKey(id)) {
+                    roomObject = roomObjects[id];
                 } else {
-                    so.UpdateObject(obj);   
+                    roomObject = manager.Get(id, datum);
+                    roomObjects[id] = roomObject;
+                    if (roomObject.View) {
+                        roomObject.View.transform.SetParent(transform, false);
+                    }
+                }
+                
+                if (datum.IsNull) {
+                    manager.Remove(id);
+                    this.roomObjects.Remove(id);
+                } else {
+                    roomObject.Delta(datum);   
                 }
             }
         }
