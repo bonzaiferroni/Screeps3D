@@ -35,7 +35,6 @@ namespace Screeps3D {
         }
 
         private Texture2D Texturize(string xml) {
-            Debug.Log(xml);
             var byteArray = Encoding.ASCII.GetBytes(xml);
             using (var stream = new MemoryStream(byteArray))
             {

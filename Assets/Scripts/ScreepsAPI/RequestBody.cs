@@ -17,6 +17,4 @@ namespace Screeps3D {
             return str;
         }
     }
-    
-    
 }

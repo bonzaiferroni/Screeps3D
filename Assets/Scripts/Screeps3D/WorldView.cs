@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Screeps3D {
     public class WorldView : MonoBehaviour {
 
-        private const int viewDistance = 1;
+        private const int viewDistance = 2;
         
         [SerializeField] private RoomView roomPrototype;
         [SerializeField] private ScreepsAPI api;
