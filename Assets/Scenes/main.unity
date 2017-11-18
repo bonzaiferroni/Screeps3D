@@ -1003,7 +1003,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 160662012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927c5b254b7b41139302396816415996, type: 3}
+  m_Script: {fileID: 11500000, guid: 78b2ecba0c0ecd045916f5bd2945d98d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &198424425
@@ -2492,11 +2492,6 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: fa5ba5f484a69f340893fa10c6899f23, type: 3}
   m_PrefabInternal: {fileID: 409199628}
---- !u!33 &409199631 stripped
-MeshFilter:
-  m_PrefabParentObject: {fileID: 3300000, guid: fa5ba5f484a69f340893fa10c6899f23,
-    type: 3}
-  m_PrefabInternal: {fileID: 409199628}
 --- !u!114 &409199632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2508,7 +2503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef448bf8097f49108ef88ad196ec5bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filter: {fileID: 409199631}
+  filter: {fileID: 0}
 --- !u!1 &412375396
 GameObject:
   m_ObjectHideFlags: 0
