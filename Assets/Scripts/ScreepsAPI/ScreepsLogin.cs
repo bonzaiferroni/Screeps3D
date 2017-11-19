@@ -107,7 +107,7 @@ namespace Screeps3D {
             } 
             var protocol = ssl ? "https" : "http";
             var port = hostName.ToLowerInvariant() == "screeps.com" ? "" : string.Format(":{0}", this.port);
-            Debug.Log(string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path));
+            // Debug.Log(string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path));
             return string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path);
         }
     }

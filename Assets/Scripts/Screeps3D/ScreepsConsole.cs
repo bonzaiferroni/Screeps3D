@@ -19,7 +19,7 @@ namespace Screeps3D {
 
         private void OnConnectionStatusChange(bool isConnected) {
             console.panel.Show(isConnected);
-            api.Socket.Subscribe(string.Format("user:{0}/console", api.Me._id), OnConsoleData);
+            api.Socket.Subscribe(string.Format("user:{0}/console", api.Me.userId), OnConsoleData);
         }
 
         private void OnConsoleData(JSONObject obj) {

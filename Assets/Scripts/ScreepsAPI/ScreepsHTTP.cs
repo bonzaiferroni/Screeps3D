@@ -23,7 +23,7 @@ namespace Screeps3D {
 		public void Request(string requestMethod, string path, RequestBody body = null, 
 			Action<string> onSuccess = null, Action onError = null) {
 
-			Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
+			// Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
 			UnityWebRequest www;
 			var fullPath = api.Address.Http(path);
 			if (requestMethod == UnityWebRequest.kHttpVerbGET) {
@@ -109,8 +109,10 @@ namespace Screeps3D {
 			Request("GET", "/api/game/room-terrain", body, callback);
 		}
 
-		private void RenderBadge(string str) {
-			
+		public void GetRooms(string userId, Action<string> onSuccess) {
+			var body = new RequestBody();
+			body.AddField("id", userId);
+			Request("GET", "/api/user/rooms", body, onSuccess);
 		}
 	}
 }

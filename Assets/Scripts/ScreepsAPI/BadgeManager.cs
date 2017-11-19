@@ -9,14 +9,15 @@ using Svg.Transforms;
 using UnityEngine;
 
 namespace Screeps3D {
-    public class BadgeGenerator {
+    public class BadgeManager : MonoBehaviour {
+
+        private ScreepsAPI api;
         private BadgePathGenerator badgePaths = new BadgePathGenerator();
         private BadgeColorGenerator badgeColors = new BadgeColorGenerator();
-        private ScreepsAPI api;
         private Dictionary<string, Texture2D> badges = new Dictionary<string, Texture2D>();
 
-        public BadgeGenerator(ScreepsAPI api) {
-            this.api = api;
+        public void Init(ScreepsAPI screepsApi) {
+            api = screepsApi;
         }
 
         public void Get(string username, Action<Texture2D> callback) {
@@ -85,6 +86,26 @@ namespace Screeps3D {
             sb.Append("\n\t</g>\n</svg>");
 
             return Texturize(sb.ToString());
+        }
+
+        public void CacheBadge(string id, JSONObject data) {
+            if (badges.ContainsKey(id))
+                return;
+            var badgeObj = data["badge"];
+            if (badgeObj == null) {
+                badges[id] = null;
+                return;
+            }
+
+            badges[id] = Generate(badgeObj);
+        }
+
+        public Texture2D GetCached(string creepUserId) {
+            if (badges.ContainsKey(creepUserId)) {
+                return badges[creepUserId];
+            } else {
+                return null;
+            }
         }
     }
 }

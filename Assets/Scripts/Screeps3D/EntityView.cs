@@ -67,11 +67,12 @@ namespace Screeps3D {
         }
 
         private void RenderEntities(JSONObject data) {
+            UnpackBadges(data);
             var objects = data["objects"];
             foreach (var id in objects.keys) {
                 var datum = objects[id];
                 
-                if (datum["type"] && datum["type"].str == "wall") {
+                if (datum["type"] && datum["type"].str == "structureWall") {
                     Debug.Log(datum);
                 }
 
@@ -79,20 +80,29 @@ namespace Screeps3D {
                 if (roomObjects.ContainsKey(id)) {
                     roomObject = roomObjects[id];
                 } else {
-                    roomObject = manager.Get(id, datum);
+                    roomObject = manager.Get(id, datum, this);
                     roomObjects[id] = roomObject;
-                    if (roomObject.View) {
-                        roomObject.View.transform.SetParent(transform, false);
-                    }
                 }
                 
                 if (datum.IsNull) {
                     manager.Remove(id);
-                    this.roomObjects.Remove(id);
+                    roomObjects.Remove(id);
                 } else {
                     roomObject.Delta(datum);   
                 }
             }
+        }
+
+        private void UnpackBadges(JSONObject data) {
+            var userObj = data["users"];
+            if (userObj == null) {
+                return;
+            }
+
+            foreach (var id in userObj.keys) {
+                var datum = userObj[id];
+                api.Badges.CacheBadge(id, datum);
+            } 
         }
     }
 }

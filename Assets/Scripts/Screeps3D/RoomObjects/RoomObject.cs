@@ -14,9 +14,11 @@ namespace Screeps3D {
         internal ObjectView View { get; private set; }
 
         internal void Init(JSONObject data, ObjectView view) {
+            if (Data == null) {
+                Data = data;
+                View = view;
+            }
             
-            Data = data;
-            View = view;
             Unpack(data);
 
             if (View != null) {

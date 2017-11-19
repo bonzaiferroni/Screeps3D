@@ -1,19 +1,31 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Screeps3D {
     internal class ObjectView : MonoBehaviour {
         
         internal RoomObject RoomObject { get; private set; }
         internal IObjectComponent[] components;
-        
+        private ScaleVis vis;
+
+        public bool IsVisible {
+            get {
+                if (vis) {
+                    return vis.IsVisible;
+                } else {
+                    return gameObject.activeInHierarchy;
+                }
+            }
+        }
+
         internal virtual void Init(RoomObject roomObject) {
             if (components == null) {
                 components = GetComponentsInChildren<IObjectComponent>();
+                vis = GetComponent<ScaleVis>();
             }
             
             RoomObject = roomObject;
             transform.localPosition = new Vector3(RoomObject.X, transform.localPosition.y, 49 - RoomObject.Y);
-            Show();
 
             foreach (var component in components) {
                 component.Init(roomObject);
@@ -25,13 +37,21 @@ namespace Screeps3D {
                 component.Delta(data);
             }
         }
-
+        
         internal void Show() {
-            gameObject.SetActive(true);
+            if (vis) {
+                vis.Show();
+            } else {
+                gameObject.SetActive(true);   
+            }
         }
 
         internal void Hide() {
-            Destroy(gameObject);
+            if (vis) {
+                vis.Show();
+            } else {
+                gameObject.SetActive(false);   
+            }
         }
     }
 

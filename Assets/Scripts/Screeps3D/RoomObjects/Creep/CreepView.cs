@@ -4,6 +4,7 @@ namespace Screeps3D {
     internal class CreepView : ObjectView {
 
         [SerializeField] private ScreepsAPI api;
+        [SerializeField] private Renderer badgeRenderer;
         
         private Quaternion rotTarget;
         private Vector3 posTarget;
@@ -11,7 +12,12 @@ namespace Screeps3D {
         
         internal override void Init(RoomObject roomObject) {
             base.Init(roomObject);
-            GetComponent<Renderer>().material.mainTexture = api.Me.badge;
+            var creep = roomObject as Creep;
+            var badge = api.Badges.GetCached(creep.UserId);
+            if (badge != null) {
+                badgeRenderer.material.mainTexture = badge;
+            }
+             
             rotTarget = transform.rotation;
             posTarget = transform.localPosition;
         }
@@ -19,7 +25,7 @@ namespace Screeps3D {
         internal override void Delta(JSONObject data) {
             base.Delta(data);
             var newPos = new Vector3(RoomObject.X, transform.localPosition.y, 49 - RoomObject.Y);
-            var posDelta = posTarget - newPos;
+            var posDelta = newPos - posTarget;
             if (posDelta.sqrMagnitude > .01) {
                 posTarget = newPos;
                 rotTarget = Quaternion.LookRotation(posDelta);

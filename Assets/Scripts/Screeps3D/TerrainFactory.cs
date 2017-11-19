@@ -26,4 +26,10 @@ namespace Screeps3D {
             return go;
         }
     }
+
+    public enum TerrainType {
+        Plains,
+        Wall,
+        Swamp,
+    }
 }

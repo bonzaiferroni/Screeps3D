@@ -53,5 +53,22 @@
     }*/
     
     internal class Creep : RoomObject {
+        
+        public string UserId { get; private set; }
+        public CreepBody Body { get; private set; }
+
+        internal Creep() {
+            Body = new CreepBody();
+        }
+        
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            var userObj = data["user"];
+            if (userObj != null) {
+                UserId = userObj.str;
+            }
+
+            Body.Unpack(Data);
+        }
     }
 }

@@ -17,11 +17,13 @@ namespace Screeps3D {
 		public ScreepsHTTP Http { get; private set; }
 		public ScreepsSocket Socket { get; private set; }
 		public ScreepsUser Me { get; private set; }
-	    public BadgeGenerator Badges { get; private set; }
+	    public BadgeManager Badges { get; private set; }
 	    public UserManager UserManager { get; private set; }
 	    public Action<bool> OnConnectionStatusChange;
 
 		private string token;
+	    
+	    public bool IsConnected { get; private set; }
 	
 		public void Awake() {
 			Instance = this;
@@ -30,7 +32,8 @@ namespace Screeps3D {
 			Http.Init(this);
 			Socket = GetComponent<ScreepsSocket>();
 			Socket.Init(this);
-			Badges = new BadgeGenerator(this);
+			Badges = GetComponent<BadgeManager>();
+			Badges.Init(this);
 			UserManager = new UserManager(this);
 		}
 
@@ -52,14 +55,16 @@ namespace Screeps3D {
 	    private void AssignUser(string str) {
 		    var obj = new JSONObject(str);
 		    Me = new ScreepsUser {
-			    _id = obj["_id"].str,
+			    userId = obj["_id"].str,
 			    username = obj["username"].str,
 			    cpu = obj["cpu"].n,
 		    };
 		    
 		    Me.badge = Badges.Generate(obj["badge"]);
 		    
+		    
 		    if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
+		    IsConnected = true;
 	    }
     }
 }

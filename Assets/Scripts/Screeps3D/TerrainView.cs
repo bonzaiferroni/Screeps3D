@@ -12,44 +12,51 @@ namespace Screeps3D {
         [SerializeField] private TerrainFinder finder;
         // [SerializeField] private TerrainFactory factory;
 
+        private bool[,] wallPositions;
+        private bool[,] swampPositions;
+        private int x;
+        private int y;
+        private string terrain;
+
         public void Load(WorldCoord coord) {
-            finder.Find(coord, RenderRoom);
+            finder.Find(coord, InitRender);
         }
 
-        private void RenderRoom(string terrain) {
-            var wallPositions = new bool[50, 50];
-            var swampPositions = new bool[50, 50];
-            for (var x = 0; x < 50; x++) {
-                for (var y = 0; y < 50; y++) {
+        private void InitRender(string terrain) {
+            this.terrain = terrain;
+            wallPositions = new bool[50, 50];
+            swampPositions = new bool[50, 50];
+            x = 0;
+            y = 0;
+            enabled = true;
+        }
+
+        private void Update() {
+            Render();
+        }
+
+        private void Render() {
+            var time = Time.time;
+            for (; x < 50; x++) {
+                for (; y < 50; y++) {
                     var unit = terrain[x + y * 50];
                     if (unit == '0' || unit == '1') {
-                        // RenderTerrain(x, y, TerrainType.Plains);
                     }
                     if (unit == '2' || unit == '3') {
-                        // RenderTerrain(x, y, TerrainType.Swamp);
                         swampPositions[x, y] = true;
                     }
                     if (unit == '1' || unit == '3') {
-                        // RenderTerrain(x, y, TerrainType.Wall);
                         wallPositions[x, y] = true;
                     }
+                    if (Time.time - time > .001f) {
+                        return;
+                    } 
                 }
+                y = 0;
             }
             wall.SetHeights(wallPositions, .5f, .5f);
             swamp.SetHeights(swampPositions, .3f, 0);
+            enabled = false;
         }
-
-        /*private void RenderTerrain(int x, int y, TerrainType type) {
-            var go = factory.Get(type);
-            go.transform.SetParent(transform, false);
-            go.transform.localPosition = new Vector3(x, go.transform.localPosition.y, 49 - y);
-            go.SetActive(true);
-        }*/
-    }
-
-    public enum TerrainType {
-        Plains,
-        Wall,
-        Swamp,
     }
 }

@@ -301,7 +301,7 @@ namespace Screeps3D {
             if (badge["type"].IsNumber) {
                 Generate((int) badge["type"].n, badgeParams);
             } else {
-                Assign(badge, badgeParams);
+                Assign(badge["type"], badgeParams);
             }
         }
         

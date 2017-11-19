@@ -19,14 +19,26 @@ namespace Screeps3D {
             }
         }
 
-        internal RoomObject Get(string id, JSONObject data) {
+        internal RoomObject Get(string id, JSONObject data, EntityView entityView) {
             if (cache.ContainsKey(id)) {
+                var existingRoomObject = cache[id]; 
+                var existingView = existingRoomObject.View;
+                if (existingView != null) {
+                    existingView.Show();
+                    existingView.transform.SetParent(entityView.transform, false);
+                }
+                existingRoomObject.Init(data, existingView);
+                
                 return cache[id];
             }
 
             var type = data["type"].str;
             
             var view = GetView(id, type);
+            if (view != null) {
+                view.transform.SetParent(entityView.transform, false);   
+            }
+            
             var roomObject = factory.Get(type);
             roomObject.Init(data, view);
             cache[id] = roomObject;
@@ -41,6 +53,7 @@ namespace Screeps3D {
                 return null;
             
             var so = Instantiate(prototypes[type].gameObject).GetComponent<ObjectView>();
+            so.gameObject.SetActive(true);
             viewCache[id] = so;
             return so;
         }
@@ -50,8 +63,9 @@ namespace Screeps3D {
                 return;
             }
             var roomObject = cache[id];
-            roomObject.Remove();
-            cache.Remove(id);
+            if (roomObject.View) {
+                roomObject.View.Hide();   
+            }
         }
     }
 }

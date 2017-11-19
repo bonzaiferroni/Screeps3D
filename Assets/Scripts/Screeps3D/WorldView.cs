@@ -5,20 +5,22 @@ namespace Screeps3D {
     public class WorldView : MonoBehaviour {
 
         private const int viewDistance = 2;
-        
+
         [SerializeField] private RoomView roomPrototype;
         [SerializeField] private RoomChooser chooser;
         [SerializeField] private PlayerGaze playerGaze;
         
         private Dictionary<string, RoomView> visibleRooms = new Dictionary<string,RoomView>();
+        private Stack<WorldCoord> loadStack = new Stack<WorldCoord>();
+        private Stack<RoomView> preloadStack = new Stack<RoomView>();
 
         private void Start() {
             chooser.OnChooseRoom += OnChoose;
-            roomPrototype.gameObject.SetActive(false);
+            GrowPreload(30);
         }
 
         private void OnChoose(WorldCoord coord) {
-            GenerateRoom(coord);
+            loadStack.Push(coord);
             TransportPlayer(coord.vector);
         }
 
@@ -27,13 +29,24 @@ namespace Screeps3D {
                 return;
             }
 
-            var view = Instantiate(roomPrototype.gameObject).GetComponent<RoomView>();
-            view.gameObject.SetActive(true);
-            view.transform.SetParent(transform);
+            if (preloadStack.Count == 0) {
+                GrowPreload(1);
+            }
+            
+            var view = preloadStack.Pop();
+            view.Show();
             view.gameObject.name = coord.key;
             visibleRooms[coord.key] = view;
             view.transform.localPosition = coord.vector;
             view.Load(coord);
+        }
+
+        private void GrowPreload(int count) {
+            for (var i = 0; i < count; i++) {
+                var view = Instantiate(roomPrototype.gameObject).GetComponent<RoomView>();
+                view.transform.SetParent(transform);
+                preloadStack.Push(view);   
+            }
         }
 
         private void TransportPlayer(Vector3 pos) {
@@ -45,8 +58,23 @@ namespace Screeps3D {
                 for (var yDelta = -viewDistance; yDelta <= viewDistance; yDelta++) {
                     if (xDelta == 0 && yDelta == 0) continue;
                     var relativeCoord = coord.Relative(xDelta, yDelta);
-                    GenerateRoom(relativeCoord);
+                    if (visibleRooms.ContainsKey(relativeCoord.key))
+                        continue;
+                    loadStack.Push(relativeCoord);
                 }
+            }
+        }
+
+        private void Update() {
+            var time = Time.time;
+            while (loadStack.Count > 0 && Time.time - time < .01f) {
+                var coord = loadStack.Pop();
+                GenerateRoom(coord);
+                return;
+            }
+
+            if (preloadStack.Count < 30) {
+                GrowPreload(1);
             }
         }
     }
