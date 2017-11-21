@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Utils {
-    public class ScaleVis : MonoBehaviour {
+    public class ScaleVis : MonoBehaviour, IVisibilityControl {
 
         [SerializeField] private bool animateOnStart = true;
         [SerializeField] private bool visibleOnStart = true;
@@ -23,10 +23,20 @@ namespace Utils {
         }
 
         public void Visible(bool show, bool instant = false) {
+            var target = show ? 1 : 0;
+            Visible(target, instant);
+        }
+
+        public void Visible(float target, bool instant = false) {
             enabled = true;
             IsVisible = true;
 
-            target = show ? 1 : 0;
+            if (float.IsNaN(target)) {
+                target = 0;
+            }
+            
+            this.target = target;
+            
             if (instant) {
                 current = target;
             }

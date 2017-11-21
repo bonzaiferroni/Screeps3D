@@ -1,36 +1,24 @@
 ﻿using UnityEngine;
 
 namespace Screeps3D {
-    public class WorkView : MonoBehaviour, IObjectComponent {
+    public class WorkView : CreepPartView {
 
-        [SerializeField] private Transform partDisplay;
+        [SerializeField] private Animator anim;
         
-        private Creep creep;
-        
-        public void Init(RoomObject roomObject) {
-            creep = roomObject as Creep;
-
-            AdjustSize();
+        public override void Init(RoomObject roomObject) {
+            base.Init(roomObject);
+            AdjustSize("work", .2f, .8f);
         }
 
-        public void Delta(JSONObject data) {
-            AdjustSize();
-        }
-
-        private void AdjustSize() {
-            var amount = 0f;
-            foreach (var part in creep.Body.Parts) {
-                if (part.type != "work")
-                    continue;
-                amount += part.hits;
-            }
-
-            var scaleAmount = 0f;
-            if (amount > 0) {
-                scaleAmount = (amount / 5000) * .8f + .2f;
-            }
+        public override void Delta(JSONObject data) {
+            base.Delta(data);
+            AdjustSize("work", .2f, .8f);
             
-            partDisplay.transform.localScale = Vector3.one * scaleAmount;
+            if (creep.Actions.ContainsKey("harvest") && !creep.Actions["harvest"].IsNull) {
+                var rotation = Quaternion.LookRotation(GetActionVector(creep.Actions["harvest"]));
+                view.rotTarget = rotation;
+                anim.SetTrigger("activate");
+            }
         }
     }
 }

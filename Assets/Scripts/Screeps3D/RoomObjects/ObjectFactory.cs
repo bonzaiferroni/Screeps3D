@@ -9,6 +9,8 @@
                     return new Extension();
                 case (Constants.TYPE_SPAWN):
                     return new Spawn();
+                case (Constants.TYPE_STORAGE):
+                    return new Extension();
                 default:
                     return new RoomObject();
             }

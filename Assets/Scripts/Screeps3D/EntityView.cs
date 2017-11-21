@@ -12,6 +12,7 @@ namespace Screeps3D {
         
         private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
         private Queue<JSONObject> roomData = new Queue<JSONObject>();
+        private List<string> removeList = new List<string>();
         private WorldCoord coord;
         private string path;
         private bool awake;
@@ -71,25 +72,31 @@ namespace Screeps3D {
             var objects = data["objects"];
             foreach (var id in objects.keys) {
                 var datum = objects[id];
-                
-                if (datum["type"] && datum["type"].str == "structureWall") {
-                    Debug.Log(datum);
-                }
 
-                RoomObject roomObject;
-                if (roomObjects.ContainsKey(id)) {
-                    roomObject = roomObjects[id];
-                } else {
-                    roomObject = manager.Get(id, datum, this);
-                    roomObjects[id] = roomObject;
-                }
+                if (!roomObjects.ContainsKey(id)) {
+                    roomObjects[id] = manager.GetInstance(id, datum, this);
+                } 
+            }
+
+            removeList.Clear();
+            foreach (var kvp in roomObjects) {
+                var id = kvp.Key;
+                var roomObject = kvp.Value;
                 
-                if (datum.IsNull) {
+                var datum = JSONObject.obj; // will generate lots of garbage
+                if (objects.HasField(id)) {
+                    datum = objects[id];
+                }
+                if (datum != null && datum.IsNull) {
                     manager.Remove(id);
-                    roomObjects.Remove(id);
+                    removeList.Add(id);
                 } else {
                     roomObject.Delta(datum);   
                 }
+            }
+
+            foreach (var id in removeList) {
+                roomObjects.Remove(id);
             }
         }
 

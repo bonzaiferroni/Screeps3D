@@ -30,7 +30,21 @@
         "U":0
     }*/
     
-    public class Storage : Structure {
-        
+    public class Storage : Structure, IEnergyObject {
+        public float Energy { get; private set; }
+        public float EnergyCapacity { get; private set; }
+
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            var energyObj = data["energy"];
+            if (energyObj != null) {
+                Energy = energyObj.n;
+            }
+
+            var energyCapacityObj = data["energyCapacity"];
+            if (energyCapacityObj) {
+                EnergyCapacity = energyCapacityObj.n;
+            }
+        }
     }
 }

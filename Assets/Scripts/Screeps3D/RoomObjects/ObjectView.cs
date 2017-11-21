@@ -5,7 +5,7 @@ namespace Screeps3D {
     internal class ObjectView : MonoBehaviour {
         
         internal RoomObject RoomObject { get; private set; }
-        internal IObjectComponent[] components;
+        internal IScreepsComponent[] components;
         private ScaleVis vis;
 
         public bool IsVisible {
@@ -20,7 +20,7 @@ namespace Screeps3D {
 
         internal virtual void Init(RoomObject roomObject) {
             if (components == null) {
-                components = GetComponentsInChildren<IObjectComponent>();
+                components = GetComponentsInChildren<IScreepsComponent>();
                 vis = GetComponent<ScaleVis>();
             }
             
@@ -48,14 +48,14 @@ namespace Screeps3D {
 
         internal void Hide() {
             if (vis) {
-                vis.Show();
+                vis.Hide();
             } else {
                 gameObject.SetActive(false);   
             }
         }
     }
 
-    internal interface IObjectComponent {
+    internal interface IScreepsComponent {
         void Init(RoomObject roomObject);
         void Delta(JSONObject data);
     }

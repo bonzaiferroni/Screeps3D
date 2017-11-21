@@ -1,4 +1,7 @@
-﻿namespace Screeps3D {
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Screeps3D {
     
     /*{
         
@@ -52,22 +55,43 @@
         }
     }*/
     
-    internal class Creep : RoomObject {
+    internal class Creep : RoomObject, IEnergyObject {
         
         public string UserId { get; private set; }
         public CreepBody Body { get; private set; }
+        public Dictionary<string, JSONObject> Actions { get; private set; }
+        public float Energy { get; private set; }
+        public float EnergyCapacity { get; private set; }
 
         internal Creep() {
             Body = new CreepBody();
+            Actions = new Dictionary<string, JSONObject>();
         }
-        
+
         internal override void Unpack(JSONObject data) {
             base.Unpack(data);
             var userObj = data["user"];
             if (userObj != null) {
                 UserId = userObj.str;
             }
+            
+            var actionObj = data["actionLog"];
+            if (actionObj != null) {
+                foreach (var key in actionObj.keys) {
+                    Actions[key] = actionObj[key];
+                }
+            }
+            
+            var energyObj = data["energy"];
+            if (energyObj != null) {
+                Energy = energyObj.n;
+            }
 
+            var energyCapacityObj = data["energyCapacity"];
+            if (energyCapacityObj) {
+                EnergyCapacity = energyCapacityObj.n;
+            }
+            
             Body.Unpack(Data);
         }
     }

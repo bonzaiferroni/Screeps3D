@@ -5,12 +5,15 @@ using UnityEngine;
 namespace Screeps3D {
     public class ObjectManager : MonoBehaviour {
         
+        public Dictionary<string, RoomObject> Cache { get; private set; }
+        
         private Dictionary<string, ObjectView> prototypes = new Dictionary<string, ObjectView>();
         private Dictionary<string, ObjectView> viewCache = new Dictionary<string, ObjectView>();
-        private Dictionary<string, RoomObject> cache = new Dictionary<string, RoomObject>();
         private ObjectFactory factory = new ObjectFactory();
         
         private void Start() {
+            Cache = new Dictionary<string, RoomObject>();
+            
             for (var i = 0; i < transform.childCount; i++) {
                 var prototype = transform.GetChild(i).gameObject.GetComponent<ObjectView>();
                 if (prototype == null || !prototype.gameObject.activeInHierarchy) continue; 
@@ -19,9 +22,9 @@ namespace Screeps3D {
             }
         }
 
-        internal RoomObject Get(string id, JSONObject data, EntityView entityView) {
-            if (cache.ContainsKey(id)) {
-                var existingRoomObject = cache[id]; 
+        internal RoomObject GetInstance(string id, JSONObject data, EntityView entityView) {
+            if (Cache.ContainsKey(id)) {
+                var existingRoomObject = Cache[id]; 
                 var existingView = existingRoomObject.View;
                 if (existingView != null) {
                     existingView.Show();
@@ -29,7 +32,7 @@ namespace Screeps3D {
                 }
                 existingRoomObject.Init(data, existingView);
                 
-                return cache[id];
+                return Cache[id];
             }
 
             var type = data["type"].str;
@@ -41,7 +44,7 @@ namespace Screeps3D {
             
             var roomObject = factory.Get(type);
             roomObject.Init(data, view);
-            cache[id] = roomObject;
+            Cache[id] = roomObject;
             
             return roomObject;
         }
@@ -59,10 +62,10 @@ namespace Screeps3D {
         }
 
         public void Remove(string id) {
-            if (!cache.ContainsKey(id)) {
+            if (!Cache.ContainsKey(id)) {
                 return;
             }
-            var roomObject = cache[id];
+            var roomObject = Cache[id];
             if (roomObject.View) {
                 roomObject.View.Hide();   
             }

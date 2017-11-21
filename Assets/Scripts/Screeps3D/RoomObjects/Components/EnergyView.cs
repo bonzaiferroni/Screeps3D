@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Screeps3D.Components {
-    public class EnergyView : MonoBehaviour, IObjectComponent {
+    public class EnergyView : MonoBehaviour, IScreepsComponent {
 
-        [SerializeField] private Transform energy;
+        [SerializeField] private ScaleVis energyDisplay;
         
         private IEnergyObject energyObject;
 
@@ -17,7 +18,7 @@ namespace Screeps3D.Components {
         }
 
         private void AdjustScale() {
-            energy.localScale = Vector3.one * (energyObject.Energy / energyObject.EnergyCapacity);
+            energyDisplay.Visible(energyObject.Energy / energyObject.EnergyCapacity);
         }
     }
 }
