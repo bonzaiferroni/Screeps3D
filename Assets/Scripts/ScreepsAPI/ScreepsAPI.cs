@@ -62,7 +62,6 @@ namespace Screeps3D {
 		    
 		    Me.badge = Badges.Generate(obj["badge"]);
 		    
-		    
 		    if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
 		    IsConnected = true;
 	    }

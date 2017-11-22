@@ -62,6 +62,9 @@ namespace Screeps3D {
 
         private void Message(object sender, MessageEventArgs e) {
             try {
+                if (e.Data.Substring(0, 3) == "gz:") {
+                    Debug.Log(e.Data);
+                }
                 // Debug.Log(string.Format("Socket Message: {0}", e.Data));
                 var parse = e.Data.Split(' ');
                 if (parse.Length == 3 && parse[0] == "auth" && parse[1] == "ok") {
@@ -94,6 +97,7 @@ namespace Screeps3D {
         }
 	
         public void Subscribe(string path, Action<JSONObject> callback) {
+            Debug.Log("subscribing " + path);
             Socket.Send(string.Format("subscribe {0}", path));
             subscriptions[path] = callback;
         }
