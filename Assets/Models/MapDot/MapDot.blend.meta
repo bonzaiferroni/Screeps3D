@@ -1,58 +1,23 @@
 fileFormatVersion: 2
-guid: fcbf8ee94b49ba645a6f3eaa95651068
-timeCreated: 1511359300
+guid: 5c21519db8e77094ca9b6d48d82db9e3
+timeCreated: 1511376630
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: body
-    100004: dish
-    100006: pole
-    100008: topPol
     400000: //RootNode
-    400002: body
-    400004: dish
-    400006: pole
-    400008: topPol
     2300000: //RootNode
-    2300002: body
-    2300004: dish
-    2300006: pole
-    2300008: topPol
     3300000: //RootNode
-    3300002: body
-    3300004: dish
-    3300006: pole
-    3300008: topPol
-    4300000: Cylinder
-    4300002: dish
-    4300004: topPol
-    4300006: pole
-    4300008: body
+    4300000: MapDot
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: controllerDish
-    second: {fileID: 2100000, guid: 86a8c53ef8a787344b88edabe21492b3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: controllerLevels__controllerTex_png
-    second: {fileID: 2100000, guid: e5e9e52d6bbb60e47b23358cd6895529, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: controllerLines
-    second: {fileID: 2100000, guid: d49651d191682834ebb3cbc080419109, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: unnamed
-    second: {fileID: 2100000, guid: 4a5883e6cf239e447b768b575b14491d, type: 2}
+      name: MapDot
+    second: {fileID: 2100000, guid: a5db0f19cbd82eb4f966bb42b1e6ad30, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
