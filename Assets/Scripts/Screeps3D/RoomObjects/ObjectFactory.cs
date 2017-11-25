@@ -11,6 +11,8 @@
                     return new Spawn();
                 case (Constants.TYPE_STORAGE):
                     return new Extension();
+                case (Constants.TYPE_TOWER):
+                    return new Tower();
                 default:
                     return new RoomObject();
             }
