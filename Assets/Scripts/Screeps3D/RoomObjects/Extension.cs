@@ -21,14 +21,17 @@
 
         internal override void Unpack(JSONObject data) {
             base.Unpack(data);
-            var energyObj = data["energy"];
-            if (energyObj != null) {
-                Energy = energyObj.n;
-            }
 
             var energyCapacityObj = data["energyCapacity"];
-            if (energyCapacityObj) {
+            if (energyCapacityObj)
+            {
                 EnergyCapacity = energyCapacityObj.n;
+            }
+
+            var energyObj = data["energy"];
+            if (energyObj != null)
+            {
+                Energy = energyObj.n > EnergyCapacity ? EnergyCapacity : energyObj.n;
             }
         }
     }
