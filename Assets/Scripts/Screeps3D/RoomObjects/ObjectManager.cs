@@ -2,22 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace Screeps3D {
     [DisallowMultipleComponent]
-    public class ObjectManager : MonoBehaviour
+    public class ObjectManager : BaseSingleton<ObjectManager>
     {
-        private static ObjectManager _instance;
-        public static ObjectManager Instance
-        {
-            get
-            {
-                if (_instance != null) return _instance;
-                _instance = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
-                return _instance;
-            }
-        }
-
         public Dictionary<string, RoomObject> Cache { get; private set; }
         
         private Dictionary<string, ObjectView> prototypes = new Dictionary<string, ObjectView>();
@@ -27,12 +17,6 @@ namespace Screeps3D {
         public List<ObjectView> GetViews()
         {
             return viewCache.Values.ToList();
-        }
-
-        private void Awake()
-        {
-            if (Instance != null && Instance.gameObject.GetInstanceID() != gameObject.GetInstanceID())
-                Destroy(this);
         }
 
         private void Start() {
