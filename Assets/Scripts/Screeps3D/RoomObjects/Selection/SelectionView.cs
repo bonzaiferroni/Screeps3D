@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Screeps3D.Ui
+namespace Screeps3D.RoomObjects.Selection
 {
     [DisallowMultipleComponent]
     internal class SelectionView : MonoBehaviour

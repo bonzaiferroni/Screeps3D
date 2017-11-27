@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Screeps3D.Ui;
+using Common;
 using UnityEngine;
 using Utils;
 
@@ -13,6 +13,7 @@ namespace Screeps3D.RoomObjects.Selection
 		
 		private Vector3 _startPosition;
 		private bool _isSelecting;
+		private readonly Dictionary<int, SelectionView> _selections = new Dictionary<int, SelectionView>();
 
 		private void Start()
 		{
@@ -37,7 +38,7 @@ namespace Screeps3D.RoomObjects.Selection
 			{
 				_isSelecting = false;
 				var dragged = IsDragging();
-				if (!dragged && Input.GetKey(KeyCode.LeftControl))
+				if (ctrl && !dragged)
 				{
 					var obj = HitViewObject();
 					if (obj == null) return; // Early
@@ -73,8 +74,6 @@ namespace Screeps3D.RoomObjects.Selection
 			var offset = Input.mousePosition - _startPosition;
 			return offset.magnitude > 10;
 		}
-
-		private readonly Dictionary<int, SelectionView> _selections = new Dictionary<int, SelectionView>();
 
 		private void DeselectObject(GameObject gameObject)
 		{
