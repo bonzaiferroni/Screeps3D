@@ -41,10 +41,11 @@ namespace Screeps3D.Ui
                 return null;
 
             var label = Instantiate(LabelTemplate, _objectView.gameObject.transform);
-            label.GetComponent<TextMeshPro>().text = labelText;
+            var tmp = label.GetComponent<TextMeshPro>();
+            tmp.text = labelText;
             var y = label.gameObject.transform.lossyScale.y + 1;
             label.transform.localPosition = new Vector3(0, y, 0);
-
+            tmp.enabled = true;
             return label;
         }
 
