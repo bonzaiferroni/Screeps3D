@@ -59,6 +59,7 @@ namespace Screeps3D {
         
         public string UserId { get; private set; }
         public CreepBody Body { get; private set; }
+        public string Name { get; private set; }
         public Dictionary<string, JSONObject> Actions { get; private set; }
         public float Energy { get; private set; }
         public float EnergyCapacity { get; private set; }
@@ -70,6 +71,12 @@ namespace Screeps3D {
 
         internal override void Unpack(JSONObject data) {
             base.Unpack(data);
+            var name = data["name"];
+            if (name != null)
+            {
+                Name = name.str;
+            }
+
             var userObj = data["user"];
             if (userObj != null) {
                 UserId = userObj.str;
