@@ -2,7 +2,7 @@
 using Utils;
 
 namespace Screeps3D {
-    internal class ObjectView : MonoBehaviour {
+    public class ObjectView : MonoBehaviour {
         
         internal RoomObject RoomObject { get; private set; }
         internal IScreepsComponent[] components;

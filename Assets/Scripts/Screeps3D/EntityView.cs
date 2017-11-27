@@ -7,7 +7,6 @@ namespace Screeps3D {
     public class EntityView : MonoBehaviour {
         
         [SerializeField] private ScreepsAPI api;
-        [SerializeField] private ObjectManager manager;
         [SerializeField] private PlainsView plains;
         
         private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
@@ -74,7 +73,7 @@ namespace Screeps3D {
                 var datum = objects[id];
 
                 if (!roomObjects.ContainsKey(id)) {
-                    roomObjects[id] = manager.GetInstance(id, datum, this);
+                    roomObjects[id] = ObjectManager.Instance.GetInstance(id, datum, this);
                 } 
             }
 
@@ -88,7 +87,7 @@ namespace Screeps3D {
                     datum = objects[id];
                 }
                 if (datum != null && datum.IsNull) {
-                    manager.Remove(id);
+                    ObjectManager.Instance.Remove(id);
                     removeList.Add(id);
                 } else {
                     roomObject.Delta(datum);   
