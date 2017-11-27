@@ -88,7 +88,7 @@ namespace Screeps3D {
                     datum = objects[id];
                 }
                 if (datum != null && datum.IsNull) {
-                    manager.Remove(id);
+                    manager.Remove(id, coord.roomName);
                     removeList.Add(id);
                 } else {
                     roomObject.Delta(datum);   

@@ -6,12 +6,21 @@ namespace Screeps3D {
         [SerializeField] private Renderer rend;
         private Creep creep;
         private Texture2D texture;
+        private Color rangedAttackColor;
 
         public void Init(RoomObject roomObject) {
-            texture = new Texture2D(50, 1);
-            rend.material.mainTexture = texture;
+            if (texture == null) {
+                InitTexture();
+            }
             creep = roomObject as Creep;
             UpdateView();
+        }
+
+        private void InitTexture() {
+            ColorUtility.TryParseHtmlString("#4a708b", out rangedAttackColor);
+            texture = new Texture2D(50, 1);
+            texture.filterMode = FilterMode.Point;
+            rend.material.mainTexture = texture;
         }
 
         public void Delta(JSONObject data) {
@@ -24,7 +33,7 @@ namespace Screeps3D {
         private void UpdateView() {
             var frontIndex = 0;
             for (var i = 0; i < PartCount("ranged_attack"); i++) {
-                texture.SetPixel(frontIndex, 0, Constants.RANGED_ATTACK_COLOR);
+                texture.SetPixel(frontIndex, 0, rangedAttackColor);
                 frontIndex++;
             }
             for (var i = 0; i < PartCount("attack"); i++) {
