@@ -25,7 +25,7 @@ namespace Screeps3D.RoomObjects.Selection
             
         }
 
-        private readonly string[] _noLabel = {"rampart", "constructedWall", "rampart"};
+        private readonly string[] _noLabel = {"rampart", "constructedWall", "extension"};
         private readonly Dictionary<string, float> circleSizes = new Dictionary<string, float>
         {
             {"extension", 0.5f}
