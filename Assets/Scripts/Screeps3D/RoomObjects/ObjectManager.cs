@@ -32,7 +32,7 @@ namespace Screeps3D {
         }
 
         internal RoomObject GetInstance(string id, JSONObject data, EntityView entityView) {
-            if (Instance.Cache.ContainsKey(id)) {
+            if (Cache.ContainsKey(id)) {
                 var existingRoomObject = Cache[id]; 
                 var existingView = existingRoomObject.View;
                 if (existingView != null) {

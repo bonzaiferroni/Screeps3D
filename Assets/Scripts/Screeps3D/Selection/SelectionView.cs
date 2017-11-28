@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace Screeps3D.RoomObjects.Selection
@@ -23,6 +25,12 @@ namespace Screeps3D.RoomObjects.Selection
             
         }
 
+        private readonly string[] _noLabel = {"rampart", "constructedWall", "rampart"};
+        private readonly Dictionary<string, float> circleSizes = new Dictionary<string, float>
+        {
+            {"extension", 0.5f}
+        };
+        
         public void Dispose()
         {
             if (_circle != null) Destroy(_circle);
@@ -37,7 +45,7 @@ namespace Screeps3D.RoomObjects.Selection
                 ? ((Creep) roomObject).Name
                 : roomObject.Type;
 
-            if (labelText == "extension" || labelText == "constructedWall" || labelText == "rampart")
+            if (_noLabel.Contains(Type))
                 return null;
 
             var label = Instantiate(LabelTemplate, _objectView.gameObject.transform);
@@ -56,7 +64,10 @@ namespace Screeps3D.RoomObjects.Selection
 
         private GameObject CreateCircle()
         {
-            return Instantiate(CircleTemplate, _objectView.gameObject.transform);
+            var go = Instantiate(CircleTemplate, _objectView.gameObject.transform);
+            if (circleSizes.ContainsKey(Type))
+                go.GetComponent<Projector>().orthographicSize = circleSizes[Type];
+            return go;
         }
     }
 }
