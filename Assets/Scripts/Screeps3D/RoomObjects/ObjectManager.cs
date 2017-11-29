@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Common;
 using UnityEngine;
+using Utils;
 
 namespace Screeps3D {
-    public class ObjectManager : MonoBehaviour {
-        
+    [DisallowMultipleComponent]
+    public class ObjectManager : BaseSingleton<ObjectManager>
+    {
         public Dictionary<string, RoomObject> Cache { get; private set; }
-        
         private Dictionary<string, ObjectView> prototypes = new Dictionary<string, ObjectView>();
         private Dictionary<string, ObjectView> viewCache = new Dictionary<string, ObjectView>();
         private ObjectFactory factory = new ObjectFactory();
-        
+
+        public List<ObjectView> GetViews()
+        {
+            return viewCache.Values.ToList();
+        }
+
         private void Start() {
+
             Cache = new Dictionary<string, RoomObject>();
             
             for (var i = 0; i < transform.childCount; i++) {
