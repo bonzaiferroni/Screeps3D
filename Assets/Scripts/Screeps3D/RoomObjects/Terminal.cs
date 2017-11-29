@@ -25,7 +25,21 @@
         "UH":30,
         "OH":5,
     }*/
-    public class Terminal : Structure {
+    public class Terminal : Structure, IEnergyObject {
+        public float Energy { get; private set; }
+        public float EnergyCapacity { get; private set; }
         
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            var energyObj = data["energy"];
+            if (energyObj != null) {
+                Energy = energyObj.n;
+            }
+
+            var energyCapacityObj = data["energyCapacity"];
+            if (energyCapacityObj) {
+                EnergyCapacity = energyCapacityObj.n;
+            }
+        }
     }
 }

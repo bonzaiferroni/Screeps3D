@@ -13,6 +13,10 @@
                     return new Extension();
                 case (Constants.TYPE_TOWER):
                     return new Tower();
+                case (Constants.TYPE_CONTROLLER):
+                    return new Controller();
+                case (Constants.TYPE_TERMINAL):
+                    return new Terminal();
                 default:
                     return new RoomObject();
             }

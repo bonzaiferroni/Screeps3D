@@ -7,12 +7,7 @@ namespace Screeps3D {
         public const string TYPE_SPAWN = "spawn";
         public const string TYPE_CREEP = "creep";
         public const string TYPE_TOWER = "tower";
-
-        public static Color RANGED_ATTACK_COLOR;
-
-        static Constants() {
-            ColorUtility.TryParseHtmlString("#4a708b", out RANGED_ATTACK_COLOR);
-            //#8470ff
-        }
+        public const string TYPE_CONTROLLER = "controller";
+        public const string TYPE_TERMINAL = "terminal";
     }
 }

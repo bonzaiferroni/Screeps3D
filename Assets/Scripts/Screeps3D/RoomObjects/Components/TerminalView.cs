@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using Utils.Utils;
 
-namespace Screeps3D {
-    public class TowerView : MonoBehaviour, IScreepsComponent {
-        
+namespace Screeps3D.Components {
+    public class TerminalView : MonoBehaviour, IScreepsComponent {
         [SerializeField] private ScaleVisAxes energyDisplay;
-        
-        private IEnergyObject energyObject;
+        private Terminal terminal;
 
         public void Init(RoomObject roomObject) {
-            energyObject = roomObject as IEnergyObject;
+            terminal = roomObject as Terminal;
             AdjustScale();
         }
 
@@ -18,7 +16,8 @@ namespace Screeps3D {
         }
 
         private void AdjustScale() {
-            energyDisplay.Visible(energyObject.Energy / energyObject.EnergyCapacity);
+            energyDisplay.Visible(terminal.Energy / terminal.EnergyCapacity);
         }
+        
     }
 }

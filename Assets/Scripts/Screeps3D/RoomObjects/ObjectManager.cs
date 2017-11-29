@@ -41,7 +41,7 @@ namespace Screeps3D {
                 }
                 existingRoomObject.Init(data, existingView);
                 
-                return Cache[id];
+                return existingRoomObject;
             }
 
             var type = data["type"].str;
@@ -70,13 +70,18 @@ namespace Screeps3D {
             return so;
         }
 
-        public void Remove(string id) {
+        public void Remove(string id, string roomName) {
             if (!Cache.ContainsKey(id)) {
                 return;
             }
             var roomObject = Cache[id];
-            if (roomObject.View) {
-                roomObject.View.Hide();   
+            var creep = roomObject as Creep;
+            if (creep != null) {
+                if (creep.RoomName == roomName) {
+                    creep.View.Hide();
+                }
+            } else if (roomObject.View != null) {
+                roomObject.View.Hide();
             }
         }
     }

@@ -10,7 +10,17 @@
         "safeModeAvailable": 2
     }*/
     
-    public class Controller : RoomObject {
-
+    public class Controller : Structure {
+        
+        public int Level { get; private set; }
+        
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            
+            var levelObj = data["level"];
+            if (levelObj != null) {
+                Level = (int) levelObj.n;
+            }
+        }
     }
 }
