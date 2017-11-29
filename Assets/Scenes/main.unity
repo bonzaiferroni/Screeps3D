@@ -7883,8 +7883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bfdd5de72914bfe80691e657d05326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CirclePrefab: {fileID: 166266, guid: dc884a6ec589ce249acc9b5326859165, type: 2}
-  LabelPrefab: {fileID: 1225018581553392, guid: 259a81887c1ff4a12b9a512ea6d36203,
+  _circlePrefab: {fileID: 166266, guid: dc884a6ec589ce249acc9b5326859165, type: 2}
+  _labelPrefab: {fileID: 1225018581553392, guid: 259a81887c1ff4a12b9a512ea6d36203,
     type: 2}
 --- !u!1 &1032182217
 GameObject:
