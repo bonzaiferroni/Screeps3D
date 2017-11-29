@@ -14,7 +14,14 @@
       "nextDecayTime": 8858
     }*/
     
-    public class Container : Structure {
-        
+    public class Container : Structure, IEnergyObject {
+        public float Energy { get; set; }
+        public float EnergyCapacity { get; set; }
+
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+
+            UnpackUtility.Energy(this, data);
+        }
     }
 }

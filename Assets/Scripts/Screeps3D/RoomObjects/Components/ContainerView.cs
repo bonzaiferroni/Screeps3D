@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
+using Utils;
+using Utils.Utils;
 
 namespace Screeps3D.RoomObjects.Components {
     public class ContainerView : MonoBehaviour, IScreepsComponent {
+
+        [SerializeField] private ScaleVisAxes energyDisplay;
+        private Container container;
+
         public void Init(RoomObject roomObject) {
-            throw new System.NotImplementedException();
+            container = roomObject as Container;
+            AdjustScale();
         }
 
         public void Delta(JSONObject data) {
-            throw new System.NotImplementedException();
+            AdjustScale();
+        }
+
+        private void AdjustScale() {
+            energyDisplay.Visible(container.Energy / container.EnergyCapacity);
         }
     }
 }

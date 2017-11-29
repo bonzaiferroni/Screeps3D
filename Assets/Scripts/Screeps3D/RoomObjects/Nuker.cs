@@ -17,7 +17,14 @@
         "cooldownTime":2.247301E+07
     }*/
     
-    public class Nuker : Structure {
-        
+    public class Nuker : Structure, IEnergyObject {
+        public float Energy { get; set; }
+        public float EnergyCapacity { get; set; }
+
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            
+            UnpackUtility.Energy(this, data);
+        }
     }
 }

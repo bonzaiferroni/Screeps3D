@@ -6,10 +6,10 @@ namespace Screeps3D.Components {
 
         [SerializeField] private ScaleVisAxes energyDisplay;
         
-        private IEnergyObject energyObject;
+        private Storage energyObject;
 
         public void Init(RoomObject roomObject) {
-            energyObject = roomObject as IEnergyObject;
+            energyObject = roomObject as Storage;
             AdjustScale();
         }
 

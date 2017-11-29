@@ -61,7 +61,7 @@ namespace Screeps3D {
     }
 
     internal interface IEnergyObject {
-        float Energy { get; }
-        float EnergyCapacity { get; }
+        float Energy { get; set; }
+        float EnergyCapacity { get; set; }
     }
 }

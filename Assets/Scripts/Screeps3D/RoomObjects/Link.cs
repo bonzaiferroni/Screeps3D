@@ -17,7 +17,14 @@
             "transferEnergy":null
         }
     }*/
-    public class Link : Structure {
-        
+    public class Link : Structure, IEnergyObject {
+        public float Energy { get; set; }
+        public float EnergyCapacity { get; set; }
+
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            
+            UnpackUtility.Energy(this, data);
+        }
     }
 }

@@ -61,8 +61,8 @@ namespace Screeps3D {
         public CreepBody Body { get; private set; }
         public string Name { get; private set; }
         public Dictionary<string, JSONObject> Actions { get; private set; }
-        public float Energy { get; private set; }
-        public float EnergyCapacity { get; private set; }
+        public float Energy { get; set; }
+        public float EnergyCapacity { get; set; }
 
         internal Creep() {
             Body = new CreepBody();
@@ -89,15 +89,7 @@ namespace Screeps3D {
                 }
             }
             
-            var energyObj = data["energy"];
-            if (energyObj != null) {
-                Energy = energyObj.n;
-            }
-
-            var energyCapacityObj = data["energyCapacity"];
-            if (energyCapacityObj) {
-                EnergyCapacity = energyCapacityObj.n;
-            }
+            UnpackUtility.Energy(this, data);
             
             Body.Unpack(Data);
         }

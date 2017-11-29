@@ -19,7 +19,14 @@
             "runReaction":null
         }
     }*/
-    public class Lab : Structure {
-        
+    public class Lab : Structure, IEnergyObject {
+        public float Energy { get; set; }
+        public float EnergyCapacity { get; set; }
+
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+
+            UnpackUtility.Energy(this, data);
+        }
     }
 }

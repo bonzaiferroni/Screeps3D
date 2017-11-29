@@ -10,13 +10,15 @@
                 case (Constants.TYPE_SPAWN):
                     return new Spawn();
                 case (Constants.TYPE_STORAGE):
-                    return new Extension();
+                    return new Storage();
                 case (Constants.TYPE_TOWER):
                     return new Tower();
                 case (Constants.TYPE_CONTROLLER):
                     return new Controller();
                 case (Constants.TYPE_TERMINAL):
                     return new Terminal();
+                case (Constants.TYPE_CONTAINER):
+                    return new Container();
                 default:
                     return new RoomObject();
             }
