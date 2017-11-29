@@ -2,14 +2,16 @@
 using System.Linq;
 using Common;
 using UnityEngine;
-using Utils;
 
-namespace Screeps3D.RoomObjects.Selection
+namespace Screeps3D.Selection
 {
 	public class Selection : BaseSingleton<Selection>
 	{
-		[SerializeField] public GameObject CirclePrefab;
-		[SerializeField] public GameObject LabelPrefab;
+		[SerializeField] private GameObject _circlePrefab;
+		[SerializeField] private GameObject _labelPrefab;
+
+		public static GameObject CircleTemplate;
+		public static GameObject LabelTemplate;
 		
 		private Vector3 _startPosition;
 		private bool _isSelecting;
@@ -17,67 +19,47 @@ namespace Screeps3D.RoomObjects.Selection
 
 		private void Start()
 		{
-			SelectionView.CircleTemplate = CirclePrefab;
-			SelectionView.LabelTemplate = LabelPrefab;
-			
+			CircleTemplate = _circlePrefab;
+			LabelTemplate = _labelPrefab;
 		}
 
 		private void Update()
 		{
-			var ctrl = Input.GetKey(KeyCode.LeftControl);
+			var ctrlKey = Input.GetKey(KeyCode.LeftControl);
 		
 			if (Input.GetMouseButtonDown(0))
 			{
 				_isSelecting = true;
 				_startPosition = Input.mousePosition;
-				if (!ctrl)
+				if (!ctrlKey)
 					DeselectAll();
 			}
 
 			if (Input.GetMouseButtonUp(0))
 			{
 				_isSelecting = false;
-				var dragged = IsDragging();
-				if (ctrl && !dragged)
-				{
-					var obj = HitViewObject();
-					if (obj == null) return; // Early
-					if (obj.gameObject.GetComponent<SelectionView>() == null)
-						SelectObject(obj.gameObject);
-					else
-						DeselectObject(obj.gameObject);
-				}
-				else if (dragged)
-				{
-					SelectObjects();
-				}
+				if (BoxSelection())
+					SelectBoxedObjects();
+				else if (ctrlKey)
+					RaycastToggle();
 			}
 		}
 
 		private void OnGUI()
 		{
-			if (!_isSelecting || !IsDragging()) return; // Early
+			if (!_isSelecting || !BoxSelection()) return; // Early
 			SelectionBox.DrawSelectionBox(_startPosition, Input.mousePosition);
 		}
 
-		private GameObject HitViewObject()
-		{
-			RaycastHit hitInfo;
-			var hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
-			if (!hit) return null; // Early
-			var obj = hitInfo.transform.gameObject;
-			return obj.GetComponent<ObjectView>() != null ? obj : null;
-		}
-
-		private bool IsDragging()
+		private bool BoxSelection()
 		{
 			var offset = Input.mousePosition - _startPosition;
 			return offset.magnitude > 10;
 		}
 
-		private void DeselectObject(GameObject gameObject)
+		private void DeselectObject(Object gameObj)
 		{
-			var id = gameObject.GetInstanceID();
+			var id = gameObj.GetInstanceID();
 			if (!_selections.ContainsKey(id)) return; // Early
 			_selections[id].Dispose();
 			_selections.Remove(id);
@@ -88,14 +70,29 @@ namespace Screeps3D.RoomObjects.Selection
 			_selections.Values.ToList().ForEach(s => DeselectObject(s.gameObject));
 		}
 
-		private void SelectObject(GameObject gameObject)
+		private void RaycastToggle()
 		{
-			if (!_selections.ContainsKey(gameObject.GetInstanceID()))
-				_selections.Add(gameObject.GetInstanceID(),
-					gameObject.AddComponent<SelectionView>());
+			RaycastHit hitInfo;
+			var hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
+			if (!hit) return; // Early
+
+			var obj = hitInfo.transform.gameObject;
+			if (obj.GetComponent<ObjectView>() == null) return; // Early
+			
+			if (obj.gameObject.GetComponent<SelectionView>() == null)
+				SelectObject(obj.gameObject);
+			else
+				DeselectObject(obj.gameObject);
 		}
 
-		private void SelectObjects()
+		private void SelectObject(GameObject gameObj)
+		{
+			if (!_selections.ContainsKey(gameObj.GetInstanceID()))
+				_selections.Add(gameObj.GetInstanceID(),
+					gameObj.AddComponent<SelectionView>());
+		}
+
+		private void SelectBoxedObjects()
 		{
 			foreach (var objectView in ObjectManager.Instance.GetViews())
 			{

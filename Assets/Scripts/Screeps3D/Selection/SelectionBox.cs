@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
 
-namespace Screeps3D.RoomObjects.Selection
+namespace Screeps3D.Selection
 {
 	internal static class SelectionBox
 	{
-		private static Texture2D _whiteTexture;
-
-		private static Texture2D WhiteTexture
+		private static Texture2D _texture;
+		private static Texture2D Texture
 		{
 			get
 			{
-				if (_whiteTexture == null)
-				{
-					_whiteTexture = new Texture2D(1, 1);
-					_whiteTexture.SetPixel(0, 0, Color.white);
-					_whiteTexture.Apply();
-				}
-				return _whiteTexture;
+				if (_texture != null) return _texture; // Early
+				_texture = new Texture2D(1, 1);
+				_texture.SetPixel(0, 0, Color.white);
+				_texture.Apply();
+				return _texture;
 			}
 		}
 
@@ -25,7 +22,7 @@ namespace Screeps3D.RoomObjects.Selection
 		private static void DrawRect(Rect rect, Color color)
 		{
 			GUI.color = color;
-			GUI.DrawTexture(rect, WhiteTexture);
+			GUI.DrawTexture(rect, Texture);
 			GUI.color = Color.white;
 		}
 
