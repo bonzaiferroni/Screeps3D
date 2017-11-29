@@ -10,5 +10,6 @@ namespace Screeps3D {
         public const string TYPE_CONTROLLER = "controller";
         public const string TYPE_TERMINAL = "terminal";
         public const string TYPE_CONTAINER = "container";
+        public const string TYPE_LINK = "link";
     }
 }

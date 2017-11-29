@@ -19,6 +19,8 @@
                     return new Terminal();
                 case (Constants.TYPE_CONTAINER):
                     return new Container();
+                case (Constants.TYPE_LINK):
+                    return new Link();
                 default:
                     return new RoomObject();
             }
