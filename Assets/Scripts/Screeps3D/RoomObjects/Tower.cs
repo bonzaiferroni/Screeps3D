@@ -1,4 +1,6 @@
-﻿namespace Screeps3D {
+﻿using UnityEngine;
+
+namespace Screeps3D {
     
     /*{
         "_id":"5945134eea485cae18c518ef",
@@ -19,7 +21,21 @@
         }
     }*/
     
-    public class Tower : Structure {
-        
+    public class Tower : Structure, IEnergyObject {
+        public float Energy { get; private set; }
+        public float EnergyCapacity { get; private set; }
+
+        internal override void Unpack(JSONObject data) {
+            base.Unpack(data);
+            var energyObj = data["energy"];
+            if (energyObj != null) {
+                Energy = energyObj.n;
+            }
+
+            var energyCapacityObj = data["energyCapacity"];
+            if (energyCapacityObj) {
+                EnergyCapacity = energyCapacityObj.n;
+            }
+        }
     }
 }

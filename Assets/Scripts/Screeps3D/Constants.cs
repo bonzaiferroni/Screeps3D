@@ -6,6 +6,7 @@ namespace Screeps3D {
         public const string TYPE_EXTENSION = "extension";
         public const string TYPE_SPAWN = "spawn";
         public const string TYPE_CREEP = "creep";
+        public const string TYPE_TOWER = "tower";
 
         public static Color RANGED_ATTACK_COLOR;
 
