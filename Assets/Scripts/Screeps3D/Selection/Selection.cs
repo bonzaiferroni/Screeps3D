@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Screeps3D.Selection
 {
@@ -16,6 +18,9 @@ namespace Screeps3D.Selection
 		private Vector3 _startPosition;
 		private bool _isSelecting;
 		private readonly Dictionary<int, SelectionView> _selections = new Dictionary<int, SelectionView>();
+
+		public Action<RoomObject> OnSelect;
+		public Action<RoomObject> OnDeselect;
 
 		private void Start()
 		{
@@ -57,9 +62,9 @@ namespace Screeps3D.Selection
 			return offset.magnitude > 10;
 		}
 
-		private void DeselectObject(Object gameObj)
+		private void DeselectObject(ObjectView view)
 		{
-			var id = gameObj.GetInstanceID();
+			var id = view.GetInstanceID();
 			if (!_selections.ContainsKey(id)) return; // Early
 			_selections[id].Dispose();
 			_selections.Remove(id);
@@ -67,7 +72,7 @@ namespace Screeps3D.Selection
 
 		private void DeselectAll()
 		{
-			_selections.Values.ToList().ForEach(s => DeselectObject(s.gameObject));
+			_selections.Values.ToList().ForEach(s => DeselectObject(s.Selected));
 		}
 
 		private void RaycastToggle()
@@ -76,20 +81,20 @@ namespace Screeps3D.Selection
 			var hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 			if (!hit) return; // Early
 
-			var obj = hitInfo.transform.gameObject;
-			if (obj.GetComponent<ObjectView>() == null) return; // Early
+			var view = hitInfo.transform.gameObject.GetComponent<ObjectView>();
+			if (!view) return; // Early
 			
-			if (obj.gameObject.GetComponent<SelectionView>() == null)
-				SelectObject(obj.gameObject);
+			if (view.GetComponent<SelectionView>() == null)
+				SelectObject(view);
 			else
-				DeselectObject(obj.gameObject);
+				DeselectObject(view);
 		}
 
-		private void SelectObject(GameObject gameObj)
+		private void SelectObject(ObjectView view)
 		{
-			if (!_selections.ContainsKey(gameObj.GetInstanceID()))
-				_selections.Add(gameObj.GetInstanceID(),
-					gameObj.AddComponent<SelectionView>());
+			if (!_selections.ContainsKey(view.GetInstanceID()))
+				_selections.Add(view.GetInstanceID(),
+					view.gameObject.AddComponent<SelectionView>());
 		}
 
 		private void SelectBoxedObjects()
@@ -98,8 +103,7 @@ namespace Screeps3D.Selection
 			{
 				var withinBounds = SelectionBox.IsWithinSelectionBox(objectView.gameObject);
 				if (withinBounds)
-					SelectObject(objectView.gameObject);
-						
+					SelectObject(objectView);
 			}
 		}
 	}

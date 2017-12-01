@@ -15,18 +15,17 @@ namespace Screeps3D.Selection
         };
 
         private string _type;
-        private ObjectView _objectView;
         private GameObject _circle;
         private GameObject _label;
 
+        public ObjectView Selected { get; private set; }
 
         private void Start()
         {
-            _objectView = gameObject.GetComponent<ObjectView>();
-            _type = _objectView.RoomObject.Type;
+            Selected = gameObject.GetComponent<ObjectView>();
+            _type = Selected.RoomObject.Type;
             _circle = CreateCircle();
             _label = CreateLabel();
-            
         }
 
         public void Dispose()
@@ -38,15 +37,15 @@ namespace Screeps3D.Selection
 
         private GameObject CreateLabel()
         {
-            var roomObject = _objectView.RoomObject;
-            var labelText = _objectView is CreepView
+            var roomObject = Selected.RoomObject;
+            var labelText = Selected is CreepView
                 ? ((Creep) roomObject).Name
                 : roomObject.Type;
 
             if (NoLabel.Contains(_type))
                 return null; // Early
 
-            var label = Instantiate(Selection.LabelTemplate, _objectView.gameObject.transform);
+            var label = Instantiate(Selection.LabelTemplate, Selected.gameObject.transform);
             label.transform.localPosition = new Vector3(0, label.gameObject.transform.lossyScale.y + 1, 0);
             var textMesh = label.GetComponent<TextMeshPro>();
             textMesh.text = labelText;
@@ -61,7 +60,7 @@ namespace Screeps3D.Selection
 
         private GameObject CreateCircle()
         {
-            var go = Instantiate(Selection.CircleTemplate, _objectView.gameObject.transform);
+            var go = Instantiate(Selection.CircleTemplate, Selected.gameObject.transform);
             if (CircleSizes.ContainsKey(_type))
                 go.GetComponent<Projector>().orthographicSize = CircleSizes[_type];
             return go;
