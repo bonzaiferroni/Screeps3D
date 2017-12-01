@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace Screeps3D {
-    public class WorldView : MonoBehaviour {
+    public class WorldView : BaseSingleton<WorldView> {
 
         private const int viewDistance = 2;
 
-        [SerializeField] private RoomView roomPrototype;
+        [SerializeField] private GameObject roomPrefab;
         [SerializeField] private RoomChooser chooser;
         [SerializeField] private PlayerGaze playerGaze;
         
@@ -43,7 +44,8 @@ namespace Screeps3D {
 
         private void GrowPreload(int count) {
             for (var i = 0; i < count; i++) {
-                var view = Instantiate(roomPrototype.gameObject).GetComponent<RoomView>();
+                var go = Instantiate(roomPrefab);
+                var view = go.GetComponent<RoomView>();
                 view.transform.SetParent(transform);
                 preloadStack.Push(view);   
             }

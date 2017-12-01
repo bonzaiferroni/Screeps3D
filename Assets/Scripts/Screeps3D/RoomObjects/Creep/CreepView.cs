@@ -3,7 +3,6 @@
 namespace Screeps3D {
     internal class CreepView : ObjectView {
 
-        [SerializeField] private ScreepsAPI api;
         [SerializeField] private Renderer body;
         
         public Quaternion rotTarget;
@@ -13,7 +12,7 @@ namespace Screeps3D {
         internal override void Init(RoomObject roomObject) {
             base.Init(roomObject);
             var creep = roomObject as Creep;
-            var badge = api.Badges.GetCached(creep.UserId);
+            var badge = ScreepsAPI.Instance.Badges.GetCached(creep.UserId);
             if (badge != null) {
                 body.material.mainTexture = badge;
             }

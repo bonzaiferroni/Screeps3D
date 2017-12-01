@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 using Utils;
 
 namespace Screeps3D {
-    public class TerrainFinder : MonoBehaviour {
+    public class TerrainFinder : BaseSingleton<TerrainFinder> {
         
         [SerializeField] private ScreepsAPI api;
         

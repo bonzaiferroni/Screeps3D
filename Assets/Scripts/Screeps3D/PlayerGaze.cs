@@ -8,7 +8,7 @@ namespace Screeps3D {
         
         private void Update() {
 
-            if (!api.IsConnected) {
+            if (!api || !api.IsConnected) {
                 return;
             }
             

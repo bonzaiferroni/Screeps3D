@@ -6,7 +6,6 @@ namespace Screeps3D {
 
         [SerializeField] private TerrainView terrain;
         [SerializeField] private EntityView entities;
-        [SerializeField] private WorldView world;
         [SerializeField] private MapView map;
         [SerializeField] private ScaleVis vis;
         private WorldCoord coord;
@@ -24,7 +23,7 @@ namespace Screeps3D {
             map.Wake();
             if (!loadedNeighbors) {
                 loadedNeighbors = true;
-                world.LoadNeighbors(coord);
+                WorldView.Instance.LoadNeighbors(coord);
             }
         }
 

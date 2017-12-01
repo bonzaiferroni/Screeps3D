@@ -9,8 +9,6 @@ namespace Screeps3D {
 
         [SerializeField] private PlaneDeformer swamp;
         [SerializeField] private PlaneDeformer wall;
-        [SerializeField] private TerrainFinder finder;
-        // [SerializeField] private TerrainFactory factory;
 
         private bool[,] wallPositions;
         private bool[,] swampPositions;
@@ -19,7 +17,7 @@ namespace Screeps3D {
         private string terrain;
 
         public void Load(WorldCoord coord) {
-            finder.Find(coord, InitRender);
+            TerrainFinder.Instance.Find(coord, InitRender);
         }
 
         private void InitRender(string terrain) {

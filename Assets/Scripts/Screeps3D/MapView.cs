@@ -7,7 +7,6 @@ using UnityEngine;
 namespace Screeps3D {
     internal class MapView : MonoBehaviour {
         
-        [SerializeField] private ScreepsAPI api;
         [SerializeField] private RoadView roadPrototype;
         private WorldCoord coord;
         private string path;
@@ -18,7 +17,7 @@ namespace Screeps3D {
         public void Load(WorldCoord coord) {
             this.coord = coord;
             
-            if (api.Address.hostName.ToLowerInvariant() == "screeps.com") {
+            if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com") {
                 path = string.Format("roomMap2:{0}/{1}", coord.shardName, coord.roomName);
             } else {
                 path = string.Format("roomMap2:{0}", coord.roomName);
@@ -30,7 +29,7 @@ namespace Screeps3D {
                 return;
 
             awake = true;
-            api.Socket.Subscribe(path, OnMapData);
+            ScreepsAPI.Instance.Socket.Subscribe(path, OnMapData);
         }
 
         private void OnMapData(JSONObject obj) {

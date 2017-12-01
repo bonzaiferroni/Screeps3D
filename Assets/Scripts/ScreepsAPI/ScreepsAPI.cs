@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Common;
 using SocketIO;
 using UnityEngine;
 using WebSocketSharp;
@@ -8,7 +9,7 @@ using WebSocketSharp;
 namespace Screeps3D {
     [RequireComponent(typeof(ScreepsHTTP))]
 	[RequireComponent(typeof(ScreepsSocket))]
-	public class ScreepsAPI : MonoBehaviour {
+	public class ScreepsAPI : BaseSingleton<ScreepsAPI> {
 
 	    public static ScreepsAPI Instance { get; private set; }
 	    
@@ -25,7 +26,8 @@ namespace Screeps3D {
 	    
 	    public bool IsConnected { get; private set; }
 	
-		public void Awake() {
+		public override void Awake() {
+			base.Awake();
 			Instance = this;
 			
 			Http = GetComponent<ScreepsHTTP>();

@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Screeps3D {
     public class EntityView : MonoBehaviour {
         
-        [SerializeField] private ScreepsAPI api;
         [SerializeField] private PlainsView plains;
         
         private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
@@ -21,7 +20,7 @@ namespace Screeps3D {
         public void Load(WorldCoord coord) {
             this.coord = coord;
             
-            if (api.Address.hostName.ToLowerInvariant() == "screeps.com") {
+            if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com") {
                 path = string.Format("room:{0}/{1}", coord.shardName, coord.roomName);
             } else {
                 path = string.Format("room:{0}", coord.roomName);
@@ -39,20 +38,20 @@ namespace Screeps3D {
             queue.Enqueue(this);
             
             Debug.Log("subscribing: " + path);
-            api.Socket.Subscribe(path, OnRoomData);
+            ScreepsAPI.Instance.Socket.Subscribe(path, OnRoomData);
             plains.Highlight();
             awake = true;
         }
 
         private void Sleep() {
-            api.Socket.Unsub(path);
+            ScreepsAPI.Instance.Socket.Unsub(path);
             plains.Dim();
             awake = false;
         }
 
         private void OnDestroy() {
-            if (api.Socket != null && coord != null) {
-                api.Socket.Unsub(path);
+            if (ScreepsAPI.Instance.Socket != null && coord != null) {
+                ScreepsAPI.Instance.Socket.Unsub(path);
             }
         }
 
@@ -107,7 +106,7 @@ namespace Screeps3D {
 
             foreach (var id in userObj.keys) {
                 var datum = userObj[id];
-                api.Badges.CacheBadge(id, datum);
+                ScreepsAPI.Instance.Badges.CacheBadge(id, datum);
             } 
         }
     }

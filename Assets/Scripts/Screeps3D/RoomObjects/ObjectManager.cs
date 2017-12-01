@@ -7,8 +7,8 @@ using Utils;
 
 namespace Screeps3D {
     [DisallowMultipleComponent]
-    public class ObjectManager : BaseSingleton<ObjectManager>
-    {
+    public class ObjectManager : BaseSingleton<ObjectManager> {
+        [SerializeField] private GameObject[] prefabs;
         public Dictionary<string, RoomObject> Cache { get; private set; }
         private Dictionary<string, ObjectView> prototypes = new Dictionary<string, ObjectView>();
         private Dictionary<string, ObjectView> viewCache = new Dictionary<string, ObjectView>();
@@ -20,14 +20,16 @@ namespace Screeps3D {
         }
 
         private void Start() {
-
             Cache = new Dictionary<string, RoomObject>();
-            
-            for (var i = 0; i < transform.childCount; i++) {
-                var prototype = transform.GetChild(i).gameObject.GetComponent<ObjectView>();
-                if (prototype == null || !prototype.gameObject.activeInHierarchy) continue; 
-                prototypes[prototype.name] = prototype;
-                prototype.gameObject.SetActive(false);
+
+            foreach (var prefab in prefabs) {
+                var go = Instantiate(prefab);
+                go.name = prefab.name;
+                var view = go.GetComponent<ObjectView>();
+                if (view == null) continue;
+                prototypes[prefab.name] = view;
+                go.SetActive(false);
+                go.transform.SetParent(transform);
             }
         }
 

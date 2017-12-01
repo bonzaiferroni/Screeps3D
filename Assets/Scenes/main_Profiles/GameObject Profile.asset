@@ -31,13 +31,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 2.31
+    value: 2.55
   threshold:
     overrideState: 1
     value: 1
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
     value: {fileID: 0}
   temperature:
     overrideState: 1
-    value: 14
+    value: -2
   tint:
     overrideState: 0
     value: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
     value: -12
   saturation:
     overrideState: 1
-    value: 17
+    value: 10
   brightness:
     overrideState: 0
     value: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
     value: -1.11
   contrast:
     overrideState: 1
-    value: 19
+    value: 10
   mixerRedOutRedIn:
     overrideState: 0
     value: 92
