@@ -8,7 +8,6 @@ namespace Screeps3D.Selection
     [DisallowMultipleComponent]
     internal class SelectionView : MonoBehaviour
     {
-        private static readonly string[] NoLabel = {"rampart", "constructedWall", "extension"};
         private static readonly Dictionary<string, float> CircleSizes = new Dictionary<string, float>
         {   // Prefab default 0.75
             {"extension", 0.5f}
@@ -17,6 +16,9 @@ namespace Screeps3D.Selection
         private string _type;
         private GameObject _circle;
         private GameObject _label;
+        private Stack<GameObject> _labelPool = new Stack<GameObject>();
+        private Stack<GameObject> _circlePool = new Stack<GameObject>();
+        private Projector _projector;
 
         public ObjectView Selected { get; private set; }
 
@@ -30,39 +32,71 @@ namespace Screeps3D.Selection
 
         public void Dispose()
         {
-            if (_circle != null) Destroy(_circle);
-            if (_label != null) Destroy(_label);
+            if (_circle != null) {
+                _circle.SetActive(false);
+                _circlePool.Push(_circle);
+            };
+            if (_label != null) {
+                _label.SetActive(false);
+                _labelPool.Push(_label);
+            }
             Destroy(this);
         }
 
         private GameObject CreateLabel()
         {
-            var roomObject = Selected.RoomObject;
-            var labelText = Selected is CreepView
-                ? ((Creep) roomObject).Name
-                : roomObject.Type;
-
-            if (NoLabel.Contains(_type))
+            var nameObj = Selected.RoomObject as INamedObject;
+            if (nameObj == null)
                 return null; // Early
 
-            var label = Instantiate(Selection.LabelTemplate, Selected.gameObject.transform);
+            GameObject label;
+            if (_labelPool.Count > 0) {
+                label = _labelPool.Pop();
+                label.SetActive(true);
+            } else {
+                label = Instantiate(Selection.LabelTemplate);
+            }
+            label.transform.SetParent(Selected.gameObject.transform);
             label.transform.localPosition = new Vector3(0, label.gameObject.transform.lossyScale.y + 1, 0);
             var textMesh = label.GetComponent<TextMeshPro>();
-            textMesh.text = labelText;
+            textMesh.text = nameObj.Name;
             textMesh.enabled = true;
             return label;
         }
 
-        private void OnGUI()
-        {
-            if (_label != null) _label.transform.rotation = Camera.main.transform.rotation;
+        private void BillboardLabel() {
+            _label.transform.rotation = Camera.main.transform.rotation;
         }
 
-        private GameObject CreateCircle()
-        {
-            var go = Instantiate(Selection.CircleTemplate, Selected.gameObject.transform);
+        private void Update() {
+            if (_label != null) BillboardLabel();
+            if (_circle != null) FadeInCircle();
+        }
+
+        private void FadeInCircle() {
+            var color = _projector.material.color;
+            if (color.a >= 1) {
+                return;
+            }
+            color.a += Time.deltaTime / .2f;
+            _projector.material.color = color;
+        }
+
+        private GameObject CreateCircle() {
+            GameObject go;
+            if (_circlePool.Count > 0) {
+                go = _circlePool.Pop();
+                go.SetActive(true);
+            } else {
+                go = Instantiate(Selection.CircleTemplate);
+            }
+            _projector = go.GetComponent<Projector>();
+            var color = _projector.material.color;
+            color.a = 0;
+            _projector.material.color = color;
+            go.transform.SetParent(Selected.gameObject.transform, false);
             if (CircleSizes.ContainsKey(_type))
-                go.GetComponent<Projector>().orthographicSize = CircleSizes[_type];
+                _projector.orthographicSize = CircleSizes[_type];
             return go;
         }
     }

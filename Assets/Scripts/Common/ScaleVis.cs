@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Utils {
     public class ScaleVis : MonoBehaviour, IVisibilityControl {
@@ -9,10 +10,12 @@ namespace Utils {
         
         public bool IsVisible { get; private set; }
 
+        public Action<bool> OnFinishedAnimation;
+
         private float current;
         private float target = 1;
         private float targetRef;
-
+        
         private void Start() {
             if (animateOnStart) {
                 Scale(0);
@@ -29,7 +32,7 @@ namespace Utils {
 
         public void Visible(float target, bool instant = false) {
             enabled = true;
-            IsVisible = true;
+            IsVisible = target == 1;
 
             if (float.IsNaN(target)) {
                 target = 0;
@@ -56,6 +59,8 @@ namespace Utils {
 
         public void Update() {
             if (Mathf.Abs(current - target) < .0001f) {
+                if (OnFinishedAnimation != null)
+                    OnFinishedAnimation(IsVisible);
                 enabled = false;
             }
 

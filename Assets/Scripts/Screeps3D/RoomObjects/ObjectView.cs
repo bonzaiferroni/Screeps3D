@@ -2,26 +2,22 @@
 using Utils;
 
 namespace Screeps3D {
+    [RequireComponent(typeof(ScaleVis))]
     public class ObjectView : MonoBehaviour {
         
         internal RoomObject RoomObject { get; private set; }
         internal IScreepsComponent[] components;
         private ScaleVis vis;
 
-        public bool IsVisible {
-            get {
-                if (vis) {
-                    return vis.IsVisible;
-                } else {
-                    return gameObject.activeInHierarchy;
-                }
-            }
+        public bool IsVisible { 
+            get { return vis.IsVisible; }
         }
 
         internal virtual void Init(RoomObject roomObject) {
             if (components == null) {
                 components = GetComponentsInChildren<IScreepsComponent>();
                 vis = GetComponent<ScaleVis>();
+                vis.OnFinishedAnimation += OnFinishedAnimation;
             }
             
             RoomObject = roomObject;
@@ -32,6 +28,12 @@ namespace Screeps3D {
             }
         }
 
+        private void OnFinishedAnimation(bool isVisible) {
+            if (!isVisible) {
+                ObjectViewer.Instance.AddToPool(this);
+            }
+        }
+
         internal virtual void Delta(JSONObject data) {
             foreach (var component in components) {
                 component.Delta(data);
@@ -39,19 +41,11 @@ namespace Screeps3D {
         }
         
         internal void Show() {
-            if (vis) {
-                vis.Show();
-            } else {
-                gameObject.SetActive(true);   
-            }
+            vis.Show();
         }
 
         internal void Hide() {
-            if (vis) {
-                vis.Hide();
-            } else {
-                gameObject.SetActive(false);   
-            }
+            vis.Hide();
         }
     }
 

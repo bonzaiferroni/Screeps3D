@@ -796,7 +796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ebf06ebea064a0e8331dc3a0892d72c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  api: {fileID: 0}
   body: {fileID: 23580896395087806}
   rotTarget: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114734794665648114
@@ -858,8 +857,8 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1326871108391646}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.33423233
-  m_Center: {x: 0, y: 0.2148838, z: 0}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.15, z: 0}

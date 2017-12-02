@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4303810816590150}
   - component: {fileID: 33899782633658874}
   - component: {fileID: 23634884556038674}
-  - component: {fileID: 65282701732996168}
   - component: {fileID: 114787266148689166}
   - component: {fileID: 114940664437660400}
+  - component: {fileID: 135879146683318416}
   m_Layer: 9
   m_Name: mineral
   m_TagString: Untagged
@@ -85,18 +85,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330731872553070}
   m_Mesh: {fileID: 4300002, guid: cb70c9332b8e2bc48bbff51223ef6765, type: 3}
---- !u!65 &65282701732996168
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1330731872553070}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.810719, y: 0.987971, z: 0.946809}
-  m_Center: {x: -0.019968495, y: 0.5696955, z: 0.0062445104}
 --- !u!114 &114787266148689166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,3 +110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c143c9faac4c8193ea547a8365995a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135879146683318416
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330731872553070}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4939855
+  m_Center: {x: -0.019968495, y: 0.5696955, z: 0.0062445104}

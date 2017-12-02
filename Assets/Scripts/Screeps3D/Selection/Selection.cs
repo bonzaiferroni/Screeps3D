@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Common;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
 
 namespace Screeps3D.Selection
@@ -17,7 +18,7 @@ namespace Screeps3D.Selection
 		
 		private Vector3 _startPosition;
 		private bool _isSelecting;
-		private readonly Dictionary<int, SelectionView> _selections = new Dictionary<int, SelectionView>();
+		private readonly Dictionary<string, RoomObject> _selections = new Dictionary<string, RoomObject>();
 
 		public Action<RoomObject> OnSelect;
 		public Action<RoomObject> OnDeselect;
@@ -28,11 +29,18 @@ namespace Screeps3D.Selection
 			LabelTemplate = _labelPrefab;
 		}
 
-		private void Update()
-		{
+		private void Update() {	
 			var ctrlKey = Input.GetKey(KeyCode.LeftControl);
+			var overUI = EventSystem.current.IsPointerOverGameObject();
+			var dragging = IsDragging();
+
+			ObjectView rayTarget = null;
+			if (!dragging && !overUI) {
+				rayTarget = Rayprobe();
+			}
+			SelectionOutline.DrawOutline(rayTarget);
 		
-			if (Input.GetMouseButtonDown(0))
+			if (Input.GetMouseButtonDown(0) && !overUI)
 			{
 				_isSelecting = true;
 				_startPosition = Input.mousePosition;
@@ -43,67 +51,85 @@ namespace Screeps3D.Selection
 			if (Input.GetMouseButtonUp(0))
 			{
 				_isSelecting = false;
-				if (BoxSelection())
+				if (dragging) {
 					SelectBoxedObjects();
-				else if (ctrlKey)
-					RaycastToggle();
+				} else if (!overUI && rayTarget) {
+					ToggleSelection(rayTarget.RoomObject);
+				}
 			}
 		}
 
 		private void OnGUI()
 		{
-			if (!_isSelecting || !BoxSelection()) return; // Early
+			if (!IsDragging()) return; // Early
 			SelectionBox.DrawSelectionBox(_startPosition, Input.mousePosition);
 		}
 
-		private bool BoxSelection()
+		private bool IsDragging()
 		{
-			var offset = Input.mousePosition - _startPosition;
-			return offset.magnitude > 10;
+			return _isSelecting && (Input.mousePosition - _startPosition).magnitude > 10;
 		}
 
-		private void DeselectObject(ObjectView view)
+		private ObjectView Rayprobe()
 		{
-			var id = view.GetInstanceID();
-			if (!_selections.ContainsKey(id)) return; // Early
-			_selections[id].Dispose();
-			_selections.Remove(id);
+			RaycastHit hitInfo;
+			var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Debug.DrawRay(ray.origin, ray.direction * 100);
+			var hit = Physics.Raycast(ray, out hitInfo);
+			if (!hit) return null; // Early
+
+			return hitInfo.transform.gameObject.GetComponent<ObjectView>();
+		}
+
+		public void ToggleSelection(RoomObject obj) {
+			if (_selections.ContainsKey(obj.Id)) {
+				DeselectObject(obj);
+			} else {
+				SelectObject(obj);
+			}
+		}
+
+		public void DeselectObject(RoomObject obj)
+		{
+			if (!_selections.ContainsKey(obj.Id)) return; // Early
+
+			if (obj.View) {
+				var selectionView = obj.View.GetComponent<SelectionView>();
+				if (selectionView) {
+					selectionView.Dispose();
+				}
+			}
+			
+			_selections.Remove(obj.Id);
+			if (OnDeselect != null)
+				OnDeselect(obj);
 		}
 
 		private void DeselectAll()
 		{
-			_selections.Values.ToList().ForEach(s => DeselectObject(s.Selected));
+			_selections.Values.ToList().ForEach(obj => DeselectObject(obj));
 		}
 
-		private void RaycastToggle()
+		private void SelectObject(RoomObject obj)
 		{
-			RaycastHit hitInfo;
-			var hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
-			if (!hit) return; // Early
-
-			var view = hitInfo.transform.gameObject.GetComponent<ObjectView>();
-			if (!view) return; // Early
-			
-			if (view.GetComponent<SelectionView>() == null)
-				SelectObject(view);
-			else
-				DeselectObject(view);
-		}
-
-		private void SelectObject(ObjectView view)
-		{
-			if (!_selections.ContainsKey(view.GetInstanceID()))
-				_selections.Add(view.GetInstanceID(),
-					view.gameObject.AddComponent<SelectionView>());
+			if (!_selections.ContainsKey(obj.Id)) {
+				_selections.Add(obj.Id, obj);
+				if (obj.View) {
+					obj.View.gameObject.AddComponent<SelectionView>();
+				}
+				if (OnSelect != null)
+					OnSelect(obj);
+			}
 		}
 
 		private void SelectBoxedObjects()
 		{
-			foreach (var objectView in ObjectManager.Instance.GetViews())
-			{
-				var withinBounds = SelectionBox.IsWithinSelectionBox(objectView.gameObject);
+			foreach (var kvp in ObjectManager.Instance.RoomObjects) {
+				if (kvp.Value.View == null)
+					continue;
+				var withinBounds = SelectionBox.IsWithinSelectionBox(kvp.Value.View);
 				if (withinBounds)
-					SelectObject(objectView);
+					SelectObject(kvp.Value);
 			}
 		}
 	}

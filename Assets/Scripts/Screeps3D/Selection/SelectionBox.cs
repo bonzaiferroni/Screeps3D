@@ -46,9 +46,9 @@ namespace Screeps3D.Selection
 			DrawBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
 		}
 
-		public static bool IsWithinSelectionBox(GameObject gameObject)
+		public static bool IsWithinSelectionBox(ObjectView view)
 		{
-			return _bounds.Contains(Camera.main.WorldToViewportPoint(gameObject.transform.position));
+			return _bounds.Contains(Camera.main.WorldToViewportPoint(view.transform.position));
 		}
 
 		private static Bounds GetBounds(Camera camera, Vector3 screenPosition1, Vector3 screenPosition2)

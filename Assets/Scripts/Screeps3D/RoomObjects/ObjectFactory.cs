@@ -21,6 +21,8 @@
                     return new Container();
                 case (Constants.TYPE_LINK):
                     return new Link();
+                case (Constants.TYPE_RAMPART):
+                    return new Rampart();
                 default:
                     return new RoomObject();
             }

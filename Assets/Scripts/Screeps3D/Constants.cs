@@ -11,5 +11,6 @@ namespace Screeps3D {
         public const string TYPE_TERMINAL = "terminal";
         public const string TYPE_CONTAINER = "container";
         public const string TYPE_LINK = "link";
+        public const string TYPE_RAMPART = "rampart";
     }
 }

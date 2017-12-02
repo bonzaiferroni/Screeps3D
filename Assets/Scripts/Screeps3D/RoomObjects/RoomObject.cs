@@ -13,23 +13,24 @@ namespace Screeps3D {
         
         internal ObjectView View { get; private set; }
 
-        internal void Init(JSONObject data, ObjectView view) {
+        public Action<ObjectView> OnShow;
+        public Action<JSONObject> OnDelta;
+
+        internal void Init(JSONObject data) {
             if (Data == null) {
                 Data = data;
-                View = view;
             }
             
             Unpack(data);
-
-            if (View != null) {
-                View.Init(this);
-            }
         }
 
         internal void Delta(JSONObject delta) {
             Unpack(delta);
             if (View != null)
                 View.Delta(delta);
+            if (OnDelta != null) {
+                OnDelta(delta);
+            }
         }
 
         internal virtual void Unpack(JSONObject data) {
@@ -54,14 +55,26 @@ namespace Screeps3D {
                 RoomName = roomNameObj.str;
         }
 
-        internal virtual void Remove() {
-            if (View != null)
+        public virtual void EnterRoom(EntityView entityView) {
+            if (View != null) {
                 View.Hide();
+            }
+            
+            View = ObjectViewer.Instance.NewView(this);
+            if (View != null) {
+                View.Init(this);
+                View.transform.SetParent(entityView.transform, false);
+                View.Show();
+                if (OnShow != null) OnShow(View);
+            }
         }
-    }
 
-    internal interface IEnergyObject {
-        float Energy { get; set; }
-        float EnergyCapacity { get; set; }
+        public virtual void LeaveRoom(EntityView entityView) {
+            if (View == null)
+                return;
+            
+            View.Hide();
+            View = null;
+        }
     }
 }

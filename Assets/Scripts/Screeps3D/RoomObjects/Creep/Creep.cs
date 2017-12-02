@@ -55,14 +55,16 @@ namespace Screeps3D {
         }
     }*/
     
-    internal class Creep : RoomObject, IEnergyObject {
+    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject {
         
         public string UserId { get; private set; }
         public CreepBody Body { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public Dictionary<string, JSONObject> Actions { get; private set; }
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public float Hits { get; set; }
+        public float HitsMax { get; set; }
 
         internal Creep() {
             Body = new CreepBody();
@@ -71,11 +73,6 @@ namespace Screeps3D {
 
         internal override void Unpack(JSONObject data) {
             base.Unpack(data);
-            var name = data["name"];
-            if (name != null)
-            {
-                Name = name.str;
-            }
 
             var userObj = data["user"];
             if (userObj != null) {
@@ -90,8 +87,21 @@ namespace Screeps3D {
             }
             
             UnpackUtility.Energy(this, data);
+            UnpackUtility.Name(this, data);
+            UnpackUtility.HitPoints(this, data);
             
             Body.Unpack(Data);
+        }
+
+        public override void EnterRoom(EntityView entityView) {
+            base.EnterRoom(entityView);
+        }
+
+        public override void LeaveRoom(EntityView entityView) {
+            if (View == null || entityView.Coord.roomName != RoomName) {
+                return;
+            }
+            View.Hide();
         }
     }
 }

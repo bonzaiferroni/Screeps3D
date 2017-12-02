@@ -36,10 +36,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4151995200252482}
-  - component: {fileID: 65674303289829792}
   - component: {fileID: 114991015281400898}
   - component: {fileID: 114714648751369606}
   - component: {fileID: 114978892514807008}
+  - component: {fileID: 136759589217628250}
   m_Layer: 9
   m_Name: tower
   m_TagString: Untagged
@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350170680304600}
   m_LocalRotation: {x: 0.0000017881393, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 17}
+  m_LocalPosition: {x: 0, y: 0, z: 18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4893135190193552}
@@ -404,18 +404,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1752222278556116}
   m_Mesh: {fileID: 4300004, guid: f4e2c175fe406f9429358549ab176cd6, type: 3}
---- !u!65 &65674303289829792
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1350170680304600}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8, z: 0.8}
-  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &114386479590967782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -471,3 +459,16 @@ MonoBehaviour:
   animateOnStart: 1
   visibleOnStart: 1
   speed: 0.2
+--- !u!136 &136759589217628250
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350170680304600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.25, z: 0}

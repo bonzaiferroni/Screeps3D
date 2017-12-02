@@ -8,17 +8,18 @@ namespace Screeps3D {
         
         [SerializeField] private PlainsView plains;
         
+        public WorldCoord Coord { get; private set; }
+        
         private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
         private Queue<JSONObject> roomData = new Queue<JSONObject>();
         private List<string> removeList = new List<string>();
-        private WorldCoord coord;
         private string path;
         private bool awake;
         
         private static Queue<EntityView> queue = new Queue<EntityView>();
 
         public void Load(WorldCoord coord) {
-            this.coord = coord;
+            this.Coord = coord;
             
             if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com") {
                 path = string.Format("room:{0}/{1}", coord.shardName, coord.roomName);
@@ -50,7 +51,7 @@ namespace Screeps3D {
         }
 
         private void OnDestroy() {
-            if (ScreepsAPI.Instance.Socket != null && coord != null) {
+            if (ScreepsAPI.Instance.Socket != null && Coord != null) {
                 ScreepsAPI.Instance.Socket.Unsub(path);
             }
         }
@@ -72,7 +73,8 @@ namespace Screeps3D {
                 var datum = objects[id];
 
                 if (!roomObjects.ContainsKey(id)) {
-                    roomObjects[id] = ObjectManager.Instance.GetInstance(id, datum, this);
+                    roomObjects[id] = ObjectManager.Instance.GetInstance(id, datum);
+                    roomObjects[id].EnterRoom(this);
                 } 
             }
 
@@ -86,7 +88,7 @@ namespace Screeps3D {
                     datum = objects[id];
                 }
                 if (datum != null && datum.IsNull) {
-                    ObjectManager.Instance.Remove(id, coord.roomName);
+                    roomObject.LeaveRoom(this);
                     removeList.Add(id);
                 } else {
                     roomObject.Delta(datum);   

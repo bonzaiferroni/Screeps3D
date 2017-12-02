@@ -21,7 +21,9 @@ public class FadePanel : MonoBehaviour {
     public void Show(bool show, bool instant = false) {
         if (show) {
             target = 1;
+            cgroup.blocksRaycasts = true;
         } else {
+            cgroup.blocksRaycasts = false;
             target = 0;
         }
 
