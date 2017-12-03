@@ -7,23 +7,23 @@ namespace Screeps3D
 {
     public class RoomChooser : MonoBehaviour
     {
-        [SerializeField] private TMP_Dropdown shardInput;
-        [SerializeField] private TMP_InputField roomInput;
-        [SerializeField] private ScreepsAPI api;
-        [SerializeField] private FadePanel panel;
         public Action<WorldCoord> OnChooseRoom;
-        private List<string> shards = new List<string>();
+        
+        [SerializeField] private TMP_Dropdown _shardInput;
+        [SerializeField] private TMP_InputField _roomInput;
+        [SerializeField] private FadePanel _panel;
+        private List<string> _shards = new List<string>();
 
         private void Start()
         {
-            roomInput.onSubmit.AddListener(ChooseRoom);
-            api.OnConnectionStatusChange += OnConnectionStatusChange;
-            panel.Show(false, true);
+            _roomInput.onSubmit.AddListener(ChooseRoom);
+            ScreepsAPI.Instance.OnConnectionStatusChange += OnConnectionStatusChange;
+            _panel.Show(false, true);
         }
 
         private void ChooseRoom(string roomName)
         {
-            var coord = WorldCoord.Get(roomInput.text, shards[shardInput.value]);
+            var coord = WorldCoord.Get(_roomInput.text, _shards[_shardInput.value]);
             if (coord == null)
             {
                 Debug.Log("invalid room");
@@ -34,10 +34,10 @@ namespace Screeps3D
 
         private void OnConnectionStatusChange(bool isConnected)
         {
-            panel.Show(isConnected);
+            _panel.Show(isConnected);
             if (!isConnected)
                 return;
-            api.Http.GetRooms(api.Me.userId, InitializeChooser);
+            ScreepsAPI.Instance.Http.GetRooms(ScreepsAPI.Instance.Me.userId, InitializeChooser);
         }
 
         private void InitializeChooser(string str)
@@ -47,37 +47,37 @@ namespace Screeps3D
             var shardObj = obj["shards"];
             if (shardObj != null)
             {
-                shardInput.gameObject.SetActive(true);
+                _shardInput.gameObject.SetActive(true);
 
-                shards.Clear();
+                _shards.Clear();
                 var count = 0;
                 foreach (var shardName in shardObj.keys)
                 {
-                    shards.Add(shardName);
+                    _shards.Add(shardName);
                     var roomList = shardObj[shardName].list;
-                    if (roomList.Count > 0 && roomInput.text.Length == 0)
+                    if (roomList.Count > 0 && _roomInput.text.Length == 0)
                     {
-                        shardInput.value = count;
-                        roomInput.text = roomList[0].str;
+                        _shardInput.value = count;
+                        _roomInput.text = roomList[0].str;
                     }
                     count++;
                 }
             } else
             {
-                shardInput.gameObject.SetActive(false);
-                shards.Clear();
-                shards.Add("shard0");
-                shardInput.value = 0;
+                _shardInput.gameObject.SetActive(false);
+                _shards.Clear();
+                _shards.Add("shard0");
+                _shardInput.value = 0;
 
                 var roomObj = obj["rooms"];
                 if (roomObj != null && roomObj.list.Count > 0)
-                    roomInput.text = roomObj.list[0].str;
+                    _roomInput.text = roomObj.list[0].str;
             }
 
-            shardInput.options.Clear();
-            foreach (var shardName in shards)
+            _shardInput.options.Clear();
+            foreach (var shardName in _shards)
             {
-                shardInput.options.Add(new TMP_Dropdown.OptionData(shardName));
+                _shardInput.options.Add(new TMP_Dropdown.OptionData(shardName));
             }
 
             ChooseRoom("");

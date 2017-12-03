@@ -5,12 +5,12 @@ namespace Screeps3D.Components
 {
     public class TerminalView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private ScaleVisAxes energyDisplay;
-        private Terminal terminal;
+        [SerializeField] private ScaleVisAxes _energyDisplay;
+        private Terminal _terminal;
 
         public void Init(RoomObject roomObject)
         {
-            terminal = roomObject as Terminal;
+            _terminal = roomObject as Terminal;
             AdjustScale();
         }
 
@@ -21,7 +21,7 @@ namespace Screeps3D.Components
 
         private void AdjustScale()
         {
-            energyDisplay.Visible(terminal.Energy / terminal.EnergyCapacity);
+            _energyDisplay.Visible(_terminal.Energy / _terminal.EnergyCapacity);
         }
     }
 }

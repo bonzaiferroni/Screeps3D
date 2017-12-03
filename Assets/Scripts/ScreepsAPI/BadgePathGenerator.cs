@@ -6,11 +6,11 @@ namespace Screeps3D
 {
     internal class BadgePathGenerator
     {
-        private Dictionary<int, Action<SvgParams>> algorithms = new Dictionary<int, Action<SvgParams>>();
+        private Dictionary<int, Action<SvgParams>> _algorithms = new Dictionary<int, Action<SvgParams>>();
 
         internal BadgePathGenerator()
         {
-            algorithms[1] = svg =>
+            _algorithms[1] = svg =>
             {
                 float vert = 0, hor = 0;
                 if (svg.param > 0)
@@ -25,7 +25,7 @@ namespace Screeps3D
                 svg.path2 = ("M " + hor + " 50 H " + (100 - hor) + " L 50 " + vert + " Z");
                 svg.rotation = 0;
             };
-            algorithms[2] = svg =>
+            _algorithms[2] = svg =>
             {
                 float x = 0, y = 0;
                 if (svg.param > 0)
@@ -41,7 +41,7 @@ namespace Screeps3D
                              " V 101 H -1 Z");
                 svg.rotation = 0;
             };
-            algorithms[3] = svg =>
+            _algorithms[3] = svg =>
             {
                 float angle = Mathf.PI / 4 + Mathf.PI / 4 * (svg.param + 100) / 200,
                     angle1 = -Mathf.PI / 2,
@@ -61,7 +61,7 @@ namespace Screeps3D
                              (50 + 100 * Mathf.Sin(angle3 + angle / 2)));
                 svg.rotation = 180;
             };
-            algorithms[4] = svg =>
+            _algorithms[4] = svg =>
             {
                 svg.param += 100;
                 float y1 = 50 - svg.param * 30 / 200, y2 = 50 + svg.param * 30 / 200;
@@ -69,7 +69,7 @@ namespace Screeps3D
                 svg.path2 = svg.param > 0 ? ("M 0 " + y1 + " H 100 V " + y2 + " H 0 Z") : "";
                 svg.rotation = 90;
             };
-            algorithms[5] = svg =>
+            _algorithms[5] = svg =>
             {
                 svg.param += 100;
                 float x1 = 50 - svg.param * 10 / 200 - 10, x2 = 50 + svg.param * 10 / 200 + 10;
@@ -77,7 +77,7 @@ namespace Screeps3D
                 svg.path2 = ("M 0 " + x1 + " H 100 V " + x2 + " H 0 Z");
                 svg.rotation = 45;
             };
-            algorithms[6] = svg =>
+            _algorithms[6] = svg =>
             {
                 float width = 5 + (svg.param + 100) * 8 / 200,
                     x1 = 50,
@@ -88,7 +88,7 @@ namespace Screeps3D
                              (x3 - width) + " 0 H " + (x3 + width) + " V 100 H " + (x3 - width) + " Z");
                 svg.rotation = 90;
             };
-            algorithms[7] = svg =>
+            _algorithms[7] = svg =>
             {
                 var w = 20 + svg.param * 10 / 100;
                 svg.path1 = "M 0 50 Q 25 30 50 50 T 100 50 V 100 H 0 Z";
@@ -96,7 +96,7 @@ namespace Screeps3D
                              " V " + (50 + w) + " Q 75 " + (70 + w) + " 50 " + (50 + w) + " T 0 " + (50 + w) + " Z");
                 svg.rotation = 90;
             };
-            algorithms[8] = svg =>
+            _algorithms[8] = svg =>
             {
                 var y = svg.param * 20 / 100;
                 svg.path1 = "M 0 50 H 100 V 100 H 0 Z";
@@ -104,7 +104,7 @@ namespace Screeps3D
 
                 svg.rotation = 90;
             };
-            algorithms[9] = svg =>
+            _algorithms[9] = svg =>
             {
                 float y1 = 0,
                     y2 = 50,
@@ -117,7 +117,7 @@ namespace Screeps3D
                 svg.path2 = ("M 50 " + (y1 + y2) + " L 100 " + (y1 + y2 + h) + " V 101 H 0 V " + (y1 + y2 + h) + " Z");
                 svg.rotation = 180;
             };
-            algorithms[10] = svg =>
+            _algorithms[10] = svg =>
             {
                 float r = 30, d = 7;
                 if (svg.param > 0)
@@ -130,7 +130,7 @@ namespace Screeps3D
                              " " + (50 + r) + " H -1 V " + (50 - r) + " Z");
                 svg.rotation = 90;
             };
-            algorithms[11] = svg =>
+            _algorithms[11] = svg =>
             {
                 float a1 = 30,
                     a2 = 30,
@@ -153,7 +153,7 @@ namespace Screeps3D
                              " V 100 H " + x + " Z");
                 svg.rotation = 90;
             };
-            algorithms[12] = svg =>
+            _algorithms[12] = svg =>
             {
                 float a1 = 30,
                     a2 = 35;
@@ -166,7 +166,7 @@ namespace Screeps3D
                              " V 100 H 100 Z");
                 svg.rotation = 180;
             };
-            algorithms[13] = svg =>
+            _algorithms[13] = svg =>
             {
                 float r = 30,
                     d = 0;
@@ -180,7 +180,7 @@ namespace Screeps3D
 
                 svg.rotation = 180;
             };
-            algorithms[14] = svg =>
+            _algorithms[14] = svg =>
             {
                 float a = Mathf.PI / 4,
                     d = 0;
@@ -192,7 +192,7 @@ namespace Screeps3D
 
                 svg.rotation = 180;
             };
-            algorithms[15] = svg =>
+            _algorithms[15] = svg =>
             {
                 float w = 13 + svg.param * 6 / 100,
                     r1 = 80,
@@ -207,7 +207,7 @@ namespace Screeps3D
 
                 svg.rotation = 180;
             };
-            algorithms[16] = svg =>
+            _algorithms[16] = svg =>
             {
                 float a = 30 * Mathf.PI / 180,
                     d = 25;
@@ -243,7 +243,7 @@ namespace Screeps3D
                 }
                 svg.rotation = 0;
             };
-            algorithms[17] = svg =>
+            _algorithms[17] = svg =>
             {
                 float w = 35,
                     h = 45;
@@ -259,7 +259,7 @@ namespace Screeps3D
                 svg.path2 = ("M 50 0 L " + (50 - w) + " " + h + " H " + (50 + w) + " Z");
                 svg.rotation = 0;
             };
-            algorithms[18] = svg =>
+            _algorithms[18] = svg =>
             {
                 float a = 90 * Mathf.PI / 180,
                     d = 10;
@@ -291,7 +291,7 @@ namespace Screeps3D
                 }
                 svg.rotation = 180;
             };
-            algorithms[19] = svg =>
+            _algorithms[19] = svg =>
             {
                 float w2 = 20,
                     w1 = 60;
@@ -305,7 +305,7 @@ namespace Screeps3D
                 }
                 svg.rotation = 180;
             };
-            algorithms[20] = svg =>
+            _algorithms[20] = svg =>
             {
                 float w = 10,
                     h = 20;
@@ -317,7 +317,7 @@ namespace Screeps3D
                 svg.path2 = ("M " + (50 + w) + " 0 V " + (50 + h) + " H 100 V 0 Z");
                 svg.rotation = 90;
             };
-            algorithms[21] = svg =>
+            _algorithms[21] = svg =>
             {
                 float w = 40,
                     h = 50;
@@ -332,7 +332,7 @@ namespace Screeps3D
 
                 svg.rotation = 45;
             };
-            algorithms[22] = svg =>
+            _algorithms[22] = svg =>
             {
                 float w = 20;
                 w += svg.param * 10 / 100;
@@ -351,7 +351,7 @@ namespace Screeps3D
 
                 svg.rotation = 45;
             };
-            algorithms[23] = svg =>
+            _algorithms[23] = svg =>
             {
                 float w = 17,
                     h = 25;
@@ -374,7 +374,7 @@ namespace Screeps3D
 
                 svg.rotation = 90;
             };
-            algorithms[24] = svg =>
+            _algorithms[24] = svg =>
             {
                 float w = 50,
                     h = 45;
@@ -408,10 +408,10 @@ namespace Screeps3D
 
         private void Generate(int type, SvgParams badgeParams)
         {
-            var algorithm = algorithms[1];
-            if (algorithms.ContainsKey(type))
+            var algorithm = _algorithms[1];
+            if (_algorithms.ContainsKey(type))
             {
-                algorithm = algorithms[type];
+                algorithm = _algorithms[type];
             }
             algorithm(badgeParams);
         }

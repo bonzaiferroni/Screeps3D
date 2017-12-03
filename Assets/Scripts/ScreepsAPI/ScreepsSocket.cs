@@ -9,8 +9,8 @@ namespace Screeps3D
     public class ScreepsSocket : MonoBehaviour
     {
         private WebSocket Socket { get; set; }
-        private ScreepsAPI api;
-        private Dictionary<string, Action<JSONObject>> subscriptions = new Dictionary<string, Action<JSONObject>>();
+        private ScreepsAPI _api;
+        private Dictionary<string, Action<JSONObject>> _subscriptions = new Dictionary<string, Action<JSONObject>>();
 
         public Action<EventArgs> OnOpen;
         public Action<CloseEventArgs> OnClose;
@@ -20,7 +20,7 @@ namespace Screeps3D
 
         public void Init(ScreepsAPI screepsApi)
         {
-            api = screepsApi;
+            _api = screepsApi;
         }
 
         private void OnDestroy()
@@ -36,10 +36,10 @@ namespace Screeps3D
                 Socket.Close();
             }
 
-            var protocol = api.Address.ssl ? "wss" : "ws";
-            var port = api.Address.ssl ? "443" : api.Address.port;
+            var protocol = _api.Address.ssl ? "wss" : "ws";
+            var port = _api.Address.ssl ? "443" : _api.Address.port;
             Socket = new WebSocket(
-                string.Format("{0}://{1}:{2}/socket/websocket", protocol, api.Address.hostName, port));
+                string.Format("{0}://{1}:{2}/socket/websocket", protocol, _api.Address.hostName, port));
             Socket.OnOpen += Open;
             Socket.OnError += Error;
             Socket.OnMessage += Message;
@@ -52,7 +52,7 @@ namespace Screeps3D
             try
             {
                 Debug.Log("Socket Open");
-                Socket.Send(string.Format("auth {0}", api.Http.Token));
+                Socket.Send(string.Format("auth {0}", _api.Http.Token));
                 if (OnOpen != null) OnOpen.Invoke(e);
             } catch (Exception exception)
             {
@@ -110,19 +110,19 @@ namespace Screeps3D
         private void FindSubscription(JSONObject json)
         {
             var list = json.list;
-            if (list == null || list.Count < 2 || !list[0].IsString || !subscriptions.ContainsKey(list[0].str))
+            if (list == null || list.Count < 2 || !list[0].IsString || !_subscriptions.ContainsKey(list[0].str))
             {
                 return;
             }
 
-            subscriptions[list[0].str].Invoke(list[1]);
+            _subscriptions[list[0].str].Invoke(list[1]);
         }
 
         public void Subscribe(string path, Action<JSONObject> callback)
         {
             Debug.Log("subscribing " + path);
             Socket.Send(string.Format("subscribe {0}", path));
-            subscriptions[path] = callback;
+            _subscriptions[path] = callback;
         }
 
         public void Unsub(string path, Action<JSONObject> callback = null)
@@ -130,14 +130,14 @@ namespace Screeps3D
             Socket.Send(string.Format("unsubscribe {0}", path));
             if (callback != null)
             {
-                subscriptions[path] = callback;
+                _subscriptions[path] = callback;
             }
         }
 
         private void UnsubAll()
         {
             if (Socket == null) return;
-            foreach (var kvp in subscriptions)
+            foreach (var kvp in _subscriptions)
             {
                 Unsub(kvp.Key);
             }

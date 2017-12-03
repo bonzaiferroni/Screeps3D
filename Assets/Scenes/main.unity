@@ -303,33 +303,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 28321548}
---- !u!84 &37209814
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 1036
-  m_Height: 594
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &44460850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,10 +2424,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50633b3935a9472298a970fc954d2602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shardInput: {fileID: 1901202198}
-  roomInput: {fileID: 458850688}
-  api: {fileID: 1015231801}
-  panel: {fileID: 568419309}
+  _shardInput: {fileID: 1901202198}
+  _roomInput: {fileID: 458850688}
+  _panel: {fileID: 568419309}
 --- !u!114 &568419312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2593,6 +2565,33 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 594286672}
+--- !u!84 &620828382
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 1036
+  m_Height: 594
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &623343829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,7 +2759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3bac8cfed2454bb6dab663d1ea468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 623343831}
+  _text: {fileID: 623343831}
 --- !u!1 &627478952
 GameObject:
   m_ObjectHideFlags: 0
@@ -3842,33 +3841,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 875367417}
---- !u!84 &905463351
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 1036
-  m_Height: 594
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &915220029
 GameObject:
   m_ObjectHideFlags: 0
@@ -4180,7 +4152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5241cdbf45e94425b797ae67c86b80c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  api: {fileID: 1015231801}
 --- !u!1 &1002996917
 GameObject:
   m_ObjectHideFlags: 0
@@ -4434,8 +4405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56454df3680641c989974dd38c910ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  console: {fileID: 1234517179}
-  api: {fileID: 1015231801}
+  _console: {fileID: 1234517179}
 --- !u!114 &1015231803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4458,7 +4428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bdcf027e39d403bb5cfe44f7ebda5f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  api: {fileID: 1015231801}
+  _api: {fileID: 1015231801}
 --- !u!114 &1015231805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4587,14 +4557,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165417c91686479a87fcce440341465d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  api: {fileID: 1015231801}
-  save: {fileID: 1724569941}
-  ssl: {fileID: 652182903}
-  server: {fileID: 401738549}
-  port: {fileID: 1500757155}
-  email: {fileID: 1610299524}
-  passwordInput: {fileID: 809207146}
-  connect: {fileID: 1520085523}
+  _api: {fileID: 1015231801}
+  _save: {fileID: 1724569941}
+  _ssl: {fileID: 652182903}
+  _server: {fileID: 401738549}
+  _port: {fileID: 1500757155}
+  _email: {fileID: 1610299524}
+  _passwordInput: {fileID: 809207146}
+  _connect: {fileID: 1520085523}
   panel: {fileID: 1032182221}
   secret: abc123
 --- !u!114 &1032182220
@@ -4842,8 +4812,8 @@ MonoBehaviour:
   sourceCamera: {fileID: 1068630257}
   outlineCamera: {fileID: 2131013560}
   outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 905463351}
-  extraRenderTexture: {fileID: 37209814}
+  renderTexture: {fileID: 1805378429}
+  extraRenderTexture: {fileID: 620828382}
 --- !u!114 &1068630260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5266,10 +5236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3e71d6f55d43cdacd2592450f31bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prototype: {fileID: 623343833}
-  input: {fileID: 2123806409}
-  panel: {fileID: 1234517181}
-  content: {fileID: 1551818149}
+  _prototype: {fileID: 623343833}
+  _input: {fileID: 2123806409}
+  _panel: {fileID: 1234517181}
+  _content: {fileID: 1551818149}
 --- !u!114 &1234517180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7163,7 +7133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b970003b2c5744959cc8af61e15df8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
+  _prefabs:
   - {fileID: 1137001014801080, guid: a88b04accfe05f34c96865843ce51b92, type: 2}
   - {fileID: 1377937105876332, guid: 31ec8a296ef5d2e4c9e41491e90c0759, type: 2}
   - {fileID: 1326871108391646, guid: 9067dfb1f6972f344bec85cf13f4acd6, type: 2}
@@ -7209,9 +7179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3172325585264292a00b993f0bcbafa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 1467818047593562, guid: 9ade2597fd08a5b42944e8b9dd3b8097, type: 2}
-  chooser: {fileID: 568419311}
-  playerGaze: {fileID: 991674691}
+  _roomPrefab: {fileID: 1467818047593562, guid: 9ade2597fd08a5b42944e8b9dd3b8097,
+    type: 2}
+  _chooser: {fileID: 568419311}
+  _playerGaze: {fileID: 991674691}
 --- !u!4 &1655190418
 Transform:
   m_ObjectHideFlags: 0
@@ -7671,6 +7642,33 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1734633930}
+--- !u!84 &1805378429
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 1036
+  m_Height: 594
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1811440189
 GameObject:
   m_ObjectHideFlags: 0
@@ -9081,7 +9079,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 0
   m_RenderingPath: 1
-  m_TargetTexture: {fileID: 905463351}
+  m_TargetTexture: {fileID: 1805378429}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0

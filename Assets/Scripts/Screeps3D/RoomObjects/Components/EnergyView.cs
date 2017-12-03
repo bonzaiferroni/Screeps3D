@@ -5,13 +5,13 @@ namespace Screeps3D.Components
 {
     public class EnergyView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private ScaleVis energyDisplay;
+        [SerializeField] private ScaleVis _energyDisplay;
 
-        private IEnergyObject energyObject;
+        private IEnergyObject _energyObject;
 
         public void Init(RoomObject roomObject)
         {
-            energyObject = roomObject as IEnergyObject;
+            _energyObject = roomObject as IEnergyObject;
             AdjustScale();
         }
 
@@ -22,7 +22,7 @@ namespace Screeps3D.Components
 
         private void AdjustScale()
         {
-            energyDisplay.Visible(energyObject.Energy / energyObject.EnergyCapacity);
+            _energyDisplay.Visible(_energyObject.Energy / _energyObject.EnergyCapacity);
         }
     }
 }

@@ -8,11 +8,11 @@ namespace Screeps3D
     {
         internal RoomObject RoomObject { get; private set; }
         internal IScreepsComponent[] components;
-        private ScaleVis vis;
+        private ScaleVis _vis;
 
         public bool IsVisible
         {
-            get { return vis.IsVisible; }
+            get { return _vis.IsVisible; }
         }
 
         internal virtual void Init(RoomObject roomObject)
@@ -20,8 +20,8 @@ namespace Screeps3D
             if (components == null)
             {
                 components = GetComponentsInChildren<IScreepsComponent>();
-                vis = GetComponent<ScaleVis>();
-                vis.OnFinishedAnimation += OnFinishedAnimation;
+                _vis = GetComponent<ScaleVis>();
+                _vis.OnFinishedAnimation += OnFinishedAnimation;
             }
 
             RoomObject = roomObject;
@@ -51,12 +51,12 @@ namespace Screeps3D
 
         internal void Show()
         {
-            vis.Show();
+            _vis.Show();
         }
 
         internal void Hide()
         {
-            vis.Hide();
+            _vis.Hide();
         }
     }
 

@@ -6,12 +6,12 @@ namespace Screeps3D.RoomObjects.Components
 {
     public class ContainerView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private ScaleVisAxes energyDisplay;
-        private Container container;
+        [SerializeField] private ScaleVisAxes _energyDisplay;
+        private Container _container;
 
         public void Init(RoomObject roomObject)
         {
-            container = roomObject as Container;
+            _container = roomObject as Container;
             AdjustScale();
         }
 
@@ -22,7 +22,7 @@ namespace Screeps3D.RoomObjects.Components
 
         private void AdjustScale()
         {
-            energyDisplay.Visible(container.Energy / container.EnergyCapacity);
+            _energyDisplay.Visible(_container.Energy / _container.EnergyCapacity);
         }
     }
 }

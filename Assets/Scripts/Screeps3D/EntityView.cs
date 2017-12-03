@@ -7,15 +7,15 @@ namespace Screeps3D
 {
     public class EntityView : MonoBehaviour
     {
-        [SerializeField] private PlainsView plains;
+        [SerializeField] private PlainsView _plains;
 
         public WorldCoord Coord { get; private set; }
 
-        private Dictionary<string, RoomObject> roomObjects = new Dictionary<string, RoomObject>();
-        private Queue<JSONObject> roomData = new Queue<JSONObject>();
-        private List<string> removeList = new List<string>();
-        private string path;
-        private bool awake;
+        private Dictionary<string, RoomObject> _roomObjects = new Dictionary<string, RoomObject>();
+        private Queue<JSONObject> _roomData = new Queue<JSONObject>();
+        private List<string> _removeList = new List<string>();
+        private string _path;
+        private bool _awake;
 
         private static Queue<EntityView> queue = new Queue<EntityView>();
 
@@ -25,16 +25,16 @@ namespace Screeps3D
 
             if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
             {
-                path = string.Format("room:{0}/{1}", coord.shardName, coord.roomName);
+                _path = string.Format("room:{0}/{1}", coord.shardName, coord.roomName);
             } else
             {
-                path = string.Format("room:{0}", coord.roomName);
+                _path = string.Format("room:{0}", coord.roomName);
             }
         }
 
         public void Wake()
         {
-            if (awake)
+            if (_awake)
                 return;
 
             if (queue.Count >= 2)
@@ -44,37 +44,37 @@ namespace Screeps3D
             }
             queue.Enqueue(this);
 
-            Debug.Log("subscribing: " + path);
-            ScreepsAPI.Instance.Socket.Subscribe(path, OnRoomData);
-            plains.Highlight();
-            awake = true;
+            Debug.Log("subscribing: " + _path);
+            ScreepsAPI.Instance.Socket.Subscribe(_path, OnRoomData);
+            _plains.Highlight();
+            _awake = true;
         }
 
         private void Sleep()
         {
-            ScreepsAPI.Instance.Socket.Unsub(path);
-            plains.Dim();
-            awake = false;
+            ScreepsAPI.Instance.Socket.Unsub(_path);
+            _plains.Dim();
+            _awake = false;
         }
 
         private void OnDestroy()
         {
             if (ScreepsAPI.Instance.Socket != null && Coord != null)
             {
-                ScreepsAPI.Instance.Socket.Unsub(path);
+                ScreepsAPI.Instance.Socket.Unsub(_path);
             }
         }
 
         private void OnRoomData(JSONObject data)
         {
-            roomData.Enqueue(data);
+            _roomData.Enqueue(data);
         }
 
         private void Update()
         {
-            if (roomData.Count == 0)
+            if (_roomData.Count == 0)
                 return;
-            RenderEntities(roomData.Dequeue());
+            RenderEntities(_roomData.Dequeue());
         }
 
         private void RenderEntities(JSONObject data)
@@ -85,15 +85,15 @@ namespace Screeps3D
             {
                 var datum = objects[id];
 
-                if (!roomObjects.ContainsKey(id))
+                if (!_roomObjects.ContainsKey(id))
                 {
-                    roomObjects[id] = ObjectManager.Instance.GetInstance(id, datum);
-                    roomObjects[id].EnterRoom(this);
+                    _roomObjects[id] = ObjectManager.Instance.GetInstance(id, datum);
+                    _roomObjects[id].EnterRoom(this);
                 }
             }
 
-            removeList.Clear();
-            foreach (var kvp in roomObjects)
+            _removeList.Clear();
+            foreach (var kvp in _roomObjects)
             {
                 var id = kvp.Key;
                 var roomObject = kvp.Value;
@@ -106,16 +106,16 @@ namespace Screeps3D
                 if (datum != null && datum.IsNull)
                 {
                     roomObject.LeaveRoom(this);
-                    removeList.Add(id);
+                    _removeList.Add(id);
                 } else
                 {
                     roomObject.Delta(datum);
                 }
             }
 
-            foreach (var id in removeList)
+            foreach (var id in _removeList)
             {
-                roomObjects.Remove(id);
+                _roomObjects.Remove(id);
             }
         }
 

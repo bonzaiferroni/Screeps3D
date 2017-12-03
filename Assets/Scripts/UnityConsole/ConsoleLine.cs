@@ -4,37 +4,37 @@ using UnityEngine.UI;
 
 public class ConsoleLine : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI text;
-    private float target;
-    private float targetRef;
+    [SerializeField] private TextMeshProUGUI _text;
+    private float _target;
+    private float _targetRef;
 
     private float Alpha
     {
-        get { return text.color.a; }
+        get { return _text.color.a; }
         set
         {
-            var color = text.color;
+            var color = _text.color;
             color.a = value;
-            text.color = color;
+            _text.color = color;
         }
     }
 
     public string Text
     {
-        get { return text.text; }
+        get { return _text.text; }
         set
         {
-            text.text = value;
-            text.parseCtrlCharacters = true;
+            _text.text = value;
+            _text.parseCtrlCharacters = true;
         }
     }
 
     public Color Color
     {
-        get { return text.color; }
+        get { return _text.color; }
         set
         {
-            text.color = value;
+            _text.color = value;
             Alpha = 0;
         }
     }
@@ -43,28 +43,28 @@ public class ConsoleLine : MonoBehaviour
     {
         enabled = true;
         Alpha = 0;
-        target = 0;
+        _target = 0;
     }
 
     public void Show()
     {
         enabled = true;
-        target = 1;
+        _target = 1;
     }
 
     public float Height
     {
-        get { return text.preferredHeight; }
+        get { return _text.preferredHeight; }
     }
 
     public void Update()
     {
-        if (Mathf.Abs(Alpha - target) < .01)
+        if (Mathf.Abs(Alpha - _target) < .01)
         {
             enabled = false;
             return;
         }
 
-        Alpha = Mathf.SmoothDamp(Alpha, target, ref targetRef, .2f);
+        Alpha = Mathf.SmoothDamp(Alpha, _target, ref _targetRef, .2f);
     }
 }

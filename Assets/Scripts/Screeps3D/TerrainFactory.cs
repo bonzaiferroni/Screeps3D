@@ -6,14 +6,14 @@ namespace Screeps3D
 {
     public class TerrainFactory : MonoBehaviour
     {
-        [SerializeField] private GameObject wallPrototype;
-        [SerializeField] private GameObject swampPrototype;
+        [SerializeField] private GameObject _wallPrototype;
+        [SerializeField] private GameObject _swampPrototype;
 
         public void Start()
         {
             // plainsPrototype.SetActive(false);
-            swampPrototype.SetActive(false);
-            wallPrototype.SetActive(false);
+            _swampPrototype.SetActive(false);
+            _wallPrototype.SetActive(false);
         }
 
         public GameObject Get(TerrainType type)
@@ -21,10 +21,10 @@ namespace Screeps3D
             GameObject prototype;
             if (type == TerrainType.Swamp)
             {
-                prototype = swampPrototype;
+                prototype = _swampPrototype;
             } else if (type == TerrainType.Wall)
             {
-                prototype = wallPrototype;
+                prototype = _wallPrototype;
             } else
             {
                 throw new Exception("invalid terrain type: " + type);

@@ -5,25 +5,25 @@ namespace Screeps3D
 {
     internal class RoadView : MonoBehaviour
     {
-        private int x;
-        private int y;
-        private MapView mapView;
-        private Dictionary<string, Renderer> offshoots;
+        private int _x;
+        private int _y;
+        private MapView _mapView;
+        private Dictionary<string, Renderer> _offshoots;
 
         public void Init(MapView mapView, int x, int y)
         {
-            if (offshoots == null)
+            if (_offshoots == null)
             {
-                offshoots = new Dictionary<string, Renderer>();
+                _offshoots = new Dictionary<string, Renderer>();
                 foreach (var renderer in GetComponentsInChildren<Renderer>())
                 {
-                    offshoots[renderer.gameObject.name] = renderer;
+                    _offshoots[renderer.gameObject.name] = renderer;
                 }
             }
 
-            this.x = x;
-            this.y = y;
-            this.mapView = mapView;
+            this._x = x;
+            this._y = y;
+            this._mapView = mapView;
             CheckNeighbors();
         }
 
@@ -34,20 +34,20 @@ namespace Screeps3D
             {
                 for (var yDelta = -1; yDelta <= 1; yDelta++)
                 {
-                    var rx = x + xDelta;
-                    var ry = y + yDelta;
+                    var rx = _x + xDelta;
+                    var ry = _y + yDelta;
                     if (xDelta == 0 && yDelta == 0)
                         continue;
-                    if (mapView.roads[rx, ry] == null)
+                    if (_mapView.roads[rx, ry] == null)
                         continue;
                     var key = xDelta.ToString() + yDelta.ToString();
-                    offshoots[key].enabled = true;
+                    _offshoots[key].enabled = true;
                     foundOffshoot = true;
                 }
             }
             if (!foundOffshoot)
             {
-                offshoots["base"].enabled = true;
+                _offshoots["base"].enabled = true;
             }
         }
     }

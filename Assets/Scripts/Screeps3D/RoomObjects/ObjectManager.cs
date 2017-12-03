@@ -11,7 +11,7 @@ namespace Screeps3D
     public class ObjectManager : BaseSingleton<ObjectManager>
     {
         public Dictionary<string, RoomObject> RoomObjects { get; private set; }
-        private ObjectFactory factory = new ObjectFactory();
+        private ObjectFactory _factory = new ObjectFactory();
 
         private void Start()
         {
@@ -33,7 +33,7 @@ namespace Screeps3D
 
             var type = typeData.str;
 
-            var roomObject = factory.Get(type);
+            var roomObject = _factory.Get(type);
             roomObject.Init(data);
             RoomObjects[id] = roomObject;
 

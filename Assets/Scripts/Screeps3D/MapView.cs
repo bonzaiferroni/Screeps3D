@@ -8,46 +8,47 @@ namespace Screeps3D
 {
     internal class MapView : MonoBehaviour
     {
-        [SerializeField] private RoadView roadPrototype;
-        private WorldCoord coord;
-        private string path;
-        private bool awake;
         public RoadView[,] roads = new RoadView[50, 50];
-        private Queue<JSONObject> queue = new Queue<JSONObject>();
+        
+        [SerializeField] private RoadView _roadPrototype;
+        private WorldCoord _coord;
+        private string _path;
+        private bool _awake;
+        private Queue<JSONObject> _queue = new Queue<JSONObject>();
 
         public void Load(WorldCoord coord)
         {
-            this.coord = coord;
+            this._coord = coord;
 
             if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
             {
-                path = string.Format("roomMap2:{0}/{1}", coord.shardName, coord.roomName);
+                _path = string.Format("roomMap2:{0}/{1}", coord.shardName, coord.roomName);
             } else
             {
-                path = string.Format("roomMap2:{0}", coord.roomName);
+                _path = string.Format("roomMap2:{0}", coord.roomName);
             }
         }
 
         public void Wake()
         {
-            if (awake)
+            if (_awake)
                 return;
 
-            awake = true;
-            ScreepsAPI.Instance.Socket.Subscribe(path, OnMapData);
+            _awake = true;
+            ScreepsAPI.Instance.Socket.Subscribe(_path, OnMapData);
         }
 
         private void OnMapData(JSONObject obj)
         {
-            queue.Enqueue(obj);
+            _queue.Enqueue(obj);
         }
 
         private void Update()
         {
-            if (queue.Count == 0)
+            if (_queue.Count == 0)
                 return;
 
-            var data = queue.Dequeue();
+            var data = _queue.Dequeue();
             var roadObj = data["r"];
             if (roadObj != null)
             {
@@ -73,7 +74,7 @@ namespace Screeps3D
 
         private RoadView GetRoad()
         {
-            return Instantiate(roadPrototype.gameObject).GetComponent<RoadView>();
+            return Instantiate(_roadPrototype.gameObject).GetComponent<RoadView>();
         }
 
         /*public static string Decompress(string strData) {

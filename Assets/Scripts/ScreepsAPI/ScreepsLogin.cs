@@ -7,24 +7,24 @@ namespace Screeps3D
 {
     public class ScreepsLogin : MonoBehaviour
     {
-        [SerializeField] private ScreepsAPI api;
-        [SerializeField] private Toggle save;
-        [SerializeField] private Toggle ssl;
-        [SerializeField] private TMP_InputField server;
-        [SerializeField] private TMP_InputField port;
-        [SerializeField] private TMP_InputField email;
-        [SerializeField] private TMP_InputField passwordInput;
-        [SerializeField] private Button connect;
+        [SerializeField] private ScreepsAPI _api;
+        [SerializeField] private Toggle _save;
+        [SerializeField] private Toggle _ssl;
+        [SerializeField] private TMP_InputField _server;
+        [SerializeField] private TMP_InputField _port;
+        [SerializeField] private TMP_InputField _email;
+        [SerializeField] private TMP_InputField _passwordInput;
+        [SerializeField] private Button _connect;
         [SerializeField] public FadePanel panel;
         public Action<Credentials, Address> OnSubmit;
         public string secret = "abc123";
 
         private void Start()
         {
-            connect.onClick.AddListener(OnClick);
-            this.save.onValueChanged.AddListener(UpdateSaveSetting);
+            _connect.onClick.AddListener(OnClick);
+            this._save.onValueChanged.AddListener(UpdateSaveSetting);
             RefreshSavedSettings();
-            api.OnConnectionStatusChange += OnConnectionStatusChange;
+            _api.OnConnectionStatusChange += OnConnectionStatusChange;
             panel.Show(false, true);
             panel.Show(); // fade in
         }
@@ -40,29 +40,29 @@ namespace Screeps3D
             Debug.Log(string.Format("save value: {0}", save));
             if (save == 1)
             {
-                this.save.isOn = true;
+                this._save.isOn = true;
                 var port = PlayerPrefs.GetString("port");
                 if (port != null)
                 {
-                    this.server.text = port;
+                    this._server.text = port;
                 }
 
 
                 var server = PlayerPrefs.GetString("server");
                 if (server != null)
                 {
-                    this.server.text = server;
+                    this._server.text = server;
                 }
                 var email = PlayerPrefs.GetString("email");
                 if (email != null)
                 {
-                    this.email.text = email;
+                    this._email.text = email;
                 }
                 var encryptedPassword = PlayerPrefs.GetString("password");
                 var password = Crypto.DecryptStringAES(encryptedPassword, secret);
                 var ssl = PlayerPrefs.GetInt("ssl");
-                this.ssl.isOn = ssl == 1;
-                this.passwordInput.text = password;
+                this._ssl.isOn = ssl == 1;
+                this._passwordInput.text = password;
             }
         }
 
@@ -78,30 +78,30 @@ namespace Screeps3D
 
         private void OnClick()
         {
-            if (save.isOn)
+            if (_save.isOn)
             {
-                PlayerPrefs.SetString("port", port.text);
-                PlayerPrefs.SetString("server", server.text);
-                PlayerPrefs.SetString("email", email.text);
-                var password = this.passwordInput.text;
+                PlayerPrefs.SetString("port", _port.text);
+                PlayerPrefs.SetString("server", _server.text);
+                PlayerPrefs.SetString("email", _email.text);
+                var password = this._passwordInput.text;
                 var encryptedPassword = Crypto.EncryptStringAES(password, secret);
                 PlayerPrefs.SetString("password", encryptedPassword);
-                PlayerPrefs.SetInt("ssl", ssl.isOn ? 1 : 0);
+                PlayerPrefs.SetInt("ssl", _ssl.isOn ? 1 : 0);
             }
 
             var credentials = new Credentials
             {
-                email = email.text,
-                password = passwordInput.text
+                email = _email.text,
+                password = _passwordInput.text
             };
             var address = new Address
             {
-                hostName = server.text,
+                hostName = _server.text,
                 path = "/",
-                ssl = this.ssl.isOn,
-                port = port.text
+                ssl = this._ssl.isOn,
+                port = _port.text
             };
-            api.Connect(credentials, address);
+            _api.Connect(credentials, address);
         }
     }
 

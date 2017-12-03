@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class RotateObserver : MonoBehaviour
 {
-    private const float maxRandomDelta = 80;
-    private const float targetDelay = 1;
+    private const float MAX_RANDOM_DELTA = 80;
+    private const float TARGET_DELAY = 1;
 
-    private float nextTarget;
-    private Quaternion[] rotations;
-    private Quaternion target;
+    private float _nextTarget;
+    private Quaternion[] _rotations;
+    private Quaternion _target;
 
     // Use this for initialization
     void Start()
     {
-        rotations = new Quaternion[5];
+        _rotations = new Quaternion[5];
         var initial = transform.rotation.eulerAngles;
         for (var i = 0; i < 5; i++)
         {
-            rotations[i] = Quaternion.Euler(Randomize(initial.x), Randomize(initial.y), initial.z);
+            _rotations[i] = Quaternion.Euler(Randomize(initial.x), Randomize(initial.y), initial.z);
         }
     }
 
@@ -31,18 +31,18 @@ public class RotateObserver : MonoBehaviour
 
     private void RotateTowardTarget()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, _target, Time.deltaTime);
     }
 
     private void FindNewTarget()
     {
-        if (nextTarget > Time.time) return;
-        nextTarget = Time.time + targetDelay;
-        target = rotations[(int) (rotations.Length * Random.value)];
+        if (_nextTarget > Time.time) return;
+        _nextTarget = Time.time + TARGET_DELAY;
+        _target = _rotations[(int) (_rotations.Length * Random.value)];
     }
 
     private float Randomize(float value)
     {
-        return value + (Random.value * maxRandomDelta * 2) - maxRandomDelta;
+        return value + (Random.value * MAX_RANDOM_DELTA * 2) - MAX_RANDOM_DELTA;
     }
 }

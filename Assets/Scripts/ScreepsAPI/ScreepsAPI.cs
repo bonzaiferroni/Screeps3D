@@ -23,7 +23,7 @@ namespace Screeps3D
         public UserManager UserManager { get; private set; }
         public Action<bool> OnConnectionStatusChange;
 
-        private string token;
+        private string _token;
 
         public bool IsConnected { get; private set; }
 

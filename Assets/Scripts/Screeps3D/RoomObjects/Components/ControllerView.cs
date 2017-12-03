@@ -4,27 +4,27 @@ namespace Screeps3D
 {
     public class ControllerView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private Renderer rend;
-        private Texture2D texture;
-        private Color controllerWhite;
-        private Controller controller;
+        [SerializeField] private Renderer _rend;
+        private Texture2D _texture;
+        private Color _controllerWhite;
+        private Controller _controller;
 
         public void Init(RoomObject roomObject)
         {
-            if (!texture)
+            if (!_texture)
             {
                 InitTexture();
             }
-            controller = roomObject as Controller;
+            _controller = roomObject as Controller;
             UpdateTexture(roomObject.Data);
         }
 
         private void InitTexture()
         {
-            texture = new Texture2D(8, 1);
-            texture.filterMode = FilterMode.Point;
-            rend.materials[0].mainTexture = texture;
-            ColorUtility.TryParseHtmlString("#FDF5E6", out controllerWhite);
+            _texture = new Texture2D(8, 1);
+            _texture.filterMode = FilterMode.Point;
+            _rend.materials[0].mainTexture = _texture;
+            ColorUtility.TryParseHtmlString("#FDF5E6", out _controllerWhite);
         }
 
         public void Delta(JSONObject data)
@@ -39,16 +39,16 @@ namespace Screeps3D
             var level = 0;
             for (var i = 0; i < 8; i++)
             {
-                if (level < controller.Level)
+                if (level < _controller.Level)
                 {
-                    texture.SetPixel(i, 1, controllerWhite);
+                    _texture.SetPixel(i, 1, _controllerWhite);
                 } else
                 {
-                    texture.SetPixel(i, 1, Color.black);
+                    _texture.SetPixel(i, 1, Color.black);
                 }
                 level++;
             }
-            texture.Apply();
+            _texture.Apply();
         }
     }
 }

@@ -5,11 +5,10 @@ namespace Screeps3D
 {
     public class PlayerGaze : MonoBehaviour
     {
-        [SerializeField] private ScreepsAPI api;
 
         private void Update()
         {
-            if (!api || !api.IsConnected)
+            if (!ScreepsAPI.Instance || !ScreepsAPI.Instance.IsConnected)
             {
                 return;
             }

@@ -6,7 +6,7 @@ namespace Screeps3D
 {
     internal class BadgeColorGenerator
     {
-        private string[] colors =
+        private string[] _colors =
         {
             "#cccccc", "#ebadad", "#ebc1ad", "#ebd4ad", "#ebe7ad", "#daebad", "#c7ebad", "#b4ebad", "#adebba",
             "#adebce", "#adebe1", "#ade1eb", "#adceeb", "#adbaeb", "#b4adeb", "#c7adeb", "#daadeb", "#ebade7",
@@ -39,9 +39,9 @@ namespace Screeps3D
 
         public void LookUp(JSONObject badge, SvgParams badgeParams)
         {
-            badgeParams.color1 = colors[(int) badge["color1"].n];
-            badgeParams.color2 = colors[(int) badge["color2"].n];
-            badgeParams.color3 = colors[(int) badge["color3"].n];
+            badgeParams.color1 = _colors[(int) badge["color1"].n];
+            badgeParams.color2 = _colors[(int) badge["color2"].n];
+            badgeParams.color3 = _colors[(int) badge["color3"].n];
         }
     }
 }

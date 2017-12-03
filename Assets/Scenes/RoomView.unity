@@ -2205,10 +2205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50633b3935a9472298a970fc954d2602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shardInput: {fileID: 1901202198}
-  roomInput: {fileID: 458850688}
-  api: {fileID: 0}
-  panel: {fileID: 568419309}
+  _shardInput: {fileID: 0}
+  _roomInput: {fileID: 0}
+  _panel: {fileID: 0}
 --- !u!114 &568419312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2514,7 +2513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3bac8cfed2454bb6dab663d1ea468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 623343831}
+  _text: {fileID: 0}
 --- !u!1 &652182899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,7 +3611,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5241cdbf45e94425b797ae67c86b80c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  api: {fileID: 0}
 --- !u!1 &1002996917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3784,14 +3782,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165417c91686479a87fcce440341465d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  api: {fileID: 0}
-  save: {fileID: 1724569941}
-  ssl: {fileID: 652182903}
-  server: {fileID: 401738549}
-  port: {fileID: 1500757155}
-  email: {fileID: 1610299524}
-  passwordInput: {fileID: 809207146}
-  connect: {fileID: 1520085523}
+  _api: {fileID: 0}
+  _save: {fileID: 0}
+  _ssl: {fileID: 0}
+  _server: {fileID: 0}
+  _port: {fileID: 0}
+  _email: {fileID: 0}
+  _passwordInput: {fileID: 0}
+  _connect: {fileID: 0}
   panel: {fileID: 1032182221}
   secret: abc123
 --- !u!114 &1032182220
@@ -4432,10 +4430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3e71d6f55d43cdacd2592450f31bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prototype: {fileID: 623343833}
-  input: {fileID: 2123806409}
-  panel: {fileID: 1234517181}
-  content: {fileID: 1551818149}
+  _prototype: {fileID: 0}
+  _input: {fileID: 0}
+  _panel: {fileID: 0}
+  _content: {fileID: 0}
 --- !u!114 &1234517180
 MonoBehaviour:
   m_ObjectHideFlags: 0

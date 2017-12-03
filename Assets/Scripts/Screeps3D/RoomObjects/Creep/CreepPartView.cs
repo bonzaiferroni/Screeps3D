@@ -4,7 +4,7 @@ namespace Screeps3D
 {
     public class CreepPartView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private Transform partDisplay;
+        [SerializeField] private Transform _partDisplay;
 
         internal Creep creep;
         internal CreepView view;
@@ -35,7 +35,7 @@ namespace Screeps3D
                 scaleAmount = (amount / 5000) * flex + min;
             }
 
-            partDisplay.transform.localScale = Vector3.one * scaleAmount;
+            _partDisplay.transform.localScale = Vector3.one * scaleAmount;
         }
 
         protected Vector3 GetActionVector(JSONObject data)

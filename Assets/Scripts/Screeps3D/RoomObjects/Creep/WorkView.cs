@@ -4,7 +4,7 @@ namespace Screeps3D
 {
     public class WorkView : CreepPartView
     {
-        [SerializeField] private Animator anim;
+        [SerializeField] private Animator _anim;
 
         public override void Init(RoomObject roomObject)
         {
@@ -21,7 +21,7 @@ namespace Screeps3D
             {
                 var rotation = Quaternion.LookRotation(GetActionVector(creep.Actions["harvest"]));
                 view.rotTarget = rotation;
-                anim.SetTrigger("activate");
+                _anim.SetTrigger("activate");
             }
         }
     }

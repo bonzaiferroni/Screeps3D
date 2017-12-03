@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CreepHover : MonoBehaviour
 {
-    private Vector3 targetPosition;
-    private Quaternion targetRotation;
-    private Vector3 posRef;
-    private float nextRotationTarget;
-    private float nextPosTarget;
+    private Vector3 _targetPosition;
+    private Quaternion _targetRotation;
+    private Vector3 _posRef;
+    private float _nextRotationTarget;
+    private float _nextPosTarget;
 
-    private const float posDrift = .025f;
-    private const float rotDrift = 5;
+    private const float _posDrift = .025f;
+    private const float _rotDrift = 5;
 
     // Use this for initialization
     void Start()
@@ -28,22 +28,22 @@ public class CreepHover : MonoBehaviour
 
     private void FindNewRotationTarget()
     {
-        if (nextRotationTarget > Time.time) return;
-        nextRotationTarget = Time.time + Random.value * 2;
-        targetRotation = Quaternion.Euler(RandomDrift(rotDrift), RandomDrift(rotDrift), RandomDrift(rotDrift));
+        if (_nextRotationTarget > Time.time) return;
+        _nextRotationTarget = Time.time + Random.value * 2;
+        _targetRotation = Quaternion.Euler(RandomDrift(_rotDrift), RandomDrift(_rotDrift), RandomDrift(_rotDrift));
     }
 
     private void FindNewPosTarget()
     {
-        if (nextPosTarget > Time.time) return;
-        nextPosTarget = Time.time + Random.value;
-        targetPosition = new Vector3(RandomDrift(posDrift), RandomDrift(posDrift), RandomDrift(posDrift));
+        if (_nextPosTarget > Time.time) return;
+        _nextPosTarget = Time.time + Random.value;
+        _targetPosition = new Vector3(RandomDrift(_posDrift), RandomDrift(_posDrift), RandomDrift(_posDrift));
     }
 
     private void ApproachTarget()
     {
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPosition, ref posRef, 1);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, _targetPosition, ref _posRef, 1);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, _targetRotation, Time.deltaTime);
     }
 
     private float RandomDrift(float drift)

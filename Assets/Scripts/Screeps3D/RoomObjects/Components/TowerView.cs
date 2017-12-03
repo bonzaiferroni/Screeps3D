@@ -5,10 +5,10 @@ namespace Screeps3D
 {
     public class TowerView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private ScaleVisAxes energyDisplay;
-        [SerializeField] private Transform rotationRoot;
-        private Quaternion targetRot;
-        private float nextRot;
+        [SerializeField] private ScaleVisAxes _energyDisplay;
+        [SerializeField] private Transform _rotationRoot;
+        private Quaternion _targetRot;
+        private float _nextRot;
 
         private IEnergyObject energyObject;
         private float targetRef;
@@ -26,18 +26,18 @@ namespace Screeps3D
 
         private void AdjustScale()
         {
-            energyDisplay.Visible(energyObject.Energy / energyObject.EnergyCapacity);
+            _energyDisplay.Visible(energyObject.Energy / energyObject.EnergyCapacity);
         }
 
         private void Update()
         {
-            if (Time.time > nextRot)
+            if (Time.time > _nextRot)
             {
-                nextRot = Time.time + Random.value + 1;
-                targetRot = rotationRoot.rotation * Quaternion.Euler(0, 180 * Random.value, 0);
+                _nextRot = Time.time + Random.value + 1;
+                _targetRot = _rotationRoot.rotation * Quaternion.Euler(0, 180 * Random.value, 0);
             }
 
-            rotationRoot.rotation = Quaternion.Slerp(rotationRoot.rotation, targetRot, Time.deltaTime);
+            _rotationRoot.rotation = Quaternion.Slerp(_rotationRoot.rotation, _targetRot, Time.deltaTime);
         }
     }
 }

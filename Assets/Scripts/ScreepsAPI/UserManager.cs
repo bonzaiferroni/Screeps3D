@@ -5,13 +5,13 @@ namespace Screeps3D
 {
     public class UserManager
     {
-        private ScreepsAPI api;
+        private ScreepsAPI _api;
 
-        private Dictionary<string, ScreepsUser> users = new Dictionary<string, ScreepsUser>();
+        private Dictionary<string, ScreepsUser> _users = new Dictionary<string, ScreepsUser>();
 
         public UserManager(ScreepsAPI screepsApi)
         {
-            api = screepsApi;
+            _api = screepsApi;
         }
     }
 }

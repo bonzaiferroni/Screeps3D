@@ -15,11 +15,11 @@ namespace Screeps3D
     {
         public string Token { get; private set; }
 
-        private ScreepsAPI api;
+        private ScreepsAPI _api;
 
         public void Init(ScreepsAPI api)
         {
-            this.api = api;
+            _api = api;
         }
 
         public void Request(string requestMethod, string path, RequestBody body = null,
@@ -27,7 +27,7 @@ namespace Screeps3D
         {
             // Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
             UnityWebRequest www;
-            var fullPath = api.Address.Http(path);
+            var fullPath = _api.Address.Http(path);
             if (requestMethod == UnityWebRequest.kHttpVerbGET)
             {
                 if (body != null)
@@ -60,7 +60,7 @@ namespace Screeps3D
                     {
                         Auth((reply) => { Request(requestMethod, path, body, onSuccess); }, () =>
                         {
-                            if (api.OnConnectionStatusChange != null) api.OnConnectionStatusChange.Invoke(false);
+                            if (_api.OnConnectionStatusChange != null) _api.OnConnectionStatusChange.Invoke(false);
                         });
                     }
                 } else
@@ -98,8 +98,8 @@ namespace Screeps3D
         public void Auth(Action<string> onSuccess, Action onError = null)
         {
             var body = new RequestBody();
-            body.AddField("email", api.Credentials.email);
-            body.AddField("password", api.Credentials.password);
+            body.AddField("email", _api.Credentials.email);
+            body.AddField("password", _api.Credentials.password);
 
             Request("POST", "/api/auth/signin", body, onSuccess, onError);
         }

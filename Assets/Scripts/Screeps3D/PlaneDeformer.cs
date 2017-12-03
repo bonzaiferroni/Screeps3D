@@ -5,20 +5,20 @@ namespace Screeps3D
 {
     public class PlaneDeformer : MonoBehaviour
     {
-        private MeshFilter filter;
-        private bool[,] positions;
-        private float constant;
-        private float random;
-        private int i;
+        private MeshFilter _filter;
+        private bool[,] _positions;
+        private float _constant;
+        private float _random;
+        private int _i;
 
         public void SetHeights(bool[,] positions, float constant, float random)
         {
-            filter = GetComponent<MeshFilter>();
+            _filter = GetComponent<MeshFilter>();
             enabled = true;
-            this.positions = positions;
-            this.constant = constant;
-            this.random = random;
-            i = 0;
+            this._positions = positions;
+            this._constant = constant;
+            this._random = random;
+            _i = 0;
         }
 
         private void Update()
@@ -29,36 +29,36 @@ namespace Screeps3D
         public void Deform()
         {
             var time = Time.time;
-            var vertices = filter.mesh.vertices;
-            for (; i < vertices.Length; i++)
+            var vertices = _filter.mesh.vertices;
+            for (; _i < vertices.Length; _i++)
             {
-                var point = vertices[i];
+                var point = vertices[_i];
                 if (point.x < 0 || point.x > 50 || point.z < 0 || point.z > 50)
                     continue;
 
                 var x = (int) point.x;
-                if (x >= positions.GetLength(0))
+                if (x >= _positions.GetLength(0))
                 {
                     continue;
                 }
                 var y = 49 - (int) point.z;
-                if (y >= positions.GetLength(1))
+                if (y >= _positions.GetLength(1))
                 {
                     continue;
                 }
-                if (positions[x, y])
+                if (_positions[x, y])
                 {
-                    vertices[i] = new Vector3(point.x, constant + Random.value * random, point.z);
+                    vertices[_i] = new Vector3(point.x, _constant + Random.value * _random, point.z);
                 }
                 if (Time.time - time > .001f)
                 {
-                    filter.mesh.vertices = vertices;
+                    _filter.mesh.vertices = vertices;
                     return;
                 }
             }
 
-            filter.mesh.vertices = vertices;
-            filter.mesh.RecalculateNormals();
+            _filter.mesh.vertices = vertices;
+            _filter.mesh.RecalculateNormals();
             enabled = false;
         }
     }

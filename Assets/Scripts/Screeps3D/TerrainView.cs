@@ -8,14 +8,14 @@ namespace Screeps3D
 {
     public class TerrainView : MonoBehaviour
     {
-        [SerializeField] private PlaneDeformer swamp;
-        [SerializeField] private PlaneDeformer wall;
+        [SerializeField] private PlaneDeformer _swamp;
+        [SerializeField] private PlaneDeformer _wall;
 
-        private bool[,] wallPositions;
-        private bool[,] swampPositions;
-        private int x;
-        private int y;
-        private string terrain;
+        private bool[,] _wallPositions;
+        private bool[,] _swampPositions;
+        private int _x;
+        private int _y;
+        private string _terrain;
 
         public void Load(WorldCoord coord)
         {
@@ -24,11 +24,11 @@ namespace Screeps3D
 
         private void InitRender(string terrain)
         {
-            this.terrain = terrain;
-            wallPositions = new bool[50, 50];
-            swampPositions = new bool[50, 50];
-            x = 0;
-            y = 0;
+            this._terrain = terrain;
+            _wallPositions = new bool[50, 50];
+            _swampPositions = new bool[50, 50];
+            _x = 0;
+            _y = 0;
             enabled = true;
         }
 
@@ -40,31 +40,31 @@ namespace Screeps3D
         private void Render()
         {
             var time = Time.time;
-            for (; x < 50; x++)
+            for (; _x < 50; _x++)
             {
-                for (; y < 50; y++)
+                for (; _y < 50; _y++)
                 {
-                    var unit = terrain[x + y * 50];
+                    var unit = _terrain[_x + _y * 50];
                     if (unit == '0' || unit == '1')
                     {
                     }
                     if (unit == '2' || unit == '3')
                     {
-                        swampPositions[x, y] = true;
+                        _swampPositions[_x, _y] = true;
                     }
                     if (unit == '1' || unit == '3')
                     {
-                        wallPositions[x, y] = true;
+                        _wallPositions[_x, _y] = true;
                     }
                     if (Time.time - time > .001f)
                     {
                         return;
                     }
                 }
-                y = 0;
+                _y = 0;
             }
-            wall.SetHeights(wallPositions, .5f, .5f);
-            swamp.SetHeights(swampPositions, .3f, 0);
+            _wall.SetHeights(_wallPositions, .5f, .5f);
+            _swamp.SetHeights(_swampPositions, .3f, 0);
             enabled = false;
         }
     }

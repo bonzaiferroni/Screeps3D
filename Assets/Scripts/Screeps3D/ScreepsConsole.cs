@@ -8,21 +8,22 @@ namespace Screeps3D
     [RequireComponent(typeof(ScreepsAPI))]
     public class ScreepsConsole : MonoBehaviour
     {
-        [SerializeField] private UnityConsole console;
-        [SerializeField] private ScreepsAPI api;
+        [SerializeField] private UnityConsole _console;
+        private ScreepsAPI _api;
 
         private void Start()
         {
-            api.OnConnectionStatusChange += OnConnectionStatusChange;
-            console.OnInput += OnInput;
-            api.Socket.OnConsoleMessage += PrintMessage;
-            console.panel.Show(false, true);
+            _api = ScreepsAPI.Instance;
+            _api.OnConnectionStatusChange += OnConnectionStatusChange;
+            _console.OnInput += OnInput;
+            _api.Socket.OnConsoleMessage += PrintMessage;
+            _console._panel.Show(false, true);
         }
 
         private void OnConnectionStatusChange(bool isConnected)
         {
-            console.panel.Show(isConnected);
-            api.Socket.Subscribe(string.Format("user:{0}/console", api.Me.userId), OnConsoleData);
+            _console._panel.Show(isConnected);
+            _api.Socket.Subscribe(string.Format("user:{0}/console", _api.Me.userId), OnConsoleData);
         }
 
         private void OnConsoleData(JSONObject obj)
@@ -50,7 +51,7 @@ namespace Screeps3D
 
         private void OnInput(string obj)
         {
-            api.Http.ConsoleInput(obj);
+            _api.Http.ConsoleInput(obj);
         }
 
         private void PrintMessage(string message, bool isError)
@@ -63,10 +64,10 @@ namespace Screeps3D
                 line = line.Replace("\\\\", "\\");
                 if (isError)
                 {
-                    console.AddMessage(line, Color.red);
+                    _console.AddMessage(line, Color.red);
                 } else
                 {
-                    console.AddMessage(line, Color.white);
+                    _console.AddMessage(line, Color.white);
                 }
             }
         }

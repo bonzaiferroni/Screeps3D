@@ -12,31 +12,31 @@ namespace Screeps3D
 {
     public class BadgeManager : MonoBehaviour
     {
-        private ScreepsAPI api;
-        private BadgePathGenerator badgePaths = new BadgePathGenerator();
-        private BadgeColorGenerator badgeColors = new BadgeColorGenerator();
-        private Dictionary<string, Texture2D> badges = new Dictionary<string, Texture2D>();
+        private ScreepsAPI _api;
+        private BadgePathGenerator _badgePaths = new BadgePathGenerator();
+        private BadgeColorGenerator _badgeColors = new BadgeColorGenerator();
+        private Dictionary<string, Texture2D> _badges = new Dictionary<string, Texture2D>();
 
         public void Init(ScreepsAPI screepsApi)
         {
-            api = screepsApi;
+            _api = screepsApi;
         }
 
         public void Get(string username, Action<Texture2D> callback)
         {
-            if (badges.ContainsKey(username))
+            if (_badges.ContainsKey(username))
             {
-                callback(badges[username]);
+                callback(_badges[username]);
                 return;
             }
 
             var body = new RequestBody();
             body.AddField("username", username);
 
-            api.Http.Request("GET", "/api/user/badge-svg", body, xml =>
+            _api.Http.Request("GET", "/api/user/badge-svg", body, xml =>
             {
-                badges[username] = Texturize(xml);
-                callback(badges[username]);
+                _badges[username] = Texturize(xml);
+                callback(_badges[username]);
             });
         }
 
@@ -72,8 +72,8 @@ namespace Screeps3D
                 flip = badge["flip"].b,
             };
 
-            badgePaths.Add(badge, badgeParams);
-            badgeColors.Add(badge, badgeParams);
+            _badgePaths.Add(badge, badgeParams);
+            _badgeColors.Add(badge, badgeParams);
 
             var rotation = badgeParams.flip ? badgeParams.rotation : 0;
 
@@ -102,23 +102,23 @@ namespace Screeps3D
 
         public void CacheBadge(string id, JSONObject data)
         {
-            if (badges.ContainsKey(id))
+            if (_badges.ContainsKey(id))
                 return;
             var badgeObj = data["badge"];
             if (badgeObj == null)
             {
-                badges[id] = null;
+                _badges[id] = null;
                 return;
             }
 
-            badges[id] = Generate(badgeObj);
+            _badges[id] = Generate(badgeObj);
         }
 
         public Texture2D GetCached(string creepUserId)
         {
-            if (badges.ContainsKey(creepUserId))
+            if (_badges.ContainsKey(creepUserId))
             {
-                return badges[creepUserId];
+                return _badges[creepUserId];
             } else
             {
                 return null;

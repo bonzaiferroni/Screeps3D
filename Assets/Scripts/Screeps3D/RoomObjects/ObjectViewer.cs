@@ -6,19 +6,19 @@ namespace Screeps3D
 {
     public class ObjectViewer : BaseSingleton<ObjectViewer>
     {
-        [SerializeField] private GameObject[] prefabs;
-        private Dictionary<string, ObjectView> prototypes = new Dictionary<string, ObjectView>();
-        private Dictionary<string, Stack<ObjectView>> pools = new Dictionary<string, Stack<ObjectView>>();
+        [SerializeField] private GameObject[] _prefabs;
+        private Dictionary<string, ObjectView> _prototypes = new Dictionary<string, ObjectView>();
+        private Dictionary<string, Stack<ObjectView>> _pools = new Dictionary<string, Stack<ObjectView>>();
 
         private void Start()
         {
-            foreach (var prefab in prefabs)
+            foreach (var prefab in _prefabs)
             {
                 var go = Instantiate(prefab);
                 go.name = prefab.name;
                 var view = go.GetComponent<ObjectView>();
                 if (view == null) continue;
-                prototypes[prefab.name] = view;
+                _prototypes[prefab.name] = view;
                 go.SetActive(false);
                 go.transform.SetParent(transform);
             }
@@ -36,10 +36,10 @@ namespace Screeps3D
 
         private ObjectView NewInstance(string type)
         {
-            if (!prototypes.ContainsKey(type))
+            if (!_prototypes.ContainsKey(type))
                 return null;
 
-            var go = Instantiate(prototypes[type].gameObject);
+            var go = Instantiate(_prototypes[type].gameObject);
             go.SetActive(true);
             var view = go.GetComponent<ObjectView>();
             return view;
@@ -59,11 +59,11 @@ namespace Screeps3D
 
         private Stack<ObjectView> GetPool(string type)
         {
-            if (!pools.ContainsKey(type))
+            if (!_pools.ContainsKey(type))
             {
-                pools[type] = new Stack<ObjectView>();
+                _pools[type] = new Stack<ObjectView>();
             }
-            return pools[type];
+            return _pools[type];
         }
 
         public void AddToPool(ObjectView objectView)

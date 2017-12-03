@@ -4,13 +4,13 @@ namespace Screeps3D
 {
     public class CarryView : MonoBehaviour, IScreepsComponent
     {
-        [SerializeField] private GameObject carry;
-        private Creep creep;
+        [SerializeField] private GameObject _carry;
+        private Creep _creep;
 
         public void Init(RoomObject roomObject)
         {
-            creep = roomObject as Creep;
-            carry.SetActive(creep.EnergyCapacity > 0);
+            _creep = roomObject as Creep;
+            _carry.SetActive(_creep.EnergyCapacity > 0);
         }
 
         public void Delta(JSONObject data)

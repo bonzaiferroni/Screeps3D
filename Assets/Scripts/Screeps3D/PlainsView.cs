@@ -4,38 +4,38 @@ namespace Screeps3D
 {
     public class PlainsView : MonoBehaviour
     {
-        private Renderer rend;
-        private float original;
-        private float current;
-        private float target;
-        private float targetRef;
+        private Renderer _rend;
+        private float _original;
+        private float _current;
+        private float _target;
+        private float _targetRef;
 
         public void Highlight()
         {
-            if (!rend)
+            if (!_rend)
             {
-                rend = GetComponent<Renderer>();
-                original = rend.material.color.r;
+                _rend = GetComponent<Renderer>();
+                _original = _rend.material.color.r;
             }
-            target = original + .1f;
+            _target = _original + .1f;
             enabled = true;
         }
 
         public void Dim()
         {
-            target = original;
+            _target = _original;
             enabled = true;
         }
 
         public void Update()
         {
-            if (!rend || Mathf.Abs(current - target) < .001f)
+            if (!_rend || Mathf.Abs(_current - _target) < .001f)
             {
                 enabled = false;
                 return;
             }
-            current = Mathf.SmoothDamp(rend.material.color.r, target, ref targetRef, 1);
-            rend.material.color = new Color(current, current, current);
+            _current = Mathf.SmoothDamp(_rend.material.color.r, _target, ref _targetRef, 1);
+            _rend.material.color = new Color(_current, _current, _current);
         }
     }
 }
