@@ -9,16 +9,13 @@ namespace Screeps3D
         public Quaternion rotTarget;
         private Vector3 posTarget;
         private Vector3 posRef;
+        private Creep _creep;
 
         internal override void Init(RoomObject roomObject)
         {
             base.Init(roomObject);
-            var creep = roomObject as Creep;
-            var badge = ScreepsAPI.Instance.Badges.GetCached(creep.UserId);
-            if (badge != null)
-            {
-                _body.material.mainTexture = badge;
-            }
+            _creep = roomObject as Creep;
+            _body.material.mainTexture = _creep.Owner.badge;
 
             rotTarget = transform.rotation;
             posTarget = transform.localPosition;

@@ -3,12 +3,14 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils.Utils;
 
 namespace Screeps3D.Selection
 {
     public class EnergyPanel : Subpanel
     {
         [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private ScaleVisAxes _meter;
         private IEnergyObject _energyObject;
         private RoomObject _roomObject;
 
@@ -32,7 +34,8 @@ namespace Screeps3D.Selection
 
         private void UpdateLabel()
         {
-            _label.text = string.Format("energy: {0:n0} / {1:n0}", _energyObject.Energy,
+            _meter.Visible(_energyObject.Energy / _energyObject.EnergyCapacity);
+            _label.text = string.Format("Energy: {0:n0} / {1:n0}", _energyObject.Energy,
                 (long) _energyObject.EnergyCapacity);
         }
 

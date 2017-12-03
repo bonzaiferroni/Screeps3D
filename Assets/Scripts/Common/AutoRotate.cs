@@ -21,9 +21,9 @@ public class AutoRotate : MonoBehaviour
             _mutator.y = Mathf.Clamp(_mutator.y, -.1f, .1f);
             _mutator.z = Mathf.Clamp(_mutator.z, -.1f, .1f);
             _rotation = _rotation + _mutator;
-            _rotation.x = Mathf.Clamp(_rotation.x, -1f, 1f);
-            _rotation.y = Mathf.Clamp(_rotation.y, -1f, 1f);
-            _rotation.z = Mathf.Clamp(_rotation.z, -1f, 1f);
+            _rotation.x = Mathf.Clamp(_rotation.x, -100f, 100f);
+            _rotation.y = Mathf.Clamp(_rotation.y, -100f, 100f);
+            _rotation.z = Mathf.Clamp(_rotation.z, -100f, 100f);
         }
     }
 }

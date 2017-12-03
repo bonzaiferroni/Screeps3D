@@ -7,6 +7,8 @@ namespace Screeps3D.Selection
 {
     public class SelectionUI : BaseSingleton<SelectionUI>
     {
+        private const float PANEL_SPACING = 2;
+        
         [SerializeField] private GameObject _panelPrefab;
         [SerializeField] private Transform _parent;
 
@@ -81,7 +83,7 @@ namespace Screeps3D.Selection
             foreach (var panel in _selections)
             {
                 panel.SetPosition(height);
-                height += panel.Height;
+                height += panel.Height + PANEL_SPACING;
             }
             _rect.sizeDelta = new Vector3(_rect.sizeDelta.x, height);
         }

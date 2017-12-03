@@ -48,22 +48,11 @@
                     target = 0;
                 }
 
-                this._target = transform.localScale;
-                if (_x)
-                {
-                    this._target.x = target;
-                }
-                if (_y)
-                {
-                    this._target.y = target;
-                }
-                if (_z)
-                {
-                    this._target.z = target;
-                }
+                _target = new Vector3(_x ? target : 1, _y ? target : 1, _z ? target : 1);
+                
                 if (instant)
                 {
-                    _current = this._target;
+                    _current = _target;
                 }
             }
 

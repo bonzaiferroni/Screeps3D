@@ -53,7 +53,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4286887788319904}
   - component: {fileID: 33328032268053908}
-  - component: {fileID: 65139479742878220}
   - component: {fileID: 23249257323902712}
   - component: {fileID: 114310376138796484}
   m_Layer: 0
@@ -194,7 +193,7 @@ GameObject:
   - component: {fileID: 114985799466648680}
   - component: {fileID: 65763936914956256}
   - component: {fileID: 114091160785336574}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoomView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1030,18 +1029,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1198415002451040}
   m_Mesh: {fileID: 4300018, guid: 95d1a895d22b28942ae1eb83550f4bb2, type: 3}
---- !u!65 &65139479742878220
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1189246446051000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65763936914956256
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -17,7 +17,15 @@
             "transferEnergy":null
         }
     }*/
-    public class Rampart : Structure
+    public class Rampart : Structure, IOwnedObject
     {
+        public string UserId { get; set; }
+        public ScreepsUser Owner { get; set; }
+
+        internal override void Unpack(JSONObject data)
+        {
+            base.Unpack(data);
+            UnpackUtility.Owner(this, data);
+        }
     }
 }

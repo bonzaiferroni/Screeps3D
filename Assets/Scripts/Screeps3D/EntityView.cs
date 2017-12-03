@@ -79,7 +79,7 @@ namespace Screeps3D
 
         private void RenderEntities(JSONObject data)
         {
-            UnpackBadges(data);
+            UnpackUsers(data);
             var objects = data["objects"];
             foreach (var id in objects.keys)
             {
@@ -119,18 +119,18 @@ namespace Screeps3D
             }
         }
 
-        private void UnpackBadges(JSONObject data)
+        private void UnpackUsers(JSONObject data)
         {
-            var userObj = data["users"];
-            if (userObj == null)
+            var usersData = data["users"];
+            if (usersData == null)
             {
                 return;
             }
 
-            foreach (var id in userObj.keys)
+            foreach (var id in usersData.keys)
             {
-                var datum = userObj[id];
-                ScreepsAPI.Instance.Badges.CacheBadge(id, datum);
+                var userData = usersData[id];
+                ScreepsAPI.Instance.UserManager.CacheUser(userData);
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Screeps3D
             }
 
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 200))
+            if (Physics.Raycast(ray, out hit, 200, 1 << 10))
             {
                 var roomView = hit.collider.GetComponent<RoomView>();
                 if (roomView == null)

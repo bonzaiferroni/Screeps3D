@@ -12,6 +12,10 @@ namespace Screeps3D
 {
     public class BadgeManager : MonoBehaviour
     {
+        public const int BADGE_SIZE = 250;
+        
+        public Texture2D Invader { get; private set; }
+        
         private ScreepsAPI _api;
         private BadgePathGenerator _badgePaths = new BadgePathGenerator();
         private BadgeColorGenerator _badgeColors = new BadgeColorGenerator();
@@ -20,6 +24,21 @@ namespace Screeps3D
         public void Init(ScreepsAPI screepsApi)
         {
             _api = screepsApi;
+            Invader = GenerateInvader();
+        }
+
+        private Texture2D GenerateInvader()
+        {
+            var texture = new Texture2D(BADGE_SIZE, BADGE_SIZE);
+            for (var x = 0; x < BADGE_SIZE; x++)
+            {
+                for (var y = 0; y < BADGE_SIZE; y++)
+                {
+                    texture.SetPixel(x, y, Color.red);
+                }
+            }
+            texture.Apply();
+            return texture;
         }
 
         public void Get(string username, Action<Texture2D> callback)
@@ -61,7 +80,7 @@ namespace Screeps3D
             }
         }
 
-        public Texture2D Generate(JSONObject badge, float size = 250)
+        public Texture2D Generate(JSONObject badge, float size = BADGE_SIZE)
         {
             float pathDefinitionSize = 100;
             float center = pathDefinitionSize / 2;
@@ -98,31 +117,6 @@ namespace Screeps3D
             sb.Append("\n\t</g>\n</svg>");
 
             return Texturize(sb.ToString());
-        }
-
-        public void CacheBadge(string id, JSONObject data)
-        {
-            if (_badges.ContainsKey(id))
-                return;
-            var badgeObj = data["badge"];
-            if (badgeObj == null)
-            {
-                _badges[id] = null;
-                return;
-            }
-
-            _badges[id] = Generate(badgeObj);
-        }
-
-        public Texture2D GetCached(string creepUserId)
-        {
-            if (_badges.ContainsKey(creepUserId))
-            {
-                return _badges[creepUserId];
-            } else
-            {
-                return null;
-            }
         }
     }
 }

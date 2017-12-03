@@ -3,12 +3,14 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils.Utils;
 
 namespace Screeps3D.Selection
 {
     public class HitpointsPanel : Subpanel
     {
         [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private ScaleVisAxes _meter;
         private IHitpointsObject _hitsObject;
         private RoomObject _roomObject;
 
@@ -32,7 +34,8 @@ namespace Screeps3D.Selection
 
         private void UpdateLabel()
         {
-            _label.text = string.Format("hits: {0:n0} / {1:n0}", _hitsObject.Hits, (long) _hitsObject.HitsMax);
+            _meter.Visible(_hitsObject.Hits / _hitsObject.HitsMax);
+            _label.text = string.Format("Hits: {0:n0} / {1:n0}", _hitsObject.Hits, (long) _hitsObject.HitsMax);
         }
 
         private void OnDelta(JSONObject obj)

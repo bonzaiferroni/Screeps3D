@@ -59,14 +59,7 @@ namespace Screeps3D
         private void AssignUser(string str)
         {
             var obj = new JSONObject(str);
-            Me = new ScreepsUser
-            {
-                userId = obj["_id"].str,
-                username = obj["username"].str,
-                cpu = obj["cpu"].n,
-            };
-
-            Me.badge = Badges.Generate(obj["badge"]);
+            Me = UserManager.CacheUser(obj);
 
             if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
             IsConnected = true;

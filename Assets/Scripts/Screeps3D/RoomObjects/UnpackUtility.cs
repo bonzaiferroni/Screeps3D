@@ -40,6 +40,16 @@
                 obj.HitsMax = hitsMaxData.n;
             }
         }
+
+        internal static void Owner(IOwnedObject obj, JSONObject data)
+        {
+            var userData = data["user"];
+            if (userData != null)
+            {
+                obj.UserId = userData.str;
+                obj.Owner = ScreepsAPI.Instance.UserManager.GetUser(userData.str); 
+            }
+        }
     }
 
     internal interface IEnergyObject
@@ -51,6 +61,12 @@
     internal interface INamedObject
     {
         string Name { get; set; }
+    }
+
+    internal interface IOwnedObject
+    {
+        string UserId { get; set; }
+        ScreepsUser Owner { get; set; }
     }
 
     internal interface IHitpointsObject

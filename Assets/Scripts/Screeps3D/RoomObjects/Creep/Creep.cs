@@ -55,9 +55,10 @@ namespace Screeps3D
         }
     }*/
 
-    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject
+    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject, IOwnedObject
     {
-        public string UserId { get; private set; }
+        public string UserId { get; set; }
+        public ScreepsUser Owner { get; set; }
         public CreepBody Body { get; private set; }
         public string Name { get; set; }
         public Dictionary<string, JSONObject> Actions { get; private set; }
@@ -94,6 +95,7 @@ namespace Screeps3D
             UnpackUtility.Energy(this, data);
             UnpackUtility.Name(this, data);
             UnpackUtility.HitPoints(this, data);
+            UnpackUtility.Owner(this, data);
 
             Body.Unpack(Data);
         }

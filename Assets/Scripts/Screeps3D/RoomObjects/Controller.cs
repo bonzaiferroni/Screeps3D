@@ -10,7 +10,7 @@
         "safeModeAvailable": 2
     }*/
 
-    public class Controller : Structure
+    public class Controller : Structure, IOwnedObject
     {
         public int Level { get; private set; }
 
@@ -23,6 +23,11 @@
             {
                 Level = (int) levelObj.n;
             }
+            
+            UnpackUtility.Owner(this, data);
         }
+
+        public string UserId { get; set; }
+        public ScreepsUser Owner { get; set; }
     }
 }
