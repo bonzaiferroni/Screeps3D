@@ -2,54 +2,65 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConsoleLine : MonoBehaviour {
-
+public class ConsoleLine : MonoBehaviour
+{
     [SerializeField] private TextMeshProUGUI text;
     private float target;
     private float targetRef;
 
-    private float Alpha {
+    private float Alpha
+    {
         get { return text.color.a; }
-        set {
+        set
+        {
             var color = text.color;
             color.a = value;
             text.color = color;
         }
     }
 
-    public string Text {
+    public string Text
+    {
         get { return text.text; }
-        set {
+        set
+        {
             text.text = value;
             text.parseCtrlCharacters = true;
         }
     }
 
-    public Color Color {
+    public Color Color
+    {
         get { return text.color; }
-        set {
+        set
+        {
             text.color = value;
             Alpha = 0;
         }
     }
 
-    public void Hide() {
+    public void Hide()
+    {
         enabled = true;
         Alpha = 0;
         target = 0;
     }
 
-    public void Show() {
+    public void Show()
+    {
         enabled = true;
         target = 1;
     }
 
-    public float Height {
-        get { return text.preferredHeight;  }
+    public float Height
+    {
+        get { return text.preferredHeight; }
     }
 
-    public void Update() {
-        if (Mathf.Abs(Alpha - target) < .01) {
+    public void Update()
+    {
+        if (Mathf.Abs(Alpha - target) < .01)
+        {
             enabled = false;
             return;
         }

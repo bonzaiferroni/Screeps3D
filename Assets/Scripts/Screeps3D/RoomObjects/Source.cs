@@ -1,5 +1,5 @@
-﻿namespace Screeps3D {
-    
+﻿namespace Screeps3D
+{
     /* {
       "_id": "5a0b5e99ab17fd00012befed",
       "room": "E2S7",
@@ -12,8 +12,8 @@
       "invaderHarvested": 62818,
       "nextRegenerationTime": 8529
     }*/
-    
-    public class Source : RoomObject {
-        
+
+    public class Source : RoomObject
+    {
     }
 }

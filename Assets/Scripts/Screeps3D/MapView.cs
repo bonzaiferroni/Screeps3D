@@ -4,27 +4,32 @@ using System.IO.Compression;
 using System.Text;
 using UnityEngine;
 
-namespace Screeps3D {
-    internal class MapView : MonoBehaviour {
-        
+namespace Screeps3D
+{
+    internal class MapView : MonoBehaviour
+    {
         [SerializeField] private RoadView roadPrototype;
         private WorldCoord coord;
         private string path;
         private bool awake;
-        public RoadView[,] roads = new RoadView[50,50];
+        public RoadView[,] roads = new RoadView[50, 50];
         private Queue<JSONObject> queue = new Queue<JSONObject>();
 
-        public void Load(WorldCoord coord) {
+        public void Load(WorldCoord coord)
+        {
             this.coord = coord;
-            
-            if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com") {
+
+            if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
+            {
                 path = string.Format("roomMap2:{0}/{1}", coord.shardName, coord.roomName);
-            } else {
+            } else
+            {
                 path = string.Format("roomMap2:{0}", coord.roomName);
             }
         }
 
-        public void Wake() {
+        public void Wake()
+        {
             if (awake)
                 return;
 
@@ -32,26 +37,32 @@ namespace Screeps3D {
             ScreepsAPI.Instance.Socket.Subscribe(path, OnMapData);
         }
 
-        private void OnMapData(JSONObject obj) {
+        private void OnMapData(JSONObject obj)
+        {
             queue.Enqueue(obj);
         }
 
-        private void Update() {
+        private void Update()
+        {
             if (queue.Count == 0)
                 return;
 
             var data = queue.Dequeue();
             var roadObj = data["r"];
-            if (roadObj != null) {
+            if (roadObj != null)
+            {
                 UnpackRoads(roadObj);
             }
         }
 
-        private void UnpackRoads(JSONObject roadObj) {
-            foreach (var posArray in roadObj.list) {
+        private void UnpackRoads(JSONObject roadObj)
+        {
+            foreach (var posArray in roadObj.list)
+            {
                 var x = (int) posArray.list[0].n;
                 var y = (int) posArray.list[1].n;
-                if (roads[x, y] == null) {
+                if (roads[x, y] == null)
+                {
                     roads[x, y] = GetRoad();
                     roads[x, y].Init(this, x, y);
                     roads[x, y].transform.SetParent(transform, false);
@@ -60,7 +71,8 @@ namespace Screeps3D {
             }
         }
 
-        private RoadView GetRoad() {
+        private RoadView GetRoad()
+        {
             return Instantiate(roadPrototype.gameObject).GetComponent<RoadView>();
         }
 

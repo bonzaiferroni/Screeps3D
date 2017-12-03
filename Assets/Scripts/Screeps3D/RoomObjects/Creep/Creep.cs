@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Screeps3D {
-    
+namespace Screeps3D
+{
     /*{
         
         "body":[
@@ -54,9 +54,9 @@ namespace Screeps3D {
             "reserveController":null
         }
     }*/
-    
-    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject {
-        
+
+    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject
+    {
         public string UserId { get; private set; }
         public CreepBody Body { get; private set; }
         public string Name { get; set; }
@@ -66,39 +66,47 @@ namespace Screeps3D {
         public float Hits { get; set; }
         public float HitsMax { get; set; }
 
-        internal Creep() {
+        internal Creep()
+        {
             Body = new CreepBody();
             Actions = new Dictionary<string, JSONObject>();
         }
 
-        internal override void Unpack(JSONObject data) {
+        internal override void Unpack(JSONObject data)
+        {
             base.Unpack(data);
 
             var userObj = data["user"];
-            if (userObj != null) {
+            if (userObj != null)
+            {
                 UserId = userObj.str;
             }
-            
+
             var actionObj = data["actionLog"];
-            if (actionObj != null) {
-                foreach (var key in actionObj.keys) {
+            if (actionObj != null)
+            {
+                foreach (var key in actionObj.keys)
+                {
                     Actions[key] = actionObj[key];
                 }
             }
-            
+
             UnpackUtility.Energy(this, data);
             UnpackUtility.Name(this, data);
             UnpackUtility.HitPoints(this, data);
-            
+
             Body.Unpack(Data);
         }
 
-        public override void EnterRoom(EntityView entityView) {
+        public override void EnterRoom(EntityView entityView)
+        {
             base.EnterRoom(entityView);
         }
 
-        public override void LeaveRoom(EntityView entityView) {
-            if (View == null || entityView.Coord.roomName != RoomName) {
+        public override void LeaveRoom(EntityView entityView)
+        {
+            if (View == null || entityView.Coord.roomName != RoomName)
+            {
                 return;
             }
             View.Hide();

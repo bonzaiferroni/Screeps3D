@@ -1,4 +1,5 @@
-﻿namespace Screeps3D {
+﻿namespace Screeps3D
+{
     /*{
         "_id":"594fd4a759b455ab3f6aa147",
         "type":"powerSpawn",
@@ -14,7 +15,7 @@
         "hits":5000,
         "hitsMax":5000
     }*/
-    public class PowerSpawn : Structure {
-        
+    public class PowerSpawn : Structure
+    {
     }
 }

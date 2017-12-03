@@ -1,4 +1,5 @@
-﻿namespace Screeps3D {
+﻿namespace Screeps3D
+{
     /*{
         "_id":"594a8f75895ce86149c2c013",
         "type":"terminal",
@@ -25,13 +26,15 @@
         "UH":30,
         "OH":5,
     }*/
-    public class Terminal : Structure, IEnergyObject {
+    public class Terminal : Structure, IEnergyObject
+    {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
 
-        internal override void Unpack(JSONObject data) {
+        internal override void Unpack(JSONObject data)
+        {
             base.Unpack(data);
-            
+
             UnpackUtility.Energy(this, data);
         }
     }

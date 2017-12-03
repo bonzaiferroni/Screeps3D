@@ -1,4 +1,5 @@
-﻿namespace Screeps3D {
+﻿namespace Screeps3D
+{
     /*{
       "_id": "5a0b5e99ab17fd00012befef",
       "type": "mineral",
@@ -9,8 +10,8 @@
       "y": 28,
       "room": "E2S7"
     }*/
-    
-    public class Mineral : RoomObject {
-        
+
+    public class Mineral : RoomObject
+    {
     }
 }

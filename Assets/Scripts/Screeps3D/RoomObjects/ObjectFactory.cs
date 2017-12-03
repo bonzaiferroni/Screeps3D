@@ -1,8 +1,11 @@
-﻿namespace Screeps3D {
-    public class ObjectFactory {
-        public RoomObject Get(string type) {
-            
-            switch (type) {
+﻿namespace Screeps3D
+{
+    public class ObjectFactory
+    {
+        public RoomObject Get(string type)
+        {
+            switch (type)
+            {
                 case (Constants.TYPE_CREEP):
                     return new Creep();
                 case (Constants.TYPE_EXTENSION):

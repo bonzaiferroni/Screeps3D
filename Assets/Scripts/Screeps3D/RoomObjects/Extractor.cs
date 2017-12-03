@@ -1,4 +1,5 @@
-﻿namespace Screeps3D {
+﻿namespace Screeps3D
+{
     /*{
         "_id":"5949e649dd5848a527eaafd6",
         "type":"extractor",
@@ -11,7 +12,7 @@
         "hitsMax":500,
         "cooldown":0
     }*/
-    public class Extractor : Structure {
-        
+    public class Extractor : Structure
+    {
     }
 }

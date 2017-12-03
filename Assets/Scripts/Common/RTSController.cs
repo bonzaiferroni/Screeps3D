@@ -3,31 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RTSController : MonoBehaviour {
+public class RTSController : MonoBehaviour
+{
+    [SerializeField] private Collider _dragCollider;
+    private Vector3 _posLastFrame;
+    private bool _dragging;
 
-	[SerializeField] private Collider dragCollider;
-	private Vector3 posLastFrame;
-	private bool dragging;
+    // Update is called once per frame
+    void Update()
+    {
+        if (!Input.GetMouseButton(0))
+        {
+            _dragging = false;
+            return;
+        }
 
-	// Update is called once per frame
-	void Update () {
-		if (!Input.GetMouseButton(0)) {
-			dragging = false;
-			return;
-		}
-		
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hitInfo;
-		if (Physics.Raycast(ray, out hitInfo)) {
-			if (hitInfo.collider == dragCollider) {
-				Debug.Log("hit!");
-				if (dragging) {
-					var delta = posLastFrame - hitInfo.point;
-					transform.position += delta;
-				}
-				posLastFrame = hitInfo.point;
-				dragging = true;
-			}
-		}
-	}
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            if (hitInfo.collider == _dragCollider)
+            {
+                Debug.Log("hit!");
+                if (_dragging)
+                {
+                    var delta = _posLastFrame - hitInfo.point;
+                    transform.position += delta;
+                }
+                _posLastFrame = hitInfo.point;
+                _dragging = true;
+            }
+        }
+    }
 }

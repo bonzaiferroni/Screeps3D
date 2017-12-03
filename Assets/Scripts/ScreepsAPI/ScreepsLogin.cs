@@ -3,8 +3,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Screeps3D {
-    public class ScreepsLogin : MonoBehaviour {
+namespace Screeps3D
+{
+    public class ScreepsLogin : MonoBehaviour
+    {
         [SerializeField] private ScreepsAPI api;
         [SerializeField] private Toggle save;
         [SerializeField] private Toggle ssl;
@@ -17,7 +19,8 @@ namespace Screeps3D {
         public Action<Credentials, Address> OnSubmit;
         public string secret = "abc123";
 
-        private void Start() {
+        private void Start()
+        {
             connect.onClick.AddListener(OnClick);
             this.save.onValueChanged.AddListener(UpdateSaveSetting);
             RefreshSavedSettings();
@@ -26,27 +29,33 @@ namespace Screeps3D {
             panel.Show(); // fade in
         }
 
-        private void OnConnectionStatusChange(bool isConnected) {
+        private void OnConnectionStatusChange(bool isConnected)
+        {
             panel.Show(!isConnected);
         }
 
-        private void RefreshSavedSettings() {
+        private void RefreshSavedSettings()
+        {
             var save = PlayerPrefs.GetInt("saveCredentials");
             Debug.Log(string.Format("save value: {0}", save));
-            if (save == 1) {
+            if (save == 1)
+            {
                 this.save.isOn = true;
                 var port = PlayerPrefs.GetString("port");
-                if (port != null) {
+                if (port != null)
+                {
                     this.server.text = port;
                 }
-                
-                
+
+
                 var server = PlayerPrefs.GetString("server");
-                if (server != null) {
+                if (server != null)
+                {
                     this.server.text = server;
                 }
                 var email = PlayerPrefs.GetString("email");
-                if (email != null) {
+                if (email != null)
+                {
                     this.email.text = email;
                 }
                 var encryptedPassword = PlayerPrefs.GetString("password");
@@ -57,16 +66,20 @@ namespace Screeps3D {
             }
         }
 
-        private void UpdateSaveSetting(bool value) {
+        private void UpdateSaveSetting(bool value)
+        {
             PlayerPrefs.SetInt("saveCredentials", value ? 1 : 0);
-            if (!value) {
+            if (!value)
+            {
                 PlayerPrefs.SetString("email", "");
                 PlayerPrefs.SetString("password", "");
             }
         }
 
-        private void OnClick() {
-            if (save.isOn) {
+        private void OnClick()
+        {
+            if (save.isOn)
+            {
                 PlayerPrefs.SetString("port", port.text);
                 PlayerPrefs.SetString("server", server.text);
                 PlayerPrefs.SetString("email", email.text);
@@ -75,36 +88,42 @@ namespace Screeps3D {
                 PlayerPrefs.SetString("password", encryptedPassword);
                 PlayerPrefs.SetInt("ssl", ssl.isOn ? 1 : 0);
             }
-            
-            var credentials = new Credentials {
-                email = email.text, 
+
+            var credentials = new Credentials
+            {
+                email = email.text,
                 password = passwordInput.text
             };
-            var address = new Address {
-                hostName = server.text, 
-                path = "/", 
-                ssl = this.ssl.isOn, 
+            var address = new Address
+            {
+                hostName = server.text,
+                path = "/",
+                ssl = this.ssl.isOn,
                 port = port.text
             };
             api.Connect(credentials, address);
         }
     }
-	
-    public struct Credentials {
+
+    public struct Credentials
+    {
         public string email;
         public string password;
     }
-	
-    public struct Address {
+
+    public struct Address
+    {
         public bool ssl;
         public string hostName;
         public string port;
         public string path;
-	
-        public string Http(string path = "") {
-            if (path.StartsWith("/") && this.path.EndsWith("/")) {
+
+        public string Http(string path = "")
+        {
+            if (path.StartsWith("/") && this.path.EndsWith("/"))
+            {
                 path = path.Substring(1);
-            } 
+            }
             var protocol = ssl ? "https" : "http";
             var port = hostName.ToLowerInvariant() == "screeps.com" ? "" : string.Format(":{0}", this.port);
             // Debug.Log(string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path));

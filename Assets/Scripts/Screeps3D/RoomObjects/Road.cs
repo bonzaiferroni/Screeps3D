@@ -1,5 +1,5 @@
-﻿namespace Screeps3D {
-    
+﻿namespace Screeps3D
+{
     /*{
       "_id": "5a0f1c80aa6e200001d02261",
       "type": "road",
@@ -11,8 +11,8 @@
       "hitsMax": 5000,
       "nextDecayTime": 8885
     }*/
-    
-    public class Road : Structure {
-        
+
+    public class Road : Structure
+    {
     }
 }

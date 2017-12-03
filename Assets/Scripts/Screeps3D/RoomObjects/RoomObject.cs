@@ -1,41 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Screeps3D {
-    public class RoomObject {
-        
+namespace Screeps3D
+{
+    public class RoomObject
+    {
         public JSONObject Data { get; private set; }
         public string Id { get; private set; }
         public string Type { get; private set; }
         public int X { get; private set; }
         public int Y { get; private set; }
         public string RoomName { get; private set; }
-        
+
         internal ObjectView View { get; private set; }
 
         public Action<ObjectView> OnShow;
         public Action<JSONObject> OnDelta;
 
-        internal void Init(JSONObject data) {
-            if (Data == null) {
+        internal void Init(JSONObject data)
+        {
+            if (Data == null)
+            {
                 Data = data;
             }
-            
+
             Unpack(data);
         }
 
-        internal void Delta(JSONObject delta) {
+        internal void Delta(JSONObject delta)
+        {
             Unpack(delta);
             if (View != null)
                 View.Delta(delta);
-            if (OnDelta != null) {
+            if (OnDelta != null)
+            {
                 OnDelta(delta);
             }
         }
 
-        internal virtual void Unpack(JSONObject data) {
+        internal virtual void Unpack(JSONObject data)
+        {
             var idObj = data["_id"];
-            if (idObj != null) 
+            if (idObj != null)
                 Id = idObj.str;
 
             var typeObj = data["type"];
@@ -55,13 +61,16 @@ namespace Screeps3D {
                 RoomName = roomNameObj.str;
         }
 
-        public virtual void EnterRoom(EntityView entityView) {
-            if (View != null) {
+        public virtual void EnterRoom(EntityView entityView)
+        {
+            if (View != null)
+            {
                 View.Hide();
             }
-            
+
             View = ObjectViewer.Instance.NewView(this);
-            if (View != null) {
+            if (View != null)
+            {
                 View.Init(this);
                 View.transform.SetParent(entityView.transform, false);
                 View.Show();
@@ -69,10 +78,11 @@ namespace Screeps3D {
             }
         }
 
-        public virtual void LeaveRoom(EntityView entityView) {
+        public virtual void LeaveRoom(EntityView entityView)
+        {
             if (View == null)
                 return;
-            
+
             View.Hide();
             View = null;
         }

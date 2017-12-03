@@ -2,24 +2,31 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Screeps3D {
-    public class TerrainFactory : MonoBehaviour {
+namespace Screeps3D
+{
+    public class TerrainFactory : MonoBehaviour
+    {
         [SerializeField] private GameObject wallPrototype;
         [SerializeField] private GameObject swampPrototype;
-        
-        public void Start() {
+
+        public void Start()
+        {
             // plainsPrototype.SetActive(false);
             swampPrototype.SetActive(false);
             wallPrototype.SetActive(false);
         }
 
-        public GameObject Get(TerrainType type) {
+        public GameObject Get(TerrainType type)
+        {
             GameObject prototype;
-            if (type == TerrainType.Swamp) {
+            if (type == TerrainType.Swamp)
+            {
                 prototype = swampPrototype;
-            } else if (type == TerrainType.Wall) {
+            } else if (type == TerrainType.Wall)
+            {
                 prototype = wallPrototype;
-            } else {
+            } else
+            {
                 throw new Exception("invalid terrain type: " + type);
             }
             var go = Instantiate(prototype);
@@ -27,7 +34,8 @@ namespace Screeps3D {
         }
     }
 
-    public enum TerrainType {
+    public enum TerrainType
+    {
         Plains,
         Wall,
         Swamp,

@@ -1,8 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Screeps3D {
-    public class WorldCoord {
+namespace Screeps3D
+{
+    public class WorldCoord
+    {
         public readonly string dirX;
         public readonly string dirY;
         public readonly int shard;
@@ -14,7 +16,8 @@ namespace Screeps3D {
         public readonly string roomName;
         public readonly string key;
 
-        public WorldCoord(string dirX, string dirY, int shard, int x, int y) {
+        public WorldCoord(string dirX, string dirY, int shard, int x, int y)
+        {
             this.dirX = dirX;
             this.dirY = dirY;
             this.shard = shard;
@@ -27,28 +30,35 @@ namespace Screeps3D {
             key = shardName + roomName;
         }
 
-        public static WorldCoord Get(string roomName, string shardName) {
+        public static WorldCoord Get(string roomName, string shardName)
+        {
             string dirX, dirY;
             int x, y, index1, index2, shard;
-            
+
             roomName = roomName.ToUpperInvariant();
-            if (roomName.Contains("E")) {
+            if (roomName.Contains("E"))
+            {
                 index1 = roomName.IndexOf("E", StringComparison.Ordinal);
                 dirX = "E";
-            } else if (roomName.Contains("W")) {
+            } else if (roomName.Contains("W"))
+            {
                 index1 = roomName.IndexOf("W", StringComparison.Ordinal);
                 dirX = "W";
-            } else {
+            } else
+            {
                 return null;
             }
-            
-            if (roomName.Contains("N")) {
+
+            if (roomName.Contains("N"))
+            {
                 index2 = roomName.IndexOf("N", StringComparison.Ordinal);
                 dirY = "N";
-            } else if (roomName.Contains("S")) {
+            } else if (roomName.Contains("S"))
+            {
                 index2 = roomName.IndexOf("S", StringComparison.Ordinal);
                 dirY = "S";
-            } else {
+            } else
+            {
                 return null;
             }
 
@@ -66,28 +76,35 @@ namespace Screeps3D {
             return new WorldCoord(dirX, dirY, shard, x, y);
         }
 
-        public WorldCoord Relative(int xDelta, int yDelta) {
+        public WorldCoord Relative(int xDelta, int yDelta)
+        {
             var dirX = this.dirX;
             var dirY = this.dirY;
             var x = this.x;
             var y = this.y;
 
-            if (this.dirX == "E") {
+            if (this.dirX == "E")
+            {
                 x += xDelta;
-            } else {
+            } else
+            {
                 x -= xDelta;
             }
-            if (x < 0) {
+            if (x < 0)
+            {
                 dirX = this.dirX == "E" ? "W" : "E";
                 x = -x - 1;
             }
 
-            if (this.dirY == "N") {
+            if (this.dirY == "N")
+            {
                 y += yDelta;
-            } else {
+            } else
+            {
                 y -= yDelta;
             }
-            if (y < 0) {
+            if (y < 0)
+            {
                 dirY = this.dirX == "N" ? "S" : "N";
                 y = -y - 1;
             }

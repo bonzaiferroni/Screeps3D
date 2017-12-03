@@ -1,5 +1,5 @@
-﻿namespace Screeps3D {
-    
+﻿namespace Screeps3D
+{
     /*{
         "_id":"594c4187c46642cc2ce46dff",
         "type":"nuker",
@@ -16,14 +16,16 @@
         "hitsMax":1000,
         "cooldownTime":2.247301E+07
     }*/
-    
-    public class Nuker : Structure, IEnergyObject {
+
+    public class Nuker : Structure, IEnergyObject
+    {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
 
-        internal override void Unpack(JSONObject data) {
+        internal override void Unpack(JSONObject data)
+        {
             base.Unpack(data);
-            
+
             UnpackUtility.Energy(this, data);
         }
     }

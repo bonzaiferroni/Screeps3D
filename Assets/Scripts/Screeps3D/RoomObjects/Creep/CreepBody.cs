@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Screeps3D {
-    
+namespace Screeps3D
+{
     /*
         "body":[
             {
@@ -25,23 +25,27 @@ namespace Screeps3D {
                 "hits":100
             }
         ],*/
-    
-    public class CreepBody {
 
+    public class CreepBody
+    {
         public List<CreepPart> Parts { get; private set; }
 
-        public CreepBody() {
+        public CreepBody()
+        {
             Parts = new List<CreepPart>();
         }
-        
-        internal void Unpack(JSONObject data) {
+
+        internal void Unpack(JSONObject data)
+        {
             var bodyObj = data["body"];
             if (bodyObj == null)
                 return;
 
             Parts.Clear();
-            foreach (var partObj in bodyObj.list) {
-                Parts.Add(new CreepPart {
+            foreach (var partObj in bodyObj.list)
+            {
+                Parts.Add(new CreepPart
+                {
                     hits = partObj["hits"].n,
                     type = partObj["type"].str,
                 });
@@ -49,7 +53,8 @@ namespace Screeps3D {
         }
     }
 
-    public class CreepPart {
+    public class CreepPart
+    {
         public string type;
         public float hits;
     }

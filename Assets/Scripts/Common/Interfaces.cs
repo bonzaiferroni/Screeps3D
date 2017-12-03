@@ -1,6 +1,7 @@
-﻿namespace Utils {
-    public interface IVisibilityControl {
-        
+﻿namespace Utils
+{
+    public interface IVisibilityControl
+    {
         bool IsVisible { get; }
         void Visible(bool shown, bool instant = false);
         void Visible(float target, bool instant = false);

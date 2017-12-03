@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-namespace Screeps3D {
-    public static class Constants {
+namespace Screeps3D
+{
+    public static class Constants
+    {
         public const string TYPE_STORAGE = "storage";
         public const string TYPE_EXTENSION = "extension";
         public const string TYPE_SPAWN = "spawn";

@@ -1,5 +1,5 @@
-﻿namespace Screeps3D {
-    
+﻿namespace Screeps3D
+{
     /*{
         "_id":"59469528473155f701d2e6d1",
         "type":"storage",
@@ -29,14 +29,16 @@
         "Z":0,
         "U":0
     }*/
-    
-    public class Storage : Structure, IEnergyObject {
+
+    public class Storage : Structure, IEnergyObject
+    {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
 
-        internal override void Unpack(JSONObject data) {
+        internal override void Unpack(JSONObject data)
+        {
             base.Unpack(data);
-            
+
             UnpackUtility.Energy(this, data);
         }
     }

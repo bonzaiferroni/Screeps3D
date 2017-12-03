@@ -8,42 +8,50 @@ using Svg.Pathing;
 using Svg.Transforms;
 using UnityEngine;
 
-namespace Screeps3D {
-    public class BadgeManager : MonoBehaviour {
-
+namespace Screeps3D
+{
+    public class BadgeManager : MonoBehaviour
+    {
         private ScreepsAPI api;
         private BadgePathGenerator badgePaths = new BadgePathGenerator();
         private BadgeColorGenerator badgeColors = new BadgeColorGenerator();
         private Dictionary<string, Texture2D> badges = new Dictionary<string, Texture2D>();
 
-        public void Init(ScreepsAPI screepsApi) {
+        public void Init(ScreepsAPI screepsApi)
+        {
             api = screepsApi;
         }
 
-        public void Get(string username, Action<Texture2D> callback) {
-            if (badges.ContainsKey(username)) {
+        public void Get(string username, Action<Texture2D> callback)
+        {
+            if (badges.ContainsKey(username))
+            {
                 callback(badges[username]);
                 return;
             }
-            
+
             var body = new RequestBody();
             body.AddField("username", username);
 
-            api.Http.Request("GET", "/api/user/badge-svg", body, xml => {
+            api.Http.Request("GET", "/api/user/badge-svg", body, xml =>
+            {
                 badges[username] = Texturize(xml);
                 callback(badges[username]);
             });
         }
 
-        private Texture2D Texturize(string xml) {
+        private Texture2D Texturize(string xml)
+        {
             var byteArray = Encoding.ASCII.GetBytes(xml);
             using (var stream = new MemoryStream(byteArray))
             {
                 var svgDocument = SvgDocument.Open(stream);
                 var bitmap = svgDocument.Draw();
                 var texture = new Texture2D(bitmap.Width, bitmap.Height);
-                for (var x = 0; x < bitmap.Width; x++) {
-                    for (var y = 0; y < bitmap.Height; y++) {
+                for (var x = 0; x < bitmap.Width; x++)
+                {
+                    for (var y = 0; y < bitmap.Height; y++)
+                    {
                         var sysColor = bitmap.GetPixel(x, y);
                         texture.SetPixel(x, y, new Color(sysColor.R / 255f, sysColor.G / 255f, sysColor.B / 255f));
                     }
@@ -53,18 +61,20 @@ namespace Screeps3D {
             }
         }
 
-        public Texture2D Generate(JSONObject badge, float size = 250) {
+        public Texture2D Generate(JSONObject badge, float size = 250)
+        {
             float pathDefinitionSize = 100;
             float center = pathDefinitionSize / 2;
-            
-            var badgeParams = new SvgParams {
+
+            var badgeParams = new SvgParams
+            {
                 param = (int) badge["param"].n,
                 flip = badge["flip"].b,
             };
 
             badgePaths.Add(badge, badgeParams);
             badgeColors.Add(badge, badgeParams);
-            
+
             var rotation = badgeParams.flip ? badgeParams.rotation : 0;
 
             var sb = new StringBuilder();
@@ -80,19 +90,23 @@ namespace Screeps3D {
                 "\n\t\t<rect x=\"0\" y=\"0\" width=\"{0}\" height=\"{1}\" fill=\"{2}\" clip-path=\"url(#clip)\"/>",
                 pathDefinitionSize, pathDefinitionSize, badgeParams.color1));
             sb.Append(string.Format(
-                "\n\t\t<path d=\"{0}\" fill=\"{1}\" clip-path=\"url(#clip)\"/>", badgeParams.path1, badgeParams.color2));
+                "\n\t\t<path d=\"{0}\" fill=\"{1}\" clip-path=\"url(#clip)\"/>", badgeParams.path1,
+                badgeParams.color2));
             sb.Append(string.Format(
-                "\n\t\t<path d=\"{0}\" fill=\"{1}\" clip-path=\"url(#clip)\"/>", badgeParams.path2, badgeParams.color3));
+                "\n\t\t<path d=\"{0}\" fill=\"{1}\" clip-path=\"url(#clip)\"/>", badgeParams.path2,
+                badgeParams.color3));
             sb.Append("\n\t</g>\n</svg>");
 
             return Texturize(sb.ToString());
         }
 
-        public void CacheBadge(string id, JSONObject data) {
+        public void CacheBadge(string id, JSONObject data)
+        {
             if (badges.ContainsKey(id))
                 return;
             var badgeObj = data["badge"];
-            if (badgeObj == null) {
+            if (badgeObj == null)
+            {
                 badges[id] = null;
                 return;
             }
@@ -100,10 +114,13 @@ namespace Screeps3D {
             badges[id] = Generate(badgeObj);
         }
 
-        public Texture2D GetCached(string creepUserId) {
-            if (badges.ContainsKey(creepUserId)) {
+        public Texture2D GetCached(string creepUserId)
+        {
+            if (badges.ContainsKey(creepUserId))
+            {
                 return badges[creepUserId];
-            } else {
+            } else
+            {
                 return null;
             }
         }

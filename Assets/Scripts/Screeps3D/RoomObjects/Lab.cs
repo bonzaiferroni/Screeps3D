@@ -1,4 +1,5 @@
-﻿namespace Screeps3D {
+﻿namespace Screeps3D
+{
     /*{
         "_id":"594a260005d0cca1799cfc76",
         "type":"lab",
@@ -19,11 +20,13 @@
             "runReaction":null
         }
     }*/
-    public class Lab : Structure, IEnergyObject {
+    public class Lab : Structure, IEnergyObject
+    {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
 
-        internal override void Unpack(JSONObject data) {
+        internal override void Unpack(JSONObject data)
+        {
             base.Unpack(data);
 
             UnpackUtility.Energy(this, data);

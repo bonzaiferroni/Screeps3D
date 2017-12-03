@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 
-namespace Screeps3D {
-    public class PlainsView : MonoBehaviour {
+namespace Screeps3D
+{
+    public class PlainsView : MonoBehaviour
+    {
         private Renderer rend;
         private float original;
         private float current;
         private float target;
         private float targetRef;
 
-        public void Highlight() {
-            if (!rend) {
+        public void Highlight()
+        {
+            if (!rend)
+            {
                 rend = GetComponent<Renderer>();
                 original = rend.material.color.r;
             }
@@ -17,13 +21,16 @@ namespace Screeps3D {
             enabled = true;
         }
 
-        public void Dim() {
+        public void Dim()
+        {
             target = original;
             enabled = true;
         }
 
-        public void Update() {
-            if (!rend || Mathf.Abs(current - target) < .001f) {
+        public void Update()
+        {
+            if (!rend || Mathf.Abs(current - target) < .001f)
+            {
                 enabled = false;
                 return;
             }

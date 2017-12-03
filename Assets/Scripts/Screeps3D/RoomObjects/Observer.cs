@@ -1,4 +1,5 @@
-﻿namespace Screeps3D {
+﻿namespace Screeps3D
+{
     /*{
         "_id":"594f8d23ea895523478670b4",
         "type":"observer",
@@ -11,7 +12,7 @@
         "hitsMax":500,
         "observeRoom":null
     }*/
-    public class Observer : Structure{
-        
+    public class Observer : Structure
+    {
     }
 }
