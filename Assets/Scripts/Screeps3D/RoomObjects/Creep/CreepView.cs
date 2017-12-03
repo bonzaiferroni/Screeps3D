@@ -18,7 +18,8 @@ namespace Screeps3D
             _body.material.mainTexture = _creep.Owner.badge;
 
             rotTarget = transform.rotation;
-            posTarget = transform.localPosition;
+            posTarget = new Vector3(RoomObject.X, transform.localPosition.y, 49 - RoomObject.Y);;
+            transform.localPosition = posTarget;
         }
 
         internal override void Delta(JSONObject data)
@@ -27,11 +28,15 @@ namespace Screeps3D
 
             var newPos = new Vector3(RoomObject.X, transform.localPosition.y, 49 - RoomObject.Y);
             var posDelta = posTarget - newPos;
-            if (posDelta.sqrMagnitude > .01)
+
+            if (posDelta.sqrMagnitude > 100)
+            {
+                posTarget = newPos;
+            } else if (posDelta.sqrMagnitude > .01)
             {
                 posTarget = newPos;
                 rotTarget = Quaternion.LookRotation(posDelta);
-            }
+            } 
         }
 
         private void Update()

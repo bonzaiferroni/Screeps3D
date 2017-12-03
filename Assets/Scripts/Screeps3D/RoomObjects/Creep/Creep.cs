@@ -102,7 +102,21 @@ namespace Screeps3D
 
         public override void EnterRoom(EntityView entityView)
         {
-            base.EnterRoom(entityView);
+            if (View != null)
+            {
+                View.transform.SetParent(entityView.transform, true);
+            } else
+            {
+                View = ObjectViewer.Instance.NewView(this);
+                View.transform.SetParent(entityView.transform, false);
+                View.Init(this);
+            }
+            
+            if (View != null)
+            {
+                View.Show();
+                if (OnShow != null) OnShow(View);
+            }
         }
 
         public override void LeaveRoom(EntityView entityView)

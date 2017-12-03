@@ -12,7 +12,7 @@ namespace Screeps3D
         public int Y { get; private set; }
         public string RoomName { get; private set; }
 
-        internal ObjectView View { get; private set; }
+        public ObjectView View { get; protected set; }
 
         public Action<ObjectView> OnShow;
         public Action<JSONObject> OnDelta;
