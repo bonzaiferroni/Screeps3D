@@ -9,7 +9,8 @@ namespace Screeps3D.Selection
     internal class SelectionView : MonoBehaviour
     {
         private static readonly Dictionary<string, float> CircleSizes = new Dictionary<string, float>
-        {   // Prefab default 0.75
+        {
+            // Prefab default 0.75
             {"extension", 0.5f}
         };
 
@@ -32,11 +33,14 @@ namespace Screeps3D.Selection
 
         public void Dispose()
         {
-            if (_circle != null) {
+            if (_circle != null)
+            {
                 _circle.SetActive(false);
                 _circlePool.Push(_circle);
-            };
-            if (_label != null) {
+            }
+            ;
+            if (_label != null)
+            {
                 _label.SetActive(false);
                 _labelPool.Push(_label);
             }
@@ -50,10 +54,12 @@ namespace Screeps3D.Selection
                 return null; // Early
 
             GameObject label;
-            if (_labelPool.Count > 0) {
+            if (_labelPool.Count > 0)
+            {
                 label = _labelPool.Pop();
                 label.SetActive(true);
-            } else {
+            } else
+            {
                 label = Instantiate(Selection.LabelTemplate);
             }
             label.transform.SetParent(Selected.gameObject.transform);
@@ -64,30 +70,38 @@ namespace Screeps3D.Selection
             return label;
         }
 
-        private void BillboardLabel() {
+        private void BillboardLabel()
+        {
             _label.transform.rotation = Camera.main.transform.rotation;
         }
 
-        private void Update() {
+        private void Update()
+        {
             if (_label != null) BillboardLabel();
             if (_circle != null) FadeInCircle();
         }
 
-        private void FadeInCircle() {
+        private void FadeInCircle()
+        {
             var color = _projector.material.color;
-            if (color.a >= 1) {
+            if (color.a >= 1)
+            {
                 return;
             }
             color.a += Time.deltaTime / .2f;
             _projector.material.color = color;
         }
 
-        private GameObject CreateCircle() {
+        private GameObject CreateCircle()
+        {
             GameObject go;
-            if (_circlePool.Count > 0) {
+            if (_circlePool.Count > 0)
+            {
                 go = _circlePool.Pop();
                 go.SetActive(true);
-            } else {
+            } 
+            else
+            {
                 go = Instantiate(Selection.CircleTemplate);
             }
             _projector = go.GetComponent<Projector>();

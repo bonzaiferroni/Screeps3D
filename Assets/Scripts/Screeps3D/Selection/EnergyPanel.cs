@@ -1,46 +1,53 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Screeps3D.Selection {
-    public class EnergyPanel : SelectionPanelComponent {
-        [SerializeField] private LayoutElement element;
-        [SerializeField] private TextMeshProUGUI label;
-        private IEnergyObject energyObject;
-        private RoomObject roomObject;
+namespace Screeps3D.Selection
+{
+    public class EnergyPanel : Subpanel
+    {
+        [SerializeField] private TextMeshProUGUI _label;
+        private IEnergyObject _energyObject;
+        private RoomObject _roomObject;
 
-        public override float Height {
-            get { return element.preferredHeight; }
+        public override string Name
+        {
+            get { return "energy"; }
         }
 
-        public override void Load(RoomObject roomObject) {
-            this.roomObject = roomObject;
-            energyObject = roomObject as IEnergyObject;
-            if (energyObject != null) {
-                element.preferredHeight = 30;
-                roomObject.OnDelta += OnDelta;
-                UpdateLabel();
-            } else {
-                element.preferredHeight = 0;
-                label.text = "";
-            }
+        public override Type ObjectType
+        {
+            get { return typeof(IEnergyObject); }
         }
 
-        private void UpdateLabel() {
-            label.text = string.Format("energy: {0:n0} / {1:n0}", energyObject.Energy, (long) energyObject.EnergyCapacity);
+        public override void Load(RoomObject roomObject)
+        {
+            _roomObject = roomObject;
+            roomObject.OnDelta += OnDelta;
+            _energyObject = roomObject as IEnergyObject;
+            UpdateLabel();
         }
 
-        private void OnDelta(JSONObject obj) {
+        private void UpdateLabel()
+        {
+            _label.text = string.Format("energy: {0:n0} / {1:n0}", _energyObject.Energy,
+                (long) _energyObject.EnergyCapacity);
+        }
+
+        private void OnDelta(JSONObject obj)
+        {
             var hitsData = obj["energy"];
             if (hitsData == null) return;
             UpdateLabel();
         }
 
-        public override void Unload() {
-            if (roomObject == null) 
+        public override void Unload()
+        {
+            if (_roomObject == null)
                 return;
-            roomObject.OnDelta -= OnDelta;
+            _roomObject.OnDelta -= OnDelta;
         }
     }
 }

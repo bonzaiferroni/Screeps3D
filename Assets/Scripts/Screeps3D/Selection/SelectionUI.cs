@@ -3,77 +3,87 @@ using System.Linq;
 using Common;
 using UnityEngine;
 
-namespace Screeps3D.Selection {
-    public class SelectionUI : BaseSingleton<SelectionUI> {
+namespace Screeps3D.Selection
+{
+    public class SelectionUI : BaseSingleton<SelectionUI>
+    {
+        [SerializeField] private GameObject _panelPrefab;
+        [SerializeField] private Transform _parent;
 
-        [SerializeField] private GameObject panelPrefab;
-        [SerializeField] private Transform parent;
-        
-        private Stack<SelectionPanel> pool = new Stack<SelectionPanel>();
-        private List<SelectionPanel> selections = new List<SelectionPanel>();
-        private bool selectionUpdated;
-        private RectTransform rect;
+        private Stack<SelectionPanel> _pool = new Stack<SelectionPanel>();
+        private List<SelectionPanel> _selections = new List<SelectionPanel>();
+        private bool _selectionUpdated;
+        private RectTransform _rect;
 
-        private void Start() {
+        private void Start()
+        {
             Selection.Instance.OnSelect += OnSelect;
             Selection.Instance.OnDeselect += OnDeselect;
-            rect = parent.GetComponent<RectTransform>();
+            _rect = _parent.GetComponent<RectTransform>();
         }
 
-        private void OnSelect(RoomObject obj) {
+        private void OnSelect(RoomObject obj)
+        {
             var panel = FindPanel(obj);
             if (panel != null)
                 return;
-            
+
             panel = NewPanel();
             panel.Load(obj);
-            selections.Add(panel);
-            selectionUpdated = true;
+            _selections.Add(panel);
+            _selectionUpdated = true;
         }
 
-        private void OnDeselect(RoomObject obj) {
+        private void OnDeselect(RoomObject obj)
+        {
             var panel = FindPanel(obj);
             if (panel == null)
                 return;
 
             panel.Unload();
-            selections.Remove(panel);
-            selectionUpdated = true;
+            _selections.Remove(panel);
+            _selectionUpdated = true;
         }
 
-        private SelectionPanel FindPanel(RoomObject obj) {
-            return selections.FirstOrDefault(panel => panel.Selected == obj);
+        private SelectionPanel FindPanel(RoomObject obj)
+        {
+            return _selections.FirstOrDefault(panel => panel.Selected == obj);
         }
 
-        private SelectionPanel NewPanel() {
-            if (pool.Count > 0)
-                return pool.Pop();
+        private SelectionPanel NewPanel()
+        {
+            if (_pool.Count > 0)
+                return _pool.Pop();
 
-            var go = Instantiate(panelPrefab);
-            go.transform.SetParent(parent, false);
+            var go = Instantiate(_panelPrefab);
+            go.transform.SetParent(_parent, false);
             var panel = go.GetComponent<SelectionPanel>();
             panel.Init();
             panel.OnHidden += OnPanelHidden;
             return panel;
         }
 
-        private void OnPanelHidden(SelectionPanel obj) {
-            pool.Push(obj);
+        private void OnPanelHidden(SelectionPanel obj)
+        {
+            _pool.Push(obj);
         }
 
-        private void Update() {
-            if (!selectionUpdated) return;
+        private void Update()
+        {
+            if (!_selectionUpdated) return;
             SetPositions();
-            selectionUpdated = false;
+            _selectionUpdated = false;
         }
 
-        private void SetPositions() {
+        private void SetPositions()
+        {
             var height = 0f;
-            foreach (var panel in selections) {
+            foreach (var panel in _selections)
+            {
                 panel.SetPosition(height);
                 height += panel.Height;
             }
-            rect.sizeDelta = new Vector3(rect.sizeDelta.x, height);
+            _rect.sizeDelta = new Vector3(_rect.sizeDelta.x, height);
         }
     }
 }

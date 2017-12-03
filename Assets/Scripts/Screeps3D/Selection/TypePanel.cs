@@ -1,31 +1,46 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Screeps3D.Selection {
-    public class TypePanel : SelectionPanelComponent {
-        
-        [SerializeField] private TMP_Text label;
-        [SerializeField] private Button button;
-        private RoomObject selected;
-        public override float Height { get { return 30; }}
+namespace Screeps3D.Selection
+{
+    public class TypePanel : Subpanel
+    {
+        [SerializeField] private TMP_Text _label;
+        [SerializeField] private Button _button;
+        private RoomObject _selected;
 
-        private void Start() {
-            button.onClick.AddListener(OnClick);
+        public override string Name
+        {
+            get { return "type"; }
         }
 
-        public override void Load(RoomObject roomObject) {
-            label.text = roomObject.Type;
-            selected = roomObject;
+        public override Type ObjectType
+        {
+            get { return typeof(RoomObject); }
         }
 
-        public override void Unload() {
-            selected = null;
+        private void Start()
+        {
+            _button.onClick.AddListener(OnClick);
         }
 
-        private void OnClick() {
-            if (selected == null) return;
-            Selection.Instance.DeselectObject(selected);
+        public override void Load(RoomObject roomObject)
+        {
+            _label.text = roomObject.Type;
+            _selected = roomObject;
+        }
+
+        public override void Unload()
+        {
+            _selected = null;
+        }
+
+        private void OnClick()
+        {
+            if (_selected == null) return;
+            Selection.Instance.DeselectObject(_selected);
         }
     }
 }

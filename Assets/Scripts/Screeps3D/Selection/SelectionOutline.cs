@@ -2,38 +2,46 @@
 using cakeslice;
 using UnityEngine;
 
-namespace Screeps3D.Selection {
-    public class SelectionOutline {
+namespace Screeps3D.Selection
+{
+    public class SelectionOutline
+    {
+        private static ObjectView _current;
+        private static List<Outline> _outlines = new List<Outline>();
 
-        private static ObjectView current;
-        private static List<Outline> outlines = new List<Outline>();
-        
-        public static void DrawOutline(ObjectView view) {
-            if (current) {
-                if (view == current)
+        public static void DrawOutline(ObjectView view)
+        {
+            if (_current)
+            {
+                if (view == _current)
                     return;
                 RemoveCurrent();
             }
 
-            if (view) {
+            if (view)
+            {
                 AddCurrent(view);
             }
         }
 
-        private static void RemoveCurrent() {
-            foreach (var outline in outlines) {
+        private static void RemoveCurrent()
+        {
+            foreach (var outline in _outlines)
+            {
                 Object.Destroy(outline);
             }
-            outlines.Clear();
-            current = null;
+            _outlines.Clear();
+            _current = null;
         }
 
-        private static void AddCurrent(ObjectView view) {
-            foreach (var rend in view.GetComponentsInChildren<MeshRenderer>()) {
+        private static void AddCurrent(ObjectView view)
+        {
+            foreach (var rend in view.GetComponentsInChildren<MeshRenderer>())
+            {
                 var outline = rend.gameObject.AddComponent<Outline>();
-                outlines.Add(outline);
+                _outlines.Add(outline);
             }
-            current = view;
+            _current = view;
         }
     }
 }

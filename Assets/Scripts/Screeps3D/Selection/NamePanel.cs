@@ -1,32 +1,35 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Screeps3D.Selection {
-    public class NamePanel : SelectionPanelComponent {
-        
-        [SerializeField] private LayoutElement element;
-        [SerializeField] private TextMeshProUGUI label;
-        
-        private INamedObject selected;
+namespace Screeps3D.Selection
+{
+    public class NamePanel : Subpanel
+    {
+        [SerializeField] private TextMeshProUGUI _label;
 
-        public override float Height {
-            get { return element.preferredHeight; }
+        private INamedObject _selected;
+
+        public override string Name
+        {
+            get { return "name"; }
         }
 
-        public override void Load(RoomObject roomObject) {
-            selected = roomObject as INamedObject;
-            if (selected != null) {
-                element.preferredHeight = 30;
-                label.text = selected.Name;
-            } else {
-                element.preferredHeight = 0;
-                label.text = "";
-            }
+        public override Type ObjectType
+        {
+            get { return typeof(INamedObject); }
         }
 
-        public override void Unload() {
-            selected = null;
+        public override void Load(RoomObject roomObject)
+        {
+            _selected = roomObject as INamedObject;
+            _label.text = _selected.Name;
+        }
+
+        public override void Unload()
+        {
+            _selected = null;
         }
     }
 }
