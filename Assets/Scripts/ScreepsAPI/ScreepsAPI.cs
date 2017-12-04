@@ -22,7 +22,11 @@ namespace Screeps3D
         public BadgeManager Badges { get; private set; }
         public UserManager UserManager { get; private set; }
         public CpuMonitor Monitor { get; private set; }
+        public ScreepsConsole Console { get; private set; }
+        public int Time { get; internal set; }
+        
         public Action<bool> OnConnectionStatusChange;
+        public Action<int> OnTick;
 
         private string _token;
 
@@ -41,6 +45,8 @@ namespace Screeps3D
             Badges.Init(this);
             Monitor = GetComponent<CpuMonitor>();
             Monitor.Init(this);
+            Console = GetComponent<ScreepsConsole>();
+            Console.Init(this);
             UserManager = new UserManager(this);
         }
 
@@ -66,6 +72,17 @@ namespace Screeps3D
 
             if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
             IsConnected = true;
+            
+            Http.Request("GET", "/api/game/time", null, SetTime);
+        }
+
+        private void SetTime(string obj)
+        {
+            var timeData = new JSONObject(obj)["time"];
+            if (timeData != null)
+            {
+                Time = (int) timeData.n;
+            }
         }
     }
 }

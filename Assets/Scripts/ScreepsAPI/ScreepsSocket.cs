@@ -16,7 +16,6 @@ namespace Screeps3D
         public Action<CloseEventArgs> OnClose;
         public Action<MessageEventArgs> OnMessage;
         public Action<ErrorEventArgs> OnError;
-        public Action<string, bool> OnConsoleMessage;
 
         public void Init(ScreepsAPI screepsApi)
         {
