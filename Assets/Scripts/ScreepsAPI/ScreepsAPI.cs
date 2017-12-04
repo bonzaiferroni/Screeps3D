@@ -21,6 +21,7 @@ namespace Screeps3D
         public ScreepsUser Me { get; private set; }
         public BadgeManager Badges { get; private set; }
         public UserManager UserManager { get; private set; }
+        public CpuMonitor Monitor { get; private set; }
         public Action<bool> OnConnectionStatusChange;
 
         private string _token;
@@ -38,6 +39,8 @@ namespace Screeps3D
             Socket.Init(this);
             Badges = GetComponent<BadgeManager>();
             Badges.Init(this);
+            Monitor = GetComponent<CpuMonitor>();
+            Monitor.Init(this);
             UserManager = new UserManager(this);
         }
 

@@ -66,6 +66,9 @@ namespace Screeps3D
         public float EnergyCapacity { get; set; }
         public float Hits { get; set; }
         public float HitsMax { get; set; }
+        public float Fatigue { get; set; }
+        public float TTL { get; set; }
+        public float AgeTime { get; set; }
 
         internal Creep()
         {
@@ -90,6 +93,18 @@ namespace Screeps3D
                 {
                     Actions[key] = actionObj[key];
                 }
+            }
+
+            var ageData = data["ageTime"];
+            if (ageData != null)
+            {
+                AgeTime = ageData.n;
+            }
+            
+            var fatigueData = data["fatigue"];
+            if (fatigueData != null)
+            {
+                Fatigue = fatigueData.n;
             }
 
             UnpackUtility.Energy(this, data);
