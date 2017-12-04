@@ -50,6 +50,7 @@ namespace Screeps3D.Selection
             if (_roomObject == null)
                 return;
             _roomObject.OnDelta -= OnDelta;
+            _roomObject = null;
         }
     }
 }

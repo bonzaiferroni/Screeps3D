@@ -43,6 +43,7 @@ namespace Screeps3D.Selection
         public override void Unload()
         {
             _creep.OnDelta -= OnDelta;
+            _creep = null;
         }
     }
 }
