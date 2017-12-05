@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Utils.Utils;
 
 namespace Screeps3D
@@ -9,6 +10,7 @@ namespace Screeps3D
         [SerializeField] private Transform _rotationRoot;
         private Quaternion _targetRot;
         private float _nextRot;
+        private bool _rotating;
 
         private IEnergyObject energyObject;
         private float targetRef;
@@ -31,13 +33,24 @@ namespace Screeps3D
 
         private void Update()
         {
-            if (Time.time > _nextRot)
-            {
-                _nextRot = Time.time + Random.value + 1;
-                _targetRot = _rotationRoot.rotation * Quaternion.Euler(0, 180 * Random.value, 0);
-            }
+            if (!_rotating && Time.time > _nextRot)
+                StartCoroutine(Rotate());
 
-            _rotationRoot.rotation = Quaternion.Slerp(_rotationRoot.rotation, _targetRot, Time.deltaTime);
         }
+
+        private IEnumerator Rotate()
+        {
+            var direction = Random.value > 0.5 ? 1 : -1;
+            _targetRot = _rotationRoot.rotation * Quaternion.Euler(0, 180 * Random.value * direction, 0);
+            _rotating = true;
+            while (_rotationRoot.rotation != _targetRot)
+            {
+                _rotationRoot.rotation = Quaternion.Slerp(_rotationRoot.rotation, _targetRot, Time.deltaTime);
+                yield return null;
+            }
+            _nextRot = Time.time + Random.value + 1;
+            _rotating = false;
+        }
+
     }
 }
