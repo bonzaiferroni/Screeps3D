@@ -11,6 +11,7 @@ namespace Screeps3D
         private WebSocket Socket { get; set; }
         private ScreepsAPI _api;
         private Dictionary<string, Action<JSONObject>> _subscriptions = new Dictionary<string, Action<JSONObject>>();
+        private Queue<MessageEventArgs> _messages = new Queue<MessageEventArgs>();
 
         public Action<EventArgs> OnOpen;
         public Action<CloseEventArgs> OnClose;
@@ -73,6 +74,31 @@ namespace Screeps3D
 
         private void Message(object sender, MessageEventArgs e)
         {
+            _messages.Enqueue(e);
+        }
+
+        private void Error(object sender, ErrorEventArgs e)
+        {
+            try
+            {
+                Debug.Log(string.Format("Socket Error: {0}", e.Message));
+                if (OnError != null) OnError.Invoke(e);
+            } catch (Exception exception)
+            {
+                Debug.Log(string.Format("Exception in ScreepSocket.OnError\n{0}", exception));
+            }
+        }
+
+        private void Update()
+        {
+            while (_messages.Count > 0)
+            {
+                ProcessMessage(_messages.Dequeue());
+            }
+        }
+
+        private void ProcessMessage(MessageEventArgs e)
+        {
             try
             {
                 if (e.Data.Substring(0, 3) == "gz:")
@@ -91,18 +117,6 @@ namespace Screeps3D
             } catch (Exception exception)
             {
                 Debug.Log(string.Format("Exception in ScreepSocket.OnMessage\n{0}", exception));
-            }
-        }
-
-        private void Error(object sender, ErrorEventArgs e)
-        {
-            try
-            {
-                Debug.Log(string.Format("Socket Error: {0}", e.Message));
-                if (OnError != null) OnError.Invoke(e);
-            } catch (Exception exception)
-            {
-                Debug.Log(string.Format("Exception in ScreepSocket.OnError\n{0}", exception));
             }
         }
 

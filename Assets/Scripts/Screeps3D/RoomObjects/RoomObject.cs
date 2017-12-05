@@ -1,33 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Screeps3D
 {
     public class RoomObject
     {
-        public JSONObject Data { get; private set; }
         public string Id { get; set; }
         public string Type { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public string RoomName { get; set; }
         public Room Room { get; protected set; }
+        public Vector3 Position { get; protected set; }
 
         public ObjectView View { get; protected set; }
 
-        public Action<ObjectView> OnShow;
+        public bool Initialized { get; protected set; }
+        public bool Shown { get; protected set; }
+        
+        public Action<bool> OnShow;
         public Action<JSONObject> OnDelta;
 
-        internal void Init(JSONObject data)
+        internal void Delta(JSONObject delta, Room room)
         {
-            Data = data;
-            Unpack(data, true);
-        }
+            if (!Initialized)
+            {
+                Unpack(delta, true);
+            }
+            else
+            {
+                Unpack(delta, false);
+            }
+            
+            if (Room != room || !Shown)
+            {
+                Debug.Log(string.Format("{0} entering room {1}", Id, room.roomName));
+                EnterRoom(room);
+            }
 
-        internal void Delta(JSONObject delta)
-        {
-            Unpack(delta, false);
+            SetPosition();
+            
             if (View != null)
                 View.Delta(delta);
             
@@ -43,35 +58,52 @@ namespace Screeps3D
             {
                 UnpackUtility.Id(this, data);
                 UnpackUtility.Type(this, data);
-                UnpackUtility.Position(this, data);
-            }
-        }
-
-        public virtual void EnterRoom(EntityView entityView)
-        {
-            if (View != null)
-            {
-                View.Hide();
-            }
-
-            View = ObjectViewer.Instance.NewView(this);
-            if (View != null)
-            {
-                View.Init(this);
-                View.transform.SetParent(entityView.transform, false);
-                View.Show();
-                if (OnShow != null) OnShow(View);
             }
             
-            Room = entityView.Room;
+            UnpackUtility.Position(this, data);
         }
 
-        public virtual void LeaveRoom(EntityView entityView)
+        private void EnterRoom(Room room)
         {
+            Room = room;
+            
             if (View == null)
+            {
+                Scheduler.Instance.Add(AssignView);
+            }
+
+            Shown = true;
+            if (OnShow != null)
+                OnShow(true);
+        }
+
+        private void AssignView()
+        {
+            if (Shown)
+            {
+                View = ObjectViewFactory.Instance.NewView(this);
+                if (View)
+                    View.Load(this);
+            }
+        }
+
+        public void HideObject(Room room)
+        {
+            if (room != Room)
                 return;
 
-            View.Hide();
+            Shown = false;
+            if (OnShow != null)
+                OnShow(false);
+        }
+
+        protected void SetPosition()
+        {
+            Position = PosUtility.Convert(X, Y, Room);
+        }
+
+        public void DetachView()
+        {
             View = null;
         }
     }

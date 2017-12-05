@@ -27,6 +27,7 @@ namespace Screeps3D
         
         public Action<bool> OnConnectionStatusChange;
         public Action<int> OnTick;
+        public Action OnShutdown;
 
         private string _token;
 
@@ -83,6 +84,12 @@ namespace Screeps3D
             {
                 Time = (int) timeData.n;
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (OnShutdown != null)
+                OnShutdown();
         }
     }
 }

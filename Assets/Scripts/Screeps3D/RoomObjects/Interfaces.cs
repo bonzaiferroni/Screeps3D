@@ -1,10 +1,12 @@
 ﻿namespace Screeps3D
 {
 
-    internal interface IScreepsComponent
+    internal interface IObjectViewComponent
     {
-        void Init(RoomObject roomObject);
+        void Init();
+        void Load(RoomObject roomObject);
         void Delta(JSONObject data);
+        void Unload(RoomObject roomObject);
     }
     
     internal interface IEnergyObject

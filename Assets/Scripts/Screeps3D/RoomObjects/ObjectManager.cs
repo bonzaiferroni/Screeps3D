@@ -34,7 +34,6 @@ namespace Screeps3D
             var type = typeData.str;
 
             var roomObject = _factory.Get(type);
-            roomObject.Init(data);
             RoomObjects[id] = roomObject;
 
             return roomObject;

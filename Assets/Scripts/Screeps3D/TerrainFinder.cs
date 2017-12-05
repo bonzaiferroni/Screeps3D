@@ -8,8 +8,6 @@ namespace Screeps3D
 {
     public class TerrainFinder : BaseSingleton<TerrainFinder>
     {
-        [SerializeField] private ScreepsAPI _api;
-
         private Dictionary<Room, string> _terrain = new Dictionary<Room, string>();
 
         public void Find(Room room, Action<string> callback)
@@ -36,7 +34,7 @@ namespace Screeps3D
                 callback(terrainData);
             };
 
-            _api.Http.GetRoom(room.roomName, room.shardName, serverCallback);
+            ScreepsAPI.Instance.Http.GetRoom(room.roomName, room.shardName, serverCallback);
         }
     }
 }

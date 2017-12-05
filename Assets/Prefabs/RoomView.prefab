@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4329336768361796}
   - component: {fileID: 114548753471103968}
   m_Layer: 0
-  m_Name: MapView
+  m_Name: RoadNetwork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,22 +234,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1904454154633936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4375964407632494}
-  - component: {fileID: 114974658740550826}
-  m_Layer: 0
-  m_Name: EntityView
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1952358517284388
 GameObject:
   m_ObjectHideFlags: 1
@@ -359,7 +343,7 @@ Transform:
   m_LocalScale: {x: 50, y: 0.1, z: 50}
   m_Children: []
   m_Father: {fileID: 4500502817967126}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4308456858210056
 Transform:
@@ -414,19 +398,6 @@ Transform:
   m_Father: {fileID: 4209964542701382}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4375964407632494
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904454154633936}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4500502817967126}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4376166656611924
 Transform:
   m_ObjectHideFlags: 1
@@ -465,7 +436,6 @@ Transform:
   m_Children:
   - {fileID: 4984576121034042}
   - {fileID: 4329336768361796}
-  - {fileID: 4375964407632494}
   - {fileID: 4286887788319904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1124,18 +1094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef448bf8097f49108ef88ad196ec5bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114974658740550826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904454154633936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 867c981fe4874415b5252c2ce7dd57be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _plains: {fileID: 114310376138796484}
 --- !u!114 &114985799466648680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1148,6 +1106,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _terrain: {fileID: 114443474438515910}
-  _entities: {fileID: 114974658740550826}
-  _map: {fileID: 114548753471103968}
+  _roadNetwork: {fileID: 114548753471103968}
   _vis: {fileID: 114091160785336574}
