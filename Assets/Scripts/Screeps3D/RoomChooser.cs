@@ -7,7 +7,7 @@ namespace Screeps3D
 {
     public class RoomChooser : MonoBehaviour
     {
-        public Action<WorldCoord> OnChooseRoom;
+        public Action<Room> OnChooseRoom;
         
         [SerializeField] private TMP_Dropdown _shardInput;
         [SerializeField] private TMP_InputField _roomInput;
@@ -23,13 +23,13 @@ namespace Screeps3D
 
         private void ChooseRoom(string roomName)
         {
-            var coord = WorldCoord.Get(_roomInput.text, _shards[_shardInput.value]);
-            if (coord == null)
+            var room = RoomManager.Instance.Get(_roomInput.text, _shards[_shardInput.value]);
+            if (room == null)
             {
                 Debug.Log("invalid room");
                 return;
             }
-            if (OnChooseRoom != null) OnChooseRoom.Invoke(coord);
+            if (OnChooseRoom != null) OnChooseRoom.Invoke(room);
         }
 
         private void OnConnectionStatusChange(bool isConnected)

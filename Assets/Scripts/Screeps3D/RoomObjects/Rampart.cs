@@ -1,31 +1,31 @@
-﻿namespace Screeps3D
+﻿using UnityEngine;
+
+namespace Screeps3D
 {
     /*{
-        "_id":"594816d4dc09e4106f2b782f",
-        "type":"link",
-        "x":20,
-        "y":8,
-        "room":"W8S12",
-        "notifyWhenAttacked":true,
-        "user":"567d9401f60a26fc4c41bd38",
-        "energy":779,
-        "energyCapacity":800,
-        "cooldown":0,
-        "hits":1000,
-        "hitsMax":1000,
-        "actionLog":{
-            "transferEnergy":null
-        }
+      "_id": "5a14926e0f5eb600014edf87",
+      "type": "rampart",
+      "x": 14,
+      "y": 4,
+      "room": "E1S2",
+      "notifyWhenAttacked": true,
+      "user": "5a0da017ab17fd00012bf0e7",
+      "hits": 12698420,
+      "hitsMax": 300000000,
+      "nextDecayTime": 1164543
     }*/
-    public class Rampart : Structure, IOwnedObject
+    public class Rampart : Structure, IOwnedObject, IDecay
     {
         public string UserId { get; set; }
         public ScreepsUser Owner { get; set; }
+        public float NextDecayTime { get; set; }
 
-        internal override void Unpack(JSONObject data)
+        internal override void Unpack(JSONObject data, bool initial)
         {
-            base.Unpack(data);
+            base.Unpack(data, initial);
             UnpackUtility.Owner(this, data);
+            UnpackUtility.Decay(this, data);
         }
+
     }
 }

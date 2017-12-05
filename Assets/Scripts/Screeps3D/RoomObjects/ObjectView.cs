@@ -8,7 +8,7 @@ namespace Screeps3D
     {
         internal RoomObject RoomObject { get; private set; }
         internal IScreepsComponent[] components;
-        private ScaleVis _vis;
+        protected ScaleVis _vis;
 
         public bool IsVisible
         {
@@ -25,7 +25,7 @@ namespace Screeps3D
             }
 
             RoomObject = roomObject;
-            transform.localPosition = new Vector3(RoomObject.X, transform.localPosition.y, 49 - RoomObject.Y);
+            transform.localPosition = PosToVector3();
 
             foreach (var component in components)
             {
@@ -33,7 +33,12 @@ namespace Screeps3D
             }
         }
 
-        private void OnFinishedAnimation(bool isVisible)
+        internal Vector3 PosToVector3()
+        {
+            return new Vector3(RoomObject.X, transform.localPosition.y, 49 - RoomObject.Y);
+        }
+
+        protected virtual void OnFinishedAnimation(bool isVisible)
         {
             if (!isVisible)
             {
@@ -49,20 +54,14 @@ namespace Screeps3D
             }
         }
 
-        internal void Show()
+        internal virtual void Show()
         {
             _vis.Show();
         }
 
-        internal void Hide()
+        internal virtual void Hide()
         {
             _vis.Hide();
         }
-    }
-
-    internal interface IScreepsComponent
-    {
-        void Init(RoomObject roomObject);
-        void Delta(JSONObject data);
     }
 }

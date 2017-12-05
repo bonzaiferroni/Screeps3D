@@ -76,15 +76,19 @@ namespace Screeps3D
             Actions = new Dictionary<string, JSONObject>();
         }
 
-        internal override void Unpack(JSONObject data)
+        internal override void Unpack(JSONObject data, bool initial)
         {
-            base.Unpack(data);
-
-            var userObj = data["user"];
-            if (userObj != null)
+            if (initial)
             {
-                UserId = userObj.str;
+                UnpackUtility.Type(this, data);
+                UnpackUtility.Id(this, data);
+                UnpackUtility.Owner(this, data);
+                UnpackUtility.Name(this, data);
             }
+            
+            UnpackUtility.Position(this, data);
+            UnpackUtility.Energy(this, data);
+            UnpackUtility.HitPoints(this, data);
 
             var actionObj = data["actionLog"];
             if (actionObj != null)
@@ -107,11 +111,6 @@ namespace Screeps3D
                 Fatigue = fatigueData.n;
             }
 
-            UnpackUtility.Energy(this, data);
-            UnpackUtility.Name(this, data);
-            UnpackUtility.HitPoints(this, data);
-            UnpackUtility.Owner(this, data);
-
             Body.Unpack(Data);
         }
 
@@ -132,11 +131,13 @@ namespace Screeps3D
                 View.Show();
                 if (OnShow != null) OnShow(View);
             }
+
+            Room = entityView.Room;
         }
 
         public override void LeaveRoom(EntityView entityView)
         {
-            if (View == null || entityView.Coord.roomName != RoomName)
+            if (View == null || entityView.Room.roomName != RoomName)
             {
                 return;
             }

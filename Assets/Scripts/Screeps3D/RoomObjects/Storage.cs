@@ -35,9 +35,9 @@
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
 
-        internal override void Unpack(JSONObject data)
+        internal override void Unpack(JSONObject data, bool initial)
         {
-            base.Unpack(data);
+            base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
         }

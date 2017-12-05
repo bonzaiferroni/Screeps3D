@@ -44,5 +44,19 @@ namespace Screeps3D
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, posTarget, ref posRef, .5f);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * 5);
         }
+
+        protected override void OnFinishedAnimation(bool isVisible)
+        {
+            // do nothing
+        }
+
+        internal override void Show()
+        {
+            if (!_vis.IsVisible)
+            {
+                transform.localPosition = PosToVector3();
+            }
+            _vis.Show();
+        }
     }
 }

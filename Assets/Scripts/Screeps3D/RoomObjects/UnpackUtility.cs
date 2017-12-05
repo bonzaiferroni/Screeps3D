@@ -2,6 +2,36 @@
 {
     public class UnpackUtility
     {
+        
+        internal static void Id(RoomObject roomObject, JSONObject data)
+        {
+            var idObj = data["_id"];
+            if (idObj != null)
+                roomObject.Id = idObj.str;
+        }
+        
+        internal static void Type(RoomObject roomObject, JSONObject data)
+        {
+            var typeObj = data["type"];
+            if (typeObj != null)
+                roomObject.Type = typeObj.str;
+        }
+        
+        internal static void Position(RoomObject roomObject, JSONObject data)
+        {
+            var xObj = data["x"];
+            if (xObj != null)
+                roomObject.X = (int) xObj.n;
+
+            var yObj = data["y"];
+            if (yObj != null)
+                roomObject.Y = (int) yObj.n;
+
+            var roomNameObj = data["room"];
+            if (roomNameObj != null)
+                roomObject.RoomName = roomNameObj.str;
+        }
+        
         internal static void Energy(IEnergyObject energyObj, JSONObject data)
         {
             var energyCapData = data["energyCapacity"];
@@ -50,28 +80,23 @@
                 obj.Owner = ScreepsAPI.Instance.UserManager.GetUser(userData.str); 
             }
         }
-    }
 
-    internal interface IEnergyObject
-    {
-        float Energy { get; set; }
-        float EnergyCapacity { get; set; }
-    }
+        internal static void Decay(IDecay obj, JSONObject data)
+        {
+            var decayData = data["nextDecayTime"];
+            if (decayData != null)
+            {
+                obj.NextDecayTime = decayData.n;
+            }
+        }
 
-    internal interface INamedObject
-    {
-        string Name { get; set; }
-    }
-
-    internal interface IOwnedObject
-    {
-        string UserId { get; set; }
-        ScreepsUser Owner { get; set; }
-    }
-
-    internal interface IHitpointsObject
-    {
-        float Hits { get; set; }
-        float HitsMax { get; set; }
+        internal static void Progress(IProgress progressObj, JSONObject data)
+        {
+            var progressData = data["progress"];
+            if (progressData != null)
+            {
+                progressObj.Progress = progressData.n;
+            }
+        }
     }
 }

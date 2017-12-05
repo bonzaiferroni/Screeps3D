@@ -6,7 +6,7 @@ namespace Screeps3D.Selection
 {
     public class FatiguePanel : Subpanel
     {
-        [SerializeField] private TextMeshProUGUI label;
+        [SerializeField] private TextMeshProUGUI _label;
         
         private Creep _creep;
 
@@ -37,7 +37,7 @@ namespace Screeps3D.Selection
 
         private void UpdateDisplay()
         {
-            label.text = string.Format("Fatigue: {0}", _creep.Fatigue);
+            _label.text = string.Format("Fatigue: {0}", _creep.Fatigue);
         }
 
         public override void Unload()

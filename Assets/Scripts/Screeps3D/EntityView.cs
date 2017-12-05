@@ -9,7 +9,7 @@ namespace Screeps3D
     {
         [SerializeField] private PlainsView _plains;
 
-        public WorldCoord Coord { get; private set; }
+        public Room Room { get; private set; }
 
         private Dictionary<string, RoomObject> _roomObjects = new Dictionary<string, RoomObject>();
         private Queue<JSONObject> _roomData = new Queue<JSONObject>();
@@ -19,16 +19,16 @@ namespace Screeps3D
 
         private static Queue<EntityView> queue = new Queue<EntityView>();
 
-        public void Load(WorldCoord coord)
+        public void Load(Room room)
         {
-            this.Coord = coord;
+            Room = room;
 
             if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
             {
-                _path = string.Format("room:{0}/{1}", coord.shardName, coord.roomName);
+                _path = string.Format("room:{0}/{1}", room.shardName, room.roomName);
             } else
             {
-                _path = string.Format("room:{0}", coord.roomName);
+                _path = string.Format("room:{0}", room.roomName);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Screeps3D
 
         private void OnDestroy()
         {
-            if (ScreepsAPI.Instance.Socket != null && Coord != null)
+            if (ScreepsAPI.Instance.Socket != null && Room != null)
             {
                 ScreepsAPI.Instance.Socket.Unsub(_path);
             }
@@ -77,18 +77,17 @@ namespace Screeps3D
             RenderEntities(_roomData.Dequeue());
         }
 
-        private void RenderEntities(JSONObject data)
+        private void RenderEntities(JSONObject roomData)
         {
-            UnpackUsers(data);
-            var objects = data["objects"];
-            foreach (var id in objects.keys)
+            UnpackUsers(roomData);
+            var objectsData = roomData["objects"];
+            foreach (var id in objectsData.keys)
             {
-                var datum = objects[id];
+                var objectData = objectsData[id];
 
                 if (!_roomObjects.ContainsKey(id))
                 {
-                    _roomObjects[id] = ObjectManager.Instance.GetInstance(id, datum);
-                    _roomObjects[id].EnterRoom(this);
+                    _roomObjects[id] = ObjectManager.Instance.GetInstance(id, objectData);
                 }
             }
 
@@ -98,18 +97,27 @@ namespace Screeps3D
                 var id = kvp.Key;
                 var roomObject = kvp.Value;
 
-                var datum = JSONObject.obj; // will generate lots of garbage
-                if (objects.HasField(id))
+                JSONObject objectData;
+                if (objectsData.HasField(id))
                 {
-                    datum = objects[id];
+                    objectData = objectsData[id];
+                } else
+                {
+                    objectData = JSONObject.obj;
                 }
-                if (datum != null && datum.IsNull)
+                
+                if (objectData.IsNull)
                 {
                     roomObject.LeaveRoom(this);
                     _removeList.Add(id);
                 } else
                 {
-                    roomObject.Delta(datum);
+                    roomObject.Delta(objectData);
+                    
+                    if (roomObject.Room != Room)
+                    {
+                        roomObject.EnterRoom(this);
+                    }
                 }
             }
 

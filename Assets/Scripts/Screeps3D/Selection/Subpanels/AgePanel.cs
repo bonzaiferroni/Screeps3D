@@ -8,8 +8,8 @@ namespace Screeps3D.Selection
 {
     public class AgePanel : Subpanel
     {
-        [SerializeField] private TextMeshProUGUI label;
-        [SerializeField] private ScaleVisAxes meter;
+        [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private ScaleVisAxes _meter;
         
         private Creep _creep;
 
@@ -38,8 +38,8 @@ namespace Screeps3D.Selection
         private void UpdateLabel()
         {
             var ttl = _creep.AgeTime - ScreepsAPI.Instance.Time;
-            label.text = string.Format("TTL: {0}", ttl);
-            meter.Visible(ttl / 1500);
+            _label.text = string.Format("TTL: {0}", ttl);
+            _meter.Visible(ttl / 1500);
         }
 
         public override void Unload()

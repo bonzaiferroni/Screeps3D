@@ -10,13 +10,13 @@ namespace Screeps3D
     {
         [SerializeField] private ScreepsAPI _api;
 
-        private Dictionary<string, string> _terrain = new Dictionary<string, string>();
+        private Dictionary<Room, string> _terrain = new Dictionary<Room, string>();
 
-        public void Find(WorldCoord coord, Action<string> callback)
+        public void Find(Room room, Action<string> callback)
         {
-            if (_terrain.ContainsKey(coord.key))
+            if (_terrain.ContainsKey(room))
             {
-                callback(_terrain[coord.key]);
+                callback(_terrain[room]);
                 return;
             }
 
@@ -32,11 +32,11 @@ namespace Screeps3D
                 {
                     terrainData = obj["terrain"].list[0]["terrain"].str;
                 }
-                this._terrain[coord.key] = terrainData;
+                this._terrain[room] = terrainData;
                 callback(terrainData);
             };
 
-            _api.Http.GetRoom(coord.roomName, coord.shardName, serverCallback);
+            _api.Http.GetRoom(room.roomName, room.shardName, serverCallback);
         }
     }
 }

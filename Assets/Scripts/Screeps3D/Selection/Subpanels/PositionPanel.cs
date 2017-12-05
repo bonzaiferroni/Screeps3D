@@ -6,7 +6,7 @@ namespace Screeps3D.Selection
 {
     public class PositionPanel : Subpanel
     {
-        [SerializeField] private TextMeshProUGUI label;
+        [SerializeField] private TextMeshProUGUI _label;
         
         private RoomObject _roomObject;
         private Creep _creep;
@@ -45,7 +45,7 @@ namespace Screeps3D.Selection
 
         private void UpdateLabel()
         {
-            label.text = string.Format("Pos: {0}, {1}", _roomObject.X, _roomObject.Y);
+            _label.text = string.Format("Pos: {0}, {1}", _roomObject.X, _roomObject.Y);
         }
     }
 }

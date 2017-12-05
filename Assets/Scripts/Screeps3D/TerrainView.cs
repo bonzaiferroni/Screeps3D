@@ -17,9 +17,9 @@ namespace Screeps3D
         private int _y;
         private string _terrain;
 
-        public void Load(WorldCoord coord)
+        public void Load(Room room)
         {
-            TerrainFinder.Instance.Find(coord, InitRender);
+            TerrainFinder.Instance.Find(room, InitRender);
         }
 
         private void InitRender(string terrain)

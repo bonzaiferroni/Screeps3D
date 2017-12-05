@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 using Utils;
 
 namespace Screeps3D
@@ -9,16 +10,8 @@ namespace Screeps3D
         [SerializeField] private EntityView _entities;
         [SerializeField] private MapView _map;
         [SerializeField] private ScaleVis _vis;
-        private WorldCoord _coord;
+        private Room _room;
         private bool _loadedNeighbors;
-
-        public void Load(WorldCoord coord)
-        {
-            this._coord = coord;
-            _terrain.Load(coord);
-            _entities.Load(coord);
-            _map.Load(coord);
-        }
 
         public void Target()
         {
@@ -27,13 +20,21 @@ namespace Screeps3D
             if (!_loadedNeighbors)
             {
                 _loadedNeighbors = true;
-                WorldView.Instance.LoadNeighbors(_coord);
+                WorldView.Instance.LoadNeighbors(_room);
             }
         }
 
         public void Show()
         {
             _vis.Show();
+        }
+
+        public void Init(Room room)
+        {
+            _room = room;
+            Scheduler.Instance.Add(() => _terrain.Load(room));
+            Scheduler.Instance.Add(() => _entities.Load(room));
+            Scheduler.Instance.Add(() => _map.Load(room));
         }
     }
 }

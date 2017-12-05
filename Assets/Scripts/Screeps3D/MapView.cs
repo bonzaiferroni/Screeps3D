@@ -11,21 +11,21 @@ namespace Screeps3D
         public RoadView[,] roads = new RoadView[50, 50];
         
         [SerializeField] private RoadView _roadPrototype;
-        private WorldCoord _coord;
+        private Room _room;
         private string _path;
         private bool _awake;
         private Queue<JSONObject> _queue = new Queue<JSONObject>();
 
-        public void Load(WorldCoord coord)
+        public void Load(Room room)
         {
-            this._coord = coord;
+            _room = room;
 
             if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
             {
-                _path = string.Format("roomMap2:{0}/{1}", coord.shardName, coord.roomName);
+                _path = string.Format("roomMap2:{0}/{1}", room.shardName, room.roomName);
             } else
             {
-                _path = string.Format("roomMap2:{0}", coord.roomName);
+                _path = string.Format("roomMap2:{0}", room.roomName);
             }
         }
 
