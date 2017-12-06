@@ -15,6 +15,7 @@ namespace Screeps3D
         {
             _room = room;
             _room.ObjectStream.OnData += Unpack;
+            _room.OnShowObjects += ControlVisibility;
         }
 
         private void Unpack(JSONObject roomData)
@@ -47,6 +48,11 @@ namespace Screeps3D
                 if (objectsData.HasField(id))
                 {
                     objectData = objectsData[id];
+                }
+                else if (roomObject.Room != _room)
+                {
+                    _removeList.Add(id);
+                    continue;
                 }
                 else
                 {
@@ -85,6 +91,18 @@ namespace Screeps3D
             {
                 var userData = usersData[id];
                 ScreepsAPI.Instance.UserManager.CacheUser(userData);
+            }
+        }
+
+        private void ControlVisibility(bool showObjects)
+        {
+            if (!showObjects)
+            {
+                foreach (var kvp in _room.Objects)
+                {
+                    var roomObject = kvp.Value;
+                    roomObject.HideObject(_room);
+                }
             }
         }
     }

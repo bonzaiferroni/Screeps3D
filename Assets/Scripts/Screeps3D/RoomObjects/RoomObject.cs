@@ -64,10 +64,6 @@ namespace Screeps3D
 
         private void EnterRoom(Room room)
         {
-            if (Room != null)
-            {
-                Room.Objects.Remove(Id);
-            }
             Room = room;
             
             if (View == null)
@@ -82,7 +78,7 @@ namespace Screeps3D
 
         private void AssignView()
         {
-            if (Shown)
+            if (Shown && View == null)
             {
                 View = ObjectViewFactory.Instance.NewView(this);
                 if (View)
