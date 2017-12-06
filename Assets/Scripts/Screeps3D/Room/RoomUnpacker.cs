@@ -26,6 +26,9 @@ namespace Screeps3D
             foreach (var id in objectsData.keys)
             {
                 var objectData = objectsData[id];
+                if (objectData.IsNull)
+                    continue;
+                
                 if (!_room.Objects.ContainsKey(id))
                 {
                     var roomObject = ObjectManager.Instance.GetInstance(id, objectData);
@@ -63,7 +66,6 @@ namespace Screeps3D
 
             foreach (var id in _removeList)
             {
-                Debug.Log(string.Format("removing {0}", id));
                 _room.Objects.Remove(id);
             }
 

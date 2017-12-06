@@ -37,7 +37,6 @@ namespace Screeps3D
             
             if (Room != room || !Shown)
             {
-                Debug.Log(string.Format("{0} entering room {1}", Id, room.roomName));
                 EnterRoom(room);
             }
 
@@ -65,6 +64,10 @@ namespace Screeps3D
 
         private void EnterRoom(Room room)
         {
+            if (Room != null)
+            {
+                Room.Objects.Remove(Id);
+            }
             Room = room;
             
             if (View == null)
