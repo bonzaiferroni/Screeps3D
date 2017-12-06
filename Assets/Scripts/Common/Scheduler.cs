@@ -27,11 +27,14 @@ namespace Common
 
         private void Update()
         {
-            if (queue.Count == 0)
-                return;
-
-            var action = queue.Dequeue();
-            action();
+            var start = DateTime.Now.Millisecond;
+            var current = DateTime.Now.Millisecond;
+            while (queue.Count > 0 && current >= start && current - start < 10)
+            {
+                var action = queue.Dequeue();
+                action();
+                current = DateTime.Now.Millisecond;
+            }
         }
     }
 }
