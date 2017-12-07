@@ -27,7 +27,7 @@ namespace Screeps3D.Selection
             ScreepsAPI.Instance.OnTick += OnTick;
         }
 
-        private void OnTick(int obj)
+        private void OnTick(long obj)
         {
             UpdateLabel();
         }
@@ -40,7 +40,7 @@ namespace Screeps3D.Selection
 
         private void UpdateLabel()
         {
-            _label.text = string.Format("Decay: {0}", _decay.NextDecayTime - ScreepsAPI.Instance.Time);
+            _label.text = string.Format("Decay: {0:n0}", _decay.NextDecayTime - ScreepsAPI.Instance.Time);
         }
     }
 }

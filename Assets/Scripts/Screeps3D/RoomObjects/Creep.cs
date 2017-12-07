@@ -67,8 +67,8 @@ namespace Screeps3D
         public float Hits { get; set; }
         public float HitsMax { get; set; }
         public float Fatigue { get; set; }
-        public float TTL { get; set; }
-        public float AgeTime { get; set; }
+        public int TTL { get; set; }
+        public long AgeTime { get; set; }
 
         internal Creep()
         {
@@ -100,7 +100,7 @@ namespace Screeps3D
             var ageData = data["ageTime"];
             if (ageData != null)
             {
-                AgeTime = ageData.n;
+                AgeTime = (long) ageData.n;
             }
             
             var fatigueData = data["fatigue"];

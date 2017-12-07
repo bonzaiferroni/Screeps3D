@@ -169,8 +169,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Owner: bonzaiferroni'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 286e69242ee2f934686a65bf998bab13, type: 2}
-  m_sharedMaterial: {fileID: 21021390043558240, guid: 286e69242ee2f934686a65bf998bab13,
+  m_fontAsset: {fileID: 11400000, guid: 6e6270be85e9caf4ba0da3128d14784e, type: 2}
+  m_sharedMaterial: {fileID: 21435435344835980, guid: 6e6270be85e9caf4ba0da3128d14784e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

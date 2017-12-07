@@ -23,10 +23,10 @@ namespace Screeps3D
         public UserManager UserManager { get; private set; }
         public CpuMonitor Monitor { get; private set; }
         public ScreepsConsole Console { get; private set; }
-        public int Time { get; internal set; }
+        public long Time { get; internal set; }
         
         public Action<bool> OnConnectionStatusChange;
-        public Action<int> OnTick;
+        public Action<long> OnTick;
         public Action OnShutdown;
 
         private string _token;

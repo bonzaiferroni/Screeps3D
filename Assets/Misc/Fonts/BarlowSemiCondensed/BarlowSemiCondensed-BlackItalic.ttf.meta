@@ -1,0 +1,35 @@
+fileFormatVersion: 2
+guid: 9b59fb9ffc6ef1f4b9341d804525c282
+timeCreated: 1512602607
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Barlow Semi Condensed
+  fontNames:
+  - Barlow Semi Condensed
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2c65670029ba937489a9d19ee0e3a8de, type: 3}
+  - {fileID: 12800000, guid: 29f9e314a4df0584d8383baecb8aaa97, type: 3}
+  - {fileID: 12800000, guid: 33c73585f1d65fe448055e13b9e52569, type: 3}
+  - {fileID: 12800000, guid: 5780d5b5127f4e84e9dadcc308ea3674, type: 3}
+  - {fileID: 12800000, guid: 694bfdb73ef0f6644b58e00af52f856a, type: 3}
+  - {fileID: 12800000, guid: 86525c188556ac14a95d0866ab646f04, type: 3}
+  - {fileID: 12800000, guid: 73b2462878a25404ebe87e8ba7d2e9a6, type: 3}
+  - {fileID: 12800000, guid: 8a86005a92096cc4cb87e04db018c3fb, type: 3}
+  - {fileID: 12800000, guid: 6d31a30b64cbeed4491ac5603b382f89, type: 3}
+  - {fileID: 12800000, guid: 79a54b2bfaa805344b0c0c40b36a3492, type: 3}
+  - {fileID: 12800000, guid: 50e0ac8ee6a6adc4ca9c13ec1cb9298c, type: 3}
+  - {fileID: 12800000, guid: 11a8701fb198a3043b3d3608ca9ff431, type: 3}
+  - {fileID: 12800000, guid: 5209889f5098a7446be205eb8fb8009f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -30,7 +30,7 @@ namespace Screeps3D.Selection
             UpdateLabel();
         }
 
-        private void OnTick(int obj)
+        private void OnTick(long obj)
         {
             UpdateLabel();
         }
@@ -38,7 +38,7 @@ namespace Screeps3D.Selection
         private void UpdateLabel()
         {
             var ttl = _creep.AgeTime - ScreepsAPI.Instance.Time;
-            _label.text = string.Format("TTL: {0}", ttl);
+            _label.text = string.Format("TTL: {0:n0}", ttl);
             _meter.Visible(ttl / 1500);
         }
 
