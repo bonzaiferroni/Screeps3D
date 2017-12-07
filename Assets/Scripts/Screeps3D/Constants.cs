@@ -26,5 +26,18 @@ namespace Screeps3D
             {6, 3645000},
             {7, 10935000}
         };
+
+        public static readonly Dictionary<string, bool> CONTACT_ACTIONS = new Dictionary<string, bool>
+        {
+            {"attack", true},
+            {"heal", true},
+            {"harvest", true},
+            {"reserveController", true},
+            {"rangedAttack", false},
+            {"rangedHeal", false},
+            {"build", false},
+            {"repair", false},
+            {"upgradeController", false}
+        };
     }
 }

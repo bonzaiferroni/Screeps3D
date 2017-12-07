@@ -24,7 +24,7 @@ namespace Screeps3D
         public Action<bool> OnShow;
         public Action<JSONObject> OnDelta;
 
-        internal void Delta(JSONObject delta, Room room)
+        internal virtual void Delta(JSONObject delta, Room room)
         {
             if (!Initialized)
             {
@@ -62,7 +62,7 @@ namespace Screeps3D
             UnpackUtility.Position(this, data);
         }
 
-        private void EnterRoom(Room room)
+        protected void EnterRoom(Room room)
         {
             Room = room;
             

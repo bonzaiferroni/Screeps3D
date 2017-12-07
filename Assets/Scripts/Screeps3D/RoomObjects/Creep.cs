@@ -69,6 +69,9 @@ namespace Screeps3D
         public float Fatigue { get; set; }
         public int TTL { get; set; }
         public long AgeTime { get; set; }
+        public Vector3 PrevPosition { get; protected set; }
+        public Vector3 BumpPosition { get; private set; }
+        public Quaternion Rotation { get; private set; }
 
         internal Creep()
         {
@@ -93,7 +96,8 @@ namespace Screeps3D
             {
                 foreach (var key in actionObj.keys)
                 {
-                    Actions[key] = actionObj[key];
+                    var actionData = actionObj[key];
+                    Actions[key] = actionData;
                 }
             }
 
@@ -110,6 +114,63 @@ namespace Screeps3D
             }
 
             Body.Unpack(data);
+        }
+        
+        internal override void Delta(JSONObject delta, Room room)
+        {
+            if (!Initialized)
+            {
+                Unpack(delta, true);
+            }
+            else
+            {
+                Unpack(delta, false);
+            }
+            
+            if (Room != room || !Shown)
+            {
+                EnterRoom(room);
+            }
+
+            PrevPosition = Position;
+            SetPosition();
+            AssignBumpPosition();
+            AssignRotation();
+            
+            if (View != null)
+                View.Delta(delta);
+            
+            if (OnDelta != null)
+            {
+                OnDelta(delta);
+            }
+        }
+
+        private void AssignBumpPosition()
+        {
+            if (Room == null)
+                return;
+            BumpPosition = default(Vector3);
+            foreach (var kvp in Constants.CONTACT_ACTIONS)
+            {
+                if (!kvp.Value)
+                    continue;
+                var action = kvp.Key;
+                if (!Actions.ContainsKey(action))
+                    continue;
+                var actionData = Actions[action];
+                if (actionData.IsNull)
+                    continue;
+                BumpPosition = PosUtility.Convert(actionData, Room);
+            }
+        }
+
+        private void AssignRotation()
+        {
+            if (BumpPosition != default(Vector3))
+                Rotation = Quaternion.LookRotation(Position - BumpPosition);
+            if (PrevPosition != Position)
+                Rotation = Quaternion.LookRotation(PrevPosition - Position);
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Screeps3D
             if (creep.Actions.ContainsKey("attack") && !creep.Actions["attack"].IsNull)
             {
                 var rotation = Quaternion.LookRotation(GetActionVector(creep.Actions["attack"]));
-                view.rotTarget = rotation;
                 _anim.SetTrigger("activate");
             }
         }

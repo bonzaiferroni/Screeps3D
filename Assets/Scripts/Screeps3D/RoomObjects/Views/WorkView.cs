@@ -20,7 +20,6 @@ namespace Screeps3D
             if (creep.Actions.ContainsKey("harvest") && !creep.Actions["harvest"].IsNull)
             {
                 var rotation = Quaternion.LookRotation(GetActionVector(creep.Actions["harvest"]));
-                view.rotTarget = rotation;
                 _anim.SetTrigger("activate");
             }
         }

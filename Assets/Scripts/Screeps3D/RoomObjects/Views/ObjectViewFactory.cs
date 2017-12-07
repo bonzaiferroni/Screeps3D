@@ -28,6 +28,11 @@ namespace Screeps3D
 
         public ObjectView NewView(RoomObject roomObject)
         {
+            if (roomObject.Type == null)
+            {
+                Debug.LogError("found null type, caching problem?");
+                return null;
+            }
             var view = GetFromPool(roomObject.Type);
             if (!view)
             {

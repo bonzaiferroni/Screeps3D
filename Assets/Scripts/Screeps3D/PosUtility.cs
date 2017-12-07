@@ -8,5 +8,32 @@ namespace Screeps3D
         {
             return room.position + new Vector3(x, 0, 49 - y);
         }
+
+        public static Vector3 Convert(JSONObject posData, Room room)
+        {
+            var x = 0;
+            var y = 0;
+            if (posData["x"])
+            {
+                x = (int) posData["x"].n;
+            }
+            if (posData["y"])
+            {
+                y = (int) posData["y"].n;
+            }
+            return Convert(x, y, room);
+        }
+
+        public static Vector3 Relative(int xDelta, int yDelta, Vector3 originPos)
+        {
+            var delta = new Vector3(xDelta, 0, -yDelta);
+            return originPos + delta;
+        }
+
+        public static Vector3 Relative(int xDelta, int yDelta, RoomObject roomObject)
+        {
+            var delta = new Vector3(xDelta, 0, -yDelta);
+            return roomObject.Position + delta;
+        }
     }
 }
