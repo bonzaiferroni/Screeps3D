@@ -50,6 +50,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.EventSystems;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Helper Classes
@@ -418,32 +420,38 @@ public class Moba_Camera : MonoBehaviour {
 		else
 		{
 			Vector3 movementVector = new Vector3(0,0,0);
+			var activeInput = false;
+			if (EventSystem.current && EventSystem.current.currentSelectedGameObject)
+			{
+				var input = EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>();
+				activeInput = input && input.isFocused;
+			}
 			
 			// Move camera when mouse is near the edge of the screen
 			if((Input.mousePosition.x < settings.movement.edgeHoverOffset && settings.movement.edgeHoverMovement)
 				|| ((inputs.useKeyCodeInputs)?
-						(Input.GetKey(inputs.keycodes.CameraMoveLeft)):
+						(!activeInput && Input.GetKey(inputs.keycodes.CameraMoveLeft)):
 						(Input.GetButton(inputs.axis.button_camera_move_left))))
 			{
 				movementVector += requirements.pivot.transform.right;
 			}
 			if((Input.mousePosition.x > Screen.width - settings.movement.edgeHoverOffset  && settings.movement.edgeHoverMovement)
 				|| ((inputs.useKeyCodeInputs)?
-						(Input.GetKey(inputs.keycodes.CameraMoveRight)):
+						(!activeInput && Input.GetKey(inputs.keycodes.CameraMoveRight)):
 						(Input.GetButton(inputs.axis.button_camera_move_right))))
 			{
 				movementVector -= requirements.pivot.transform.right;
 			}
 			if((Input.mousePosition.y < settings.movement.edgeHoverOffset  && settings.movement.edgeHoverMovement)
 				|| ((inputs.useKeyCodeInputs)?
-						(Input.GetKey(inputs.keycodes.CameraMoveBackward)):
+						(!activeInput && Input.GetKey(inputs.keycodes.CameraMoveBackward)):
 						(Input.GetButton(inputs.axis.button_camera_move_backward))))
 			{
 				movementVector += requirements.pivot.transform.forward;
 			}
 			if((Input.mousePosition.y > Screen.height - settings.movement.edgeHoverOffset  && settings.movement.edgeHoverMovement)
 				|| ((inputs.useKeyCodeInputs)?
-						(Input.GetKey(inputs.keycodes.CameraMoveForward)):
+						(!activeInput && Input.GetKey(inputs.keycodes.CameraMoveForward)):
 						(Input.GetButton(inputs.axis.button_camera_move_forward))))
 			{
 				movementVector -= requirements.pivot.transform.forward;

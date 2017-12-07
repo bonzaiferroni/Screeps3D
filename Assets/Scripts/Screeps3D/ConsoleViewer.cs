@@ -18,6 +18,7 @@ namespace Screeps3D
             _console.OnInput += OnInput;
             _api.Console.OnConsoleMessage += OnMessage;
             _api.Console.OnConsoleError += OnError;
+            _api.Console.OnConsoleResult += OnResult;
             _console._panel.Show(false, true);
         }
 
@@ -41,14 +42,17 @@ namespace Screeps3D
             PrintMessage(obj, Color.red);
         }
 
+        private void OnResult(string obj)
+        {
+            PrintMessage(obj, Color.green);
+        }
+
         private void PrintMessage(string message, Color color)
         {
             var reader = new StringReader(message);
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                line = line.Replace("\\n", "\n");
-                line = line.Replace("\\\\", "\\");
                 _console.AddMessage(line, color);
             }
         }

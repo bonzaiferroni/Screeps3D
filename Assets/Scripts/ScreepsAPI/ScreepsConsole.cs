@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Screeps3D
@@ -9,6 +10,7 @@ namespace Screeps3D
 
         public Action<string> OnConsoleMessage;
         public Action<string> OnConsoleError;
+        public Action<string> OnConsoleResult;
         
         private ScreepsAPI _api;
         private Queue<JSONObject> queue = new Queue<JSONObject>();
@@ -21,7 +23,7 @@ namespace Screeps3D
 
         public void Input(string javascript)
         {
-            _api.Http.ConsoleInput(javascript);
+            _api.Http.ConsoleInput(AddEscapes(javascript));
         }
 
         private void OnConnectionStatusChange(bool connected)
@@ -47,14 +49,22 @@ namespace Screeps3D
         private void UnpackData(JSONObject obj)
         {
             var messages = obj["messages"];
-            if (messages != null && OnConsoleMessage != null)
+            if (messages != null)
             {
                 var log = messages["log"];
-                if (log != null)
+                if (log != null && OnConsoleMessage != null)
                 {
                     foreach (var msgData in log.list)
                     {
-                        OnConsoleMessage(msgData.str);
+                        OnConsoleMessage(RemoveEscapes(msgData.str));
+                    }
+                }
+                var results = messages["results"];
+                if (results != null && OnConsoleResult != null)
+                {
+                    foreach (var resultsData in results.list)
+                    {
+                        OnConsoleResult(RemoveEscapes(resultsData.str));
                     }
                 }
             }
@@ -62,12 +72,25 @@ namespace Screeps3D
             var errorData = obj["error"];
             if (errorData != null && OnConsoleError != null)
             {
-                OnConsoleError(errorData.str);
+                OnConsoleError(RemoveEscapes(errorData.str));
             }
 
             _api.Time++;
             if (_api.OnTick != null)
                 _api.OnTick(_api.Time);
+        }
+
+        private string AddEscapes(string str)
+        {
+            str = str.Replace("\"", "\\\"");
+            return str;
+        }
+
+        private string RemoveEscapes(string str)
+        {
+            str = str.Replace("\\n", "\n");
+            str = str.Replace("\\\\", "\\");
+            return str;
         }
     }
 }

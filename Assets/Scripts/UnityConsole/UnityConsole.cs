@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnityConsole : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class UnityConsole : MonoBehaviour
     private Queue<Message> _messages = new Queue<Message>();
     private int _index = 0;
     private float _nextMessage;
+    private List<string> _inputLog = new List<string>();
+    private int _cycleIndex;
+    private float _cycleDelay;
+    private float _nextCycle;
+    private string _currentMsg;
 
     private void Start()
     {
@@ -30,8 +36,15 @@ public class UnityConsole : MonoBehaviour
 
     private void OnSubmit(string msg)
     {
+        if (msg.Length == 0 || _input.wasCanceled)
+            return;
+        
         if (OnInput != null) OnInput.Invoke(msg);
         AddMessage(string.Format("> {0}", msg), Color.cyan);
+        _input.text = "";
+        _inputLog.Add(msg);
+        _cycleIndex = _inputLog.Count;
+        _input.ActivateInputField();
     }
 
     public void AddMessage(string msg, Color color)
@@ -42,6 +55,67 @@ public class UnityConsole : MonoBehaviour
     private void Update()
     {
         DisplayMessages();
+        CycleMessages();
+
+        if (!EventSystem.current.currentSelectedGameObject && Input.GetKey(KeyCode.Return))
+        {
+            _input.ActivateInputField();
+        }
+    }
+
+    private void CycleMessages()
+    {
+        if (!_input.isFocused)
+            return;
+
+        var delta = 0;
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            delta = -1;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            delta = 1;
+        }
+        else
+        {
+            _nextCycle = 0;
+        }
+
+        if (delta == 0)
+        {
+            _cycleDelay = .5f;
+            return;
+        }
+
+        if (_nextCycle > Time.time)
+            return;
+        _nextCycle = Time.time + _cycleDelay;
+        _cycleDelay -= .1f;
+        _cycleDelay = Mathf.Max(_cycleDelay, .05f);
+
+        if (_cycleIndex == _inputLog.Count)
+        {
+            _currentMsg = _input.text;
+        }
+
+        _cycleIndex += delta;
+        if (_cycleIndex < 0)
+        {
+            _cycleIndex = 0;
+            return;
+        }
+
+        if (_cycleIndex >= _inputLog.Count)
+        {
+            _cycleIndex = _inputLog.Count;
+            _input.text = _currentMsg;
+            return;
+        }
+
+        _input.text = _inputLog[_cycleIndex];
+        _input.selectionStringAnchorPosition = 0;
+        _input.selectionStringFocusPosition = _input.text.Length;
     }
 
     private void DisplayMessages()
