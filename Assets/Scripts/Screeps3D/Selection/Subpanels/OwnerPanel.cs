@@ -32,7 +32,7 @@ namespace Screeps3D.Selection
             {
                 _height = rect.sizeDelta.y;
                 gameObject.SetActive(true);
-                _label.text = string.Format("Owner: {0}", _selected.Owner.username);
+                _label.text = string.Format("{0}", _selected.Owner.username);
                 _badge.sprite = Sprite.Create(_selected.Owner.badge,
                     new Rect(0.0f, 0.0f, BadgeManager.BADGE_SIZE, BadgeManager.BADGE_SIZE), new Vector2(.5f, .5f));
             } else

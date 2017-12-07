@@ -45,7 +45,7 @@ namespace Screeps3D.Selection
 
         private void UpdateDisplay()
         {
-            _label.text = string.Format("Progress: {0:n0} / {1:n0}", _progressor.Progress, _progressor.ProgressMax);
+            _label.text = string.Format("{0:n0} / {1:n0}", _progressor.Progress, _progressor.ProgressMax);
             _meter.Visible(_progressor.Progress / _progressor.ProgressMax);
         }
 

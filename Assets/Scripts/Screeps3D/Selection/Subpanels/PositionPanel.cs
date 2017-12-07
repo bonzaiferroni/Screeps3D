@@ -45,7 +45,7 @@ namespace Screeps3D.Selection
 
         private void UpdateLabel()
         {
-            _label.text = string.Format("Pos: {0}, {1}", _roomObject.X, _roomObject.Y);
+            _label.text = string.Format("{0}, {1}", _roomObject.X, _roomObject.Y);
         }
     }
 }

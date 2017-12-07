@@ -24,7 +24,7 @@ namespace Screeps3D.Selection
         public override void Load(RoomObject roomObject)
         {
             _selected = roomObject as INamedObject;
-            _label.text = string.Format("Name: {0}", _selected.Name);
+            _label.text = string.Format("{0}", _selected.Name);
         }
 
         public override void Unload()

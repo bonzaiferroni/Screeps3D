@@ -35,7 +35,7 @@ namespace Screeps3D.Selection
         private void UpdateLabel()
         {
             _meter.Visible(_energyObject.Energy / _energyObject.EnergyCapacity);
-            _label.text = string.Format("Energy: {0:n0} / {1:n0}", _energyObject.Energy,
+            _label.text = string.Format("{0:n0} / {1:n0}", _energyObject.Energy,
                 (long) _energyObject.EnergyCapacity);
         }
 

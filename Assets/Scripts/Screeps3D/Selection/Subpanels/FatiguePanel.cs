@@ -37,7 +37,7 @@ namespace Screeps3D.Selection
 
         private void UpdateDisplay()
         {
-            _label.text = string.Format("Fatigue: {0}", _creep.Fatigue);
+            _label.text = string.Format("{0}", _creep.Fatigue);
         }
 
         public override void Unload()

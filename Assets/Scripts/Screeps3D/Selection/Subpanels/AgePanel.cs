@@ -38,8 +38,8 @@ namespace Screeps3D.Selection
         private void UpdateLabel()
         {
             var ttl = _creep.AgeTime - ScreepsAPI.Instance.Time;
-            _label.text = string.Format("TTL: {0:n0}", ttl);
-            _meter.Visible(ttl / 1500);
+            _label.text = string.Format("{0:n0}", ttl);
+            _meter.Visible((float) ttl / 1500);
         }
 
         public override void Unload()

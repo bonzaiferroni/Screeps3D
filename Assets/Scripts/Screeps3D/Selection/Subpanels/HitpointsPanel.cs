@@ -35,7 +35,7 @@ namespace Screeps3D.Selection
         private void UpdateLabel()
         {
             _meter.Visible(_hitsObject.Hits / _hitsObject.HitsMax);
-            _label.text = string.Format("Hits: {0:n0} / {1:n0}", _hitsObject.Hits, (long) _hitsObject.HitsMax);
+            _label.text = string.Format("{0:n0} / {1:n0}", _hitsObject.Hits, (long) _hitsObject.HitsMax);
         }
 
         private void OnDelta(JSONObject obj)
