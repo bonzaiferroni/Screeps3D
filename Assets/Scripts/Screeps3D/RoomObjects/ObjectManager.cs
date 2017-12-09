@@ -38,5 +38,17 @@ namespace Screeps3D
 
             return roomObject;
         }
+
+        public Flag GetFlag(string[] dataArray)
+        {
+            var name = dataArray[0];
+            if (!RoomObjects.ContainsKey(name))
+            {
+                RoomObjects[name] = new Flag(name);
+            }
+
+            var flag = RoomObjects[name] as Flag;
+            return flag;
+        }
     }
 }

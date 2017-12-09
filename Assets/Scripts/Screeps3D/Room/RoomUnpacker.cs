@@ -21,6 +21,15 @@ namespace Screeps3D
         private void Unpack(JSONObject roomData)
         {
             UnpackUsers(roomData);
+            UnpackFlags(roomData);
+            UnpackObjects(roomData);
+            
+            if (OnUnpack != null)
+                OnUnpack(roomData);
+        }
+
+        private void UnpackObjects(JSONObject roomData)
+        {
             var objectsData = roomData["objects"];
 
             // add new objects
@@ -74,9 +83,6 @@ namespace Screeps3D
             {
                 _room.Objects.Remove(id);
             }
-
-            if (OnUnpack != null)
-                OnUnpack(roomData);
         }
 
         private void UnpackUsers(JSONObject data)
@@ -103,6 +109,31 @@ namespace Screeps3D
                     var roomObject = kvp.Value;
                     roomObject.HideObject(_room);
                 }
+            }
+        }
+
+        // "swarm_W3N7s~4~9~25~25|intel_nsa~4~9~25~25|control_W3N7c~4~9~25~25"
+        private void UnpackFlags(JSONObject roomData)
+        {
+            var flagsData = roomData["flags"];
+            if (flagsData == null)
+                return;
+
+            if (flagsData.IsNull)
+            {
+                Debug.Log("recieved null flag data");
+                return;
+            }
+
+            var flagStrings = flagsData.str.Split('|');
+            foreach (var flagStr in flagStrings)
+            {
+                var dataArray = flagStr.Split('~');
+                if (dataArray.Length < 5)
+                    continue;
+                var flag = ObjectManager.Instance.GetFlag(dataArray);
+                flag.FlagDelta(dataArray, _room);
+                _room.Objects[flag.Name] = flag;
             }
         }
     }

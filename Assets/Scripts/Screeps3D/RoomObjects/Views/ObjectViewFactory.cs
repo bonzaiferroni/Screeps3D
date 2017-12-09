@@ -6,31 +6,15 @@ namespace Screeps3D
 {
     public class ObjectViewFactory : BaseSingleton<ObjectViewFactory>
     {
-        [SerializeField] private Transform _prefabParent;
         [SerializeField] private Transform _objectParent;
-        [SerializeField] private GameObject[] _prefabs;
-        private Dictionary<string, ObjectView> _prototypes = new Dictionary<string, ObjectView>();
         private Dictionary<string, Stack<ObjectView>> _pools = new Dictionary<string, Stack<ObjectView>>();
-
-        private void Start()
-        {
-            foreach (var prefab in _prefabs)
-            {
-                var go = Instantiate(prefab);
-                go.name = prefab.name;
-                var view = go.GetComponent<ObjectView>();
-                if (view == null) continue;
-                _prototypes[prefab.name] = view;
-                go.SetActive(false);
-                go.transform.SetParent(_prefabParent);
-            }
-        }
+        private string _path = "Prefabs/RoomObjects/";
 
         public ObjectView NewView(RoomObject roomObject)
         {
             if (roomObject.Type == null)
             {
-                Debug.LogError("found null type, caching problem?");
+                Debug.LogError("found null type, is there a caching problem?");
                 return null;
             }
             var view = GetFromPool(roomObject.Type);
@@ -43,11 +27,9 @@ namespace Screeps3D
 
         private ObjectView NewInstance(string type)
         {
-            if (!_prototypes.ContainsKey(type))
+            var go = PrefabLoader.Load(string.Format("{0}{1}", _path, type));
+            if (go == null)
                 return null;
-
-            var go = Instantiate(_prototypes[type].gameObject);
-            go.SetActive(true);
             var view = go.GetComponent<ObjectView>();
             view.transform.SetParent(_objectParent);
             view.Init();
