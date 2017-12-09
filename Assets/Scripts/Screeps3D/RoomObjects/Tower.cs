@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace Screeps3D
 {
@@ -25,12 +25,31 @@ namespace Screeps3D
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public Dictionary<string, JSONObject> Actions { get; set; }
 
+
+        internal Tower()
+        {
+            Actions = new Dictionary<string, JSONObject>(); 
+        }
+        
         internal override void Unpack(JSONObject data, bool initial)
         {
             base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
+            
+            var actionObj = data["actionLog"];
+            if (actionObj != null)
+            {
+                foreach (var key in actionObj.keys)
+                {
+                    var actionData = actionObj[key];
+                    Actions[key] = actionData;
+                }
+            }
         }
+        
     }
+    
 }

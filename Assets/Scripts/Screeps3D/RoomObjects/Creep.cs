@@ -76,7 +76,7 @@ namespace Screeps3D
         internal Creep()
         {
             Body = new CreepBody();
-            Actions = new Dictionary<string, JSONObject>();
+            Actions = new Dictionary<string, JSONObject>(); 
         }
 
         internal override void Unpack(JSONObject data, bool initial)

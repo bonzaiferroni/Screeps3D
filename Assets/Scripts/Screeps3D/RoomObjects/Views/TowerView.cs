@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Linq;
+using System.Security.AccessControl;
 using UnityEngine;
 using Utils.Utils;
 
@@ -9,25 +11,41 @@ namespace Screeps3D
         [SerializeField] private ScaleVisAxes _energyDisplay;
         [SerializeField] private Transform _rotationRoot;
         private Quaternion _targetRot;
+        private bool _idle;
         private float _nextRot;
         private bool _rotating;
-
-        private IEnergyObject energyObject;
-        private float targetRef;
+        private Tower _tower;
+        private LineRenderer _lineRenderer;
+        private IEnumerator _rotator;
 
         public void Init()
         {
+            _lineRenderer = gameObject.GetComponent<LineRenderer>();
         }
 
         public void Load(RoomObject roomObject)
         {
-            energyObject = roomObject as IEnergyObject;
+            _tower = roomObject as Tower;
             AdjustScale();
         }
 
         public void Delta(JSONObject data)
         {
             AdjustScale();
+
+            var action = _tower.Actions.FirstOrDefault(c => !c.Value.IsNull);
+            if (action.Value == null)
+            {
+                _idle = true;
+                return; // Early
+            }
+            _idle = false;
+            if (_rotator != null) StopCoroutine(_rotator);
+
+            var endPos = PosUtility.Convert(action.Value, _tower.Room);
+            _rotationRoot.rotation = Quaternion.LookRotation(endPos - _tower.Position);
+            var color = action.Key == "attack" ? Color.blue : action.Key == "heal" ? Color.green : Color.yellow;
+            StartCoroutine(Beam.Draw(_tower, action.Value, _lineRenderer, new BeamConfig(color, 0.6f, 0.3f)));
         }
 
         public void Unload(RoomObject roomObject)
@@ -36,14 +54,15 @@ namespace Screeps3D
 
         private void AdjustScale()
         {
-            _energyDisplay.Visible(energyObject.Energy / energyObject.EnergyCapacity);
+            _energyDisplay.Visible(_tower.Energy / _tower.EnergyCapacity);
         }
 
         private void Update()
         {
-            if (!_rotating && Time.time > _nextRot)
-                StartCoroutine(Rotate());
-
+            if (!_idle || _rotating || !(Time.time > _nextRot)) return; // Early
+            
+            _rotator = Rotate();
+            StartCoroutine(_rotator);
         }
 
         private IEnumerator Rotate()

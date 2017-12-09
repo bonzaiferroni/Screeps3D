@@ -1,4 +1,6 @@
-﻿namespace Screeps3D
+﻿using System.Collections.Generic;
+
+namespace Screeps3D
 {
     /*{
         "_id":"594816d4dc09e4106f2b782f",
@@ -21,12 +23,29 @@
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public Dictionary<string, JSONObject> Actions { get; set; }
+
+
+        internal Link()
+        {
+            Actions = new Dictionary<string, JSONObject>(); 
+        }
 
         internal override void Unpack(JSONObject data, bool initial)
         {
             base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
+            
+            var actionObj = data["actionLog"];
+            if (actionObj != null)
+            {
+                foreach (var key in actionObj.keys)
+                {
+                    var actionData = actionObj[key];
+                    Actions[key] = actionData;
+                }
+            }
         }
     }
 }
