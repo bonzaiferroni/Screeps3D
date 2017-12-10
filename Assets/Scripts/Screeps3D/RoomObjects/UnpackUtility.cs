@@ -1,6 +1,6 @@
 ﻿using Screeps_API;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     public class UnpackUtility
     {

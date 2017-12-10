@@ -1,7 +1,7 @@
 ﻿using Common.Utils;
 using UnityEngine;
 
-namespace Screeps3D.RoomObjects.Components
+namespace Screeps3D.RoomObjects.Views
 {
     public class ContainerView : MonoBehaviour, IObjectViewComponent
     {

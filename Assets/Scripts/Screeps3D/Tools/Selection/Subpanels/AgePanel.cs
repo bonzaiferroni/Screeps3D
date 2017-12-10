@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Utils;
+using Screeps3D.RoomObjects;
 using Screeps3D.Tools.Selection;
 using Screeps_API;
 using TMPro;

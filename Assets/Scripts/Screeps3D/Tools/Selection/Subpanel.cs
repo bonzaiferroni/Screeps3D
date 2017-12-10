@@ -1,4 +1,5 @@
 ﻿using System;
+using Screeps3D.RoomObjects;
 using UnityEngine;
 
 namespace Screeps3D.Tools.Selection

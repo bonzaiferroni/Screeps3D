@@ -3,7 +3,7 @@ using Screeps3D.Rooms;
 using Screeps_API;
 using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     /*{
         

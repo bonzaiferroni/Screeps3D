@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Screeps3D.RoomObjects;
 using UnityEngine;
 
 namespace Screeps3D.Tools.Selection

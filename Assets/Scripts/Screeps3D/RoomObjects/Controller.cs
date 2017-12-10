@@ -1,7 +1,6 @@
 ﻿using Screeps_API;
-using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     /*{
       "_id": "5a0c8318ab17fd00012bf03d",

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Screeps3D.RoomObjects;
+using Screeps3D.RoomObjects.Views;
 using TMPro;
 using UnityEngine;
 

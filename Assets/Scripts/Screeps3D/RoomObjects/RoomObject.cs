@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Common;
+using Screeps3D.RoomObjects.Views;
 using Screeps3D.Rooms;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     public class RoomObject
     {

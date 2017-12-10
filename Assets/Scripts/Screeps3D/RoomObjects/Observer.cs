@@ -1,4 +1,4 @@
-﻿namespace Screeps3D
+﻿namespace Screeps3D.RoomObjects
 {
     /*{
         "_id":"594f8d23ea895523478670b4",

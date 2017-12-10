@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Screeps3D.RoomObjects;
 using UnityEngine;
 
 namespace Screeps3D

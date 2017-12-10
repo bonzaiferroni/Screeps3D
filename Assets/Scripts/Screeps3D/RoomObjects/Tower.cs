@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     /*{
         "_id":"5945134eea485cae18c518ef",

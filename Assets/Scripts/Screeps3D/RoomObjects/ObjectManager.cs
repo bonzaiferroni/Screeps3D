@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Common;
 using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     [DisallowMultipleComponent]
     public class ObjectManager : BaseSingleton<ObjectManager>

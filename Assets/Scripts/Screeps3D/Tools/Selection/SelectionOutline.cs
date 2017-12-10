@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using cakeslice;
+using Screeps3D.RoomObjects.Views;
 using UnityEngine;
 
 namespace Screeps3D.Tools.Selection

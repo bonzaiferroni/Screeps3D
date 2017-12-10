@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Linq;
-using System.Security.AccessControl;
 using Common.Utils;
 using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects.Views
 {
     public class TowerView : MonoBehaviour, IObjectViewComponent
     {

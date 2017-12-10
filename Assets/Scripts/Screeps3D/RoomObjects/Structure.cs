@@ -1,4 +1,4 @@
-﻿namespace Screeps3D
+﻿namespace Screeps3D.RoomObjects
 {
     public class Structure : RoomObject, IHitpointsObject
     {

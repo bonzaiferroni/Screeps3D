@@ -1,7 +1,6 @@
-﻿using Screeps3D.RoomObjects.Views;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects.Views
 {
     public class CreepPartView : MonoBehaviour, IObjectViewComponent
     {

@@ -1,7 +1,7 @@
 ﻿using Common.Utils;
 using UnityEngine;
 
-namespace Screeps3D.Components
+namespace Screeps3D.RoomObjects.Views
 {
     public class TerminalView : MonoBehaviour, IObjectViewComponent
     {

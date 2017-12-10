@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects.Views
 {
     public class AttackView : CreepPartView
     {

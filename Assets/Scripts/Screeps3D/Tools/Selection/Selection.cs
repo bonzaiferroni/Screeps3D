@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Screeps3D.RoomObjects;
+using Screeps3D.RoomObjects.Views;
 using Screeps3D.Selection;
 using UnityEngine;
 using UnityEngine.EventSystems;

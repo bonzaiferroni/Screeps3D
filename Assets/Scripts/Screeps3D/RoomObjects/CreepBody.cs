@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Screeps3D
+namespace Screeps3D.RoomObjects
 {
     /*
         "body":[

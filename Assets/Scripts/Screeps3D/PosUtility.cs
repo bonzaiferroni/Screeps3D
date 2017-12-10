@@ -1,4 +1,5 @@
-﻿using Screeps3D.Rooms;
+﻿using Screeps3D.RoomObjects;
+using Screeps3D.Rooms;
 using UnityEngine;
 
 namespace Screeps3D
