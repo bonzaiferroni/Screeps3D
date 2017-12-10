@@ -15,6 +15,7 @@ namespace Screeps3D
         public const string TYPE_CONTAINER = "container";
         public const string TYPE_LINK = "link";
         public const string TYPE_RAMPART = "rampart";
+        public const string TYPE_CONSTRUCTION = "constructionSite";
 
         public static readonly Dictionary<int, float> CONTROLLER_LEVELS = new Dictionary<int, float>
         {
@@ -52,6 +53,25 @@ namespace Screeps3D
             {8, new Color(0.4745098039215686f, 0.3333333333333333f, 0.2823529411764706f)},
             {9, new Color(0.6196078431372549f, 0.6196078431372549f, 0.6196078431372549f)},
             {10, new Color(1f, 1f, 1f)},
+        };
+
+        public static readonly Dictionary<string, float> CONSTRUCTION_COST = new Dictionary<string, float>
+        {
+            {"spawn", 15000},
+            {"extension", 3000},
+            {"road", 300},
+            {"constructedWall", 1},
+            {"rampart", 1},
+            {"link", 5000},
+            {"storage", 30000},
+            {"tower", 5000},
+            {"observer", 8000},
+            {"powerSpawn", 100000},
+            {"extractor", 5000},
+            {"lab", 50000},
+            {"terminal", 100000},
+            {"container", 5000},
+            {"nuker", 100000},
         };
     }
 }

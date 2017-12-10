@@ -26,6 +26,8 @@
                     return new Link();
                 case (Constants.TYPE_RAMPART):
                     return new Rampart();
+                case (Constants.TYPE_CONSTRUCTION):
+                    return new ConstructionSite();
                 default:
                     return new RoomObject();
             }
