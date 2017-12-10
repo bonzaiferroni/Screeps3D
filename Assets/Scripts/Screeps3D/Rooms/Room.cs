@@ -9,15 +9,15 @@ namespace Screeps3D.Rooms
 {
     public class Room
     {
-        public readonly string name;
-        public readonly string roomName;
-        public readonly string shardName;
-        public readonly string xDir;
-        public readonly string yDir;
-        public readonly int shardNumber;
-        public readonly int xCoord;
-        public readonly int yCoord;
-        public readonly Vector3 position;
+        public readonly string Name;
+        public readonly string RoomName;
+        public readonly string ShardName;
+        public readonly string XDir;
+        public readonly string YDir;
+        public readonly int ShardNumber;
+        public readonly int XCoord;
+        public readonly int YCoord;
+        public readonly Vector3 Position;
 
         public Dictionary<string, RoomObject> Objects { get; private set; }
         
@@ -30,6 +30,7 @@ namespace Screeps3D.Rooms
         public bool ShowingObjects { get; private set; }
         public bool ShowingMap { get; private set; }
         public bool Shown { get; private set; }
+        public long GameTime { get; set; }
         
         public Action<bool> OnShowObjects;
         public Action<bool> OnShowMap;
@@ -37,15 +38,15 @@ namespace Screeps3D.Rooms
 
         public Room(string roomName, string shardName, string xDir, string yDir, int shardNumber, int xCoord, int yCoord)
         {
-            name = roomName + shardName;
-            this.roomName = roomName;
-            this.shardName = shardName;
-            this.xDir = xDir;
-            this.yDir = yDir;
-            this.shardNumber = shardNumber;
-            this.xCoord = xCoord;
-            this.yCoord = yCoord;
-            position = new Vector3(xDir == "E" ? xCoord * 50 : (-xCoord - 1) * 50, shardNumber * 25,
+            Name = roomName + shardName;
+            RoomName = roomName;
+            ShardName = shardName;
+            XDir = xDir;
+            YDir = yDir;
+            ShardNumber = shardNumber;
+            XCoord = xCoord;
+            YCoord = yCoord;
+            Position = new Vector3(xDir == "E" ? xCoord * 50 : (-xCoord - 1) * 50, shardNumber * 25,
                 yDir == "N" ? yCoord * 50 : (-yCoord - 1) * 50);
             Objects = new Dictionary<string, RoomObject>();
         }

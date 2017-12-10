@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Screeps3D.RoomObjects
 {
-    public class RoomObject
+    public class RoomObject: IRoomObject
     {
         public string Id { get; set; }
         public string Type { get; set; }

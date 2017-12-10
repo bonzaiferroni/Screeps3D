@@ -43,7 +43,7 @@ namespace Screeps3D.Selection
 
         private void UpdateLabel()
         {
-            _label.text = string.Format("{0:n0}", _decay.NextDecayTime - ScreepsAPI.Instance.Time);
+            _label.text = string.Format("{0:n0}", _decay.NextDecayTime - _decay.Room.GameTime);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Screeps_API;
+﻿using Screeps3D.Rooms;
+using Screeps_API;
 
 namespace Screeps3D.RoomObjects
 {
@@ -9,6 +10,11 @@ namespace Screeps3D.RoomObjects
         void Load(RoomObject roomObject);
         void Delta(JSONObject data);
         void Unload(RoomObject roomObject);
+    }
+
+    internal interface IRoomObject
+    {
+        Room Room { get; }
     }
     
     internal interface IEnergyObject
@@ -34,7 +40,7 @@ namespace Screeps3D.RoomObjects
         float HitsMax { get; set; }
     }
 
-    internal interface IDecay
+    internal interface IDecay : IRoomObject
     {
         float NextDecayTime { get; set; }
     }

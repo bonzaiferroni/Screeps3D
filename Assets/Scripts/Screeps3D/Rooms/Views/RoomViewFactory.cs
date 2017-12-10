@@ -12,8 +12,8 @@ namespace Screeps3D.Rooms.Views
             var go = Instantiate(_roomPrefab);
             var view = go.GetComponent<RoomView>();
             view.transform.SetParent(transform);
-            view.gameObject.name = room.name;
-            view.transform.localPosition = room.position;
+            view.gameObject.name = room.Name;
+            view.transform.localPosition = room.Position;
             view.Init(room);
             return view;
         }

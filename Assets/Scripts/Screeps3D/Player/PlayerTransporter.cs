@@ -20,7 +20,7 @@ namespace Screeps3D.Player
         private void OnChoose(Room room)
         {
             _loadStack.Push(room);
-            TransportPlayer(room.position);
+            TransportPlayer(room.Position);
             room.Show(true);
         }
 

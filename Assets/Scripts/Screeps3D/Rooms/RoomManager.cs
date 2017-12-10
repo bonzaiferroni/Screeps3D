@@ -27,12 +27,12 @@ namespace Screeps3D.Rooms
 
         public Room GetNeighbor(Room origin, int xDelta, int yDelta)
         {
-            var xDir = origin.xDir;
-            var yDir = origin.yDir;
-            var xCoord = origin.xCoord;
-            var yCoord = origin.yCoord;
+            var xDir = origin.XDir;
+            var yDir = origin.YDir;
+            var xCoord = origin.XCoord;
+            var yCoord = origin.YCoord;
 
-            if (origin.xDir == "E")
+            if (origin.XDir == "E")
             {
                 xCoord += xDelta;
             } else
@@ -41,11 +41,11 @@ namespace Screeps3D.Rooms
             }
             if (xCoord < 0)
             {
-                xDir = origin.xDir == "E" ? "W" : "E";
+                xDir = origin.XDir == "E" ? "W" : "E";
                 xCoord = -xCoord - 1;
             }
 
-            if (origin.yDir == "N")
+            if (origin.YDir == "N")
             {
                 yCoord += yDelta;
             } else
@@ -54,12 +54,12 @@ namespace Screeps3D.Rooms
             }
             if (yCoord < 0)
             {
-                yDir = origin.yDir == "N" ? "S" : "N";
+                yDir = origin.YDir == "N" ? "S" : "N";
                 yCoord = -yCoord - 1;
             }
 
             var roomName = string.Format("{0}{1}{2}{3}", xDir, xCoord, yDir, yCoord);
-            var shardName = string.Format("shard{0}", origin.shardNumber);
+            var shardName = string.Format("shard{0}", origin.ShardNumber);
             
             return Get(roomName, shardName);
         }

@@ -39,7 +39,7 @@ namespace Screeps3D.Selection.Subpanels
 
         private void UpdateLabel()
         {
-            var ttl = _creep.AgeTime - ScreepsAPI.Instance.Time;
+            var ttl = _creep.AgeTime - _creep.Room.GameTime;
             _label.text = string.Format("{0:n0}", ttl);
             _meter.Visible((float) ttl / 1500);
         }

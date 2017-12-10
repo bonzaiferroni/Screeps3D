@@ -17,10 +17,10 @@ namespace Screeps3D.Rooms
             
             if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
             {
-                _path = string.Format("room:{0}/{1}", room.shardName, room.roomName);
+                _path = string.Format("room:{0}/{1}", room.ShardName, room.RoomName);
             } else
             {
-                _path = string.Format("room:{0}", room.roomName);
+                _path = string.Format("room:{0}", room.RoomName);
             }
             room.OnShowObjects += ManageSubscription;
         }

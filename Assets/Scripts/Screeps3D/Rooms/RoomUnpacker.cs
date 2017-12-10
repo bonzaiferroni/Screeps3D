@@ -22,6 +22,8 @@ namespace Screeps3D.Rooms
 
         private void Unpack(JSONObject roomData)
         {
+            if (roomData.HasField("gameTime"))
+                _room.GameTime = (long) roomData["gameTime"].n;
             UnpackUsers(roomData);
             UnpackFlags(roomData);
             UnpackObjects(roomData);

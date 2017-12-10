@@ -23,7 +23,7 @@ namespace Screeps3D.RoomObjects
             X = int.Parse(dataArray[3]);
             Y = int.Parse(dataArray[4]);
             Room = room;
-            RoomName = room.roomName;
+            RoomName = room.RoomName;
         }
     }
 }
