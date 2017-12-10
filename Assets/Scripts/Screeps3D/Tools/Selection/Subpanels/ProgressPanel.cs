@@ -1,11 +1,10 @@
 ﻿using System;
 using Common.Utils;
 using Screeps3D.RoomObjects;
-using Screeps3D.Tools.Selection;
 using TMPro;
 using UnityEngine;
 
-namespace Screeps3D.Selection
+namespace Screeps3D.Tools.Selection.Subpanels
 {
     public class ProgressPanel : Subpanel
     {

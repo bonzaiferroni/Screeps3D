@@ -16,6 +16,7 @@ namespace Screeps3D
         public const string TYPE_LINK = "link";
         public const string TYPE_RAMPART = "rampart";
         public const string TYPE_CONSTRUCTION = "constructionSite";
+        public const string TYPE_LAB = "lab";
 
         public static readonly Dictionary<int, float> CONTROLLER_LEVELS = new Dictionary<int, float>
         {

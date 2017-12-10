@@ -5,31 +5,29 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class NamePanel : Subpanel
+    public class ConstructionPanel : Subpanel
     {
+
         [SerializeField] private TextMeshProUGUI _label;
-
-        private INamedObject _selected;
-
+        
         public override string Name
         {
-            get { return "name"; }
+            get { return "construction"; }
         }
 
         public override Type ObjectType
         {
-            get { return typeof(INamedObject); }
+            get { return typeof(ConstructionSite); }
         }
 
         public override void Load(RoomObject roomObject)
         {
-            _selected = roomObject as INamedObject;
-            _label.text = string.Format("{0}", _selected.Name);
+            var site = roomObject as ConstructionSite;
+            _label.text = site.StructureType;
         }
 
         public override void Unload()
         {
-            _selected = null;
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using Screeps3D.RoomObjects;
-using Screeps3D.Tools.Selection;
 using Screeps_API;
 using TMPro;
 using UnityEngine;
 
-namespace Screeps3D.Selection
+namespace Screeps3D.Tools.Selection.Subpanels
 {
     public class DecayPanel : Subpanel
     {

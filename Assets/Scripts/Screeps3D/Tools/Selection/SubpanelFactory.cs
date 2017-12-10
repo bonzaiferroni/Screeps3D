@@ -8,19 +8,30 @@ namespace Screeps3D.Tools.Selection
 {
     public class SubpanelFactory : BaseSingleton<SubpanelFactory>
     {
-        [SerializeField] private GameObject[] _panelPrefabs;
         [SerializeField] private Transform _inactiveParent;
 
         private Dictionary<string, Stack<Subpanel>> _pools = new Dictionary<string, Stack<Subpanel>>();
         private List<Func<RoomObject, Subpanel>> _factories = new List<Func<RoomObject, Subpanel>>();
+        private string _path = "Prefabs/Selection/Subpanels/";
 
+        private string[] _prefabNames =
+        {
+            "Type", "Owner", "Name", "Pos", "Hits", "Energy", "Age", "Fatigue", "Decay", "Progress", "Construction"
+        };
+        
         private void Start()
         {
-            for (var i = 0; i < _panelPrefabs.Length; i++)
+            for (var i = 0; i < _prefabNames.Length; i++)
             {
-                var panel = _panelPrefabs[i];
+                var panelName = _prefabNames[i];
+                var panel = PrefabLoader.Load(string.Format("{0}{1}", _path, panelName));
+                if (!panel)
+                    continue;
+                
                 var component = panel.GetComponent<Subpanel>();
-                if (!component) continue;
+                if (!component) 
+                    continue;
+                
                 _pools[component.Name] = new Stack<Subpanel>();
 
                 _factories.Add(roomObject =>

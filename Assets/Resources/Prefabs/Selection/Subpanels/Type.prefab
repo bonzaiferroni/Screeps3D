@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114359162582331544}
   - component: {fileID: 114799676521254038}
   m_Layer: 5
-  m_Name: TypeDisplay
+  m_Name: Type
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
