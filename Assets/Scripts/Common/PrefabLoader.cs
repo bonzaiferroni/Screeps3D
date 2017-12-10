@@ -23,5 +23,21 @@ namespace Common
                 return null;
             }
         }
+
+        public static GameObject Look(string path)
+        {
+            if (!cache.ContainsKey(path))
+            {
+                cache[path] = Resources.Load(path) as GameObject;
+            }
+            if (cache[path])
+            {
+                return cache[path];
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

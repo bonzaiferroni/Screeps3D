@@ -24,7 +24,7 @@ namespace Screeps3D.Tools.Selection
             for (var i = 0; i < _prefabNames.Length; i++)
             {
                 var panelName = _prefabNames[i];
-                var panel = PrefabLoader.Load(string.Format("{0}{1}", _path, panelName));
+                var panel = PrefabLoader.Look(string.Format("{0}{1}", _path, panelName));
                 if (!panel)
                     continue;
                 
