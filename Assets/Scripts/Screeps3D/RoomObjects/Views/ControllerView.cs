@@ -5,6 +5,7 @@ namespace Screeps3D
     public class ControllerView : MonoBehaviour, IObjectViewComponent
     {
         [SerializeField] private Renderer _rend;
+        [SerializeField] private Renderer _playerRend;
         private Texture2D _texture;
         private Color _controllerWhite;
         private Controller _controller;
@@ -24,13 +25,14 @@ namespace Screeps3D
         {
             _texture = new Texture2D(8, 1);
             _texture.filterMode = FilterMode.Point;
-            _rend.materials[0].mainTexture = _texture;
+            _rend.materials[1].mainTexture = _texture;
+            _rend.materials[1].SetTexture("_EmissionMap", _texture);
             ColorUtility.TryParseHtmlString("#FDF5E6", out _controllerWhite);
         }
 
         public void Delta(JSONObject data)
         {
-            if (data["level"] == null)
+            if (data["level"] == null && data["owner"] == null)
                 return;
             UpdateTexture();
         }
@@ -54,6 +56,29 @@ namespace Screeps3D
                 level++;
             }
             _texture.Apply();
+
+            if (_controller.Owner != null)
+            {
+                _playerRend.materials[0].mainTexture = _controller.Owner.badge;
+                _playerRend.materials[0].color = Color.white;
+            }
+            else
+            {
+                _playerRend.materials[0].mainTexture = null;
+                _playerRend.materials[0].color = Color.grey;
+            }
+        }
+
+        private void Update()
+        {
+            if (_controller == null)
+                return;
+            
+            float floor = 0.6f;
+            float ceiling = 1.0f;
+            float emission = floor + Mathf.PingPong (Time.time * .2f, ceiling - floor);
+            Color finalColor = Color.white * emission;
+            _rend.materials[1].SetColor ("_EmissionColor", finalColor);
         }
     }
 }

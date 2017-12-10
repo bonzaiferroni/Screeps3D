@@ -15,7 +15,7 @@ namespace Screeps3D.RoomObjects.Views
             {"rangedHeal", new BeamConfig(Color.green, 0.3f, 0.3f)},
             {"repair", new BeamConfig(Color.yellow, 0.3f, 0.3f)},
             {"build", new BeamConfig(Color.yellow, 0.3f, 0.3f)},
-            {"upgradeController", new BeamConfig(Color.yellow, 0.3f, 1.5f)}
+            {"upgradeController", new BeamConfig(Color.yellow, 0.3f, 1f)}
         };
 
         private LineRenderer _lineRenderer;
