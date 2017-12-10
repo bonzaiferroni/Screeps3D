@@ -1,4 +1,4 @@
-﻿namespace Utils
+﻿namespace Common
 {
     public interface IVisibilityControl
     {

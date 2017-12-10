@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Screeps_API;
+using UnityEngine;
 
 namespace Screeps3D
 {

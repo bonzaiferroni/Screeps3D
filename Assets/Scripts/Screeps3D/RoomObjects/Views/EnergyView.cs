@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Utils;
+﻿using Common;
+using UnityEngine;
 
 namespace Screeps3D.Components
 {

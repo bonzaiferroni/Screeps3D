@@ -2,6 +2,8 @@
 using System.IO;
 using UnityEngine;
 using Screeps3D;
+using Screeps_API;
+using Unity_Console;
 
 namespace Screeps3D
 {

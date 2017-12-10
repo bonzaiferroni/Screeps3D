@@ -1,4 +1,6 @@
-﻿namespace Screeps3D
+﻿using Screeps_API;
+
+namespace Screeps3D
 {
 
     internal interface IObjectViewComponent

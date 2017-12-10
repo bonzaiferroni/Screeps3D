@@ -1,45 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AnimationTrigger : MonoBehaviour
+namespace Common
 {
-    private Animator _anim;
-    private int _speedHash;
-    private int _jumpHash;
-
-    // Use this for initialization
-    void Start()
+    public class AnimationTrigger : MonoBehaviour
     {
-        _anim = GetComponentInChildren<Animator>();
-        foreach (var parameter in _anim.parameters)
+        private Animator _anim;
+        private int _speedHash;
+        private int _jumpHash;
+
+        // Use this for initialization
+        void Start()
         {
-            if (parameter.name == "Speed")
+            _anim = GetComponentInChildren<Animator>();
+            foreach (var parameter in _anim.parameters)
             {
-                _speedHash = parameter.nameHash;
+                if (parameter.name == "Speed")
+                {
+                    _speedHash = parameter.nameHash;
+                }
+                if (parameter.name == "Jump")
+                {
+                    _jumpHash = parameter.nameHash;
+                }
             }
-            if (parameter.name == "Jump")
+        }
+
+        public void SetSpeed(float speed)
+        {
+            if (_speedHash == 0)
             {
-                _jumpHash = parameter.nameHash;
+                return;
             }
+            _anim.SetFloat(_speedHash, speed);
         }
-    }
 
-    public void SetSpeed(float speed)
-    {
-        if (_speedHash == 0)
+        public void TriggerJump()
         {
-            return;
+            if (_jumpHash == 0)
+            {
+                return;
+            }
+            _anim.SetTrigger(_jumpHash);
         }
-        _anim.SetFloat(_speedHash, speed);
-    }
-
-    public void TriggerJump()
-    {
-        if (_jumpHash == 0)
-        {
-            return;
-        }
-        _anim.SetTrigger(_jumpHash);
     }
 }

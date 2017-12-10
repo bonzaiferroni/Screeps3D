@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using Screeps3D.Rooms;
+using Screeps3D.Rooms.Views;
+using Screeps_API;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Screeps3D
+namespace Screeps3D.Player
 {
     public class PlayerGaze : MonoBehaviour
     {

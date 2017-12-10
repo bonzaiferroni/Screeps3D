@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils
+namespace Common
 {
     public class ScaleVis : MonoBehaviour, IVisibilityControl
     {

@@ -1,4 +1,6 @@
-﻿namespace Screeps3D
+﻿using Screeps3D.Rooms;
+
+namespace Screeps3D
 {
     public class Flag : RoomObject, INamedObject
     {

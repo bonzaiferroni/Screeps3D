@@ -1,7 +1,7 @@
-﻿namespace Utils
-{
-    using UnityEngine;
+﻿using UnityEngine;
 
+namespace Common
+{
     namespace Utils
     {
         public class ScaleVisAxes : MonoBehaviour, IVisibilityControl

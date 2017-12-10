@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Common;
+using Screeps3D.Rooms;
 using UnityEngine;
 
-namespace Screeps3D
+namespace Screeps3D.Player
 {
     public class PlayerTransporter : BaseSingleton<PlayerTransporter>
     {
