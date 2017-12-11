@@ -57,13 +57,14 @@ namespace Screeps3D.RoomObjects
         }
     }*/
 
-    internal class Creep : RoomObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject, IActionObject
+    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject, IActionObject
     {
         public string UserId { get; set; }
         public ScreepsUser Owner { get; set; }
         public CreepBody Body { get; private set; }
         public string Name { get; set; }
         public Dictionary<string, JSONObject> Actions { get; private set; }
+        public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
         public float TotalResources { get; set; }
         public float Hits { get; set; }
@@ -94,16 +95,7 @@ namespace Screeps3D.RoomObjects
             
             UnpackUtility.HitPoints(this, data);
             UnpackUtility.Store(this, data);
-
-            var actionObj = data["actionLog"];
-            if (actionObj != null)
-            {
-                foreach (var key in actionObj.keys)
-                {
-                    var actionData = actionObj[key];
-                    Actions[key] = actionData;
-                }
-            }
+            UnpackUtility.ActionLog(this, data);
 
             var ageData = data["ageTime"];
             if (ageData != null)
@@ -176,6 +168,5 @@ namespace Screeps3D.RoomObjects
             if (PrevPosition != Position)
                 Rotation = Quaternion.LookRotation(PrevPosition - Position);
         }
-
     }
 }
