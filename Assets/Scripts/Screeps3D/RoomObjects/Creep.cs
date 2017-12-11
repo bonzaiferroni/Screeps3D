@@ -63,7 +63,7 @@ namespace Screeps3D.RoomObjects
         public ScreepsUser Owner { get; set; }
         public CreepBody Body { get; private set; }
         public string Name { get; set; }
-        public Dictionary<string, JSONObject> Actions { get; private set; }
+        public Dictionary<string, JSONObject> Actions { get; set; }
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
         public float TotalResources { get; set; }

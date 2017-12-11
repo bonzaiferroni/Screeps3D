@@ -16,7 +16,11 @@ namespace Screeps3D.Tools.Selection
 
         private string[] _prefabNames =
         {
+<<<<<<< Updated upstream
             "Type", "Owner", "Name", "Pos", "Hits", "Energy", "Age", "Fatigue", "Decay", "Progress", "Construction", "Capacity", "Store", 
+=======
+            "Type", "Owner", "Name", "Pos", "Hits", "Energy", "Age", "Fatigue", "Decay", "Progress", "Construction", "Cooldown"
+>>>>>>> Stashed changes
         };
         
         private void Start()
