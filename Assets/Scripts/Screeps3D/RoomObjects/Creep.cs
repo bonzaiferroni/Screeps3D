@@ -57,15 +57,15 @@ namespace Screeps3D.RoomObjects
         }
     }*/
 
-    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject, IOwnedObject
+    internal class Creep : RoomObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject
     {
         public string UserId { get; set; }
         public ScreepsUser Owner { get; set; }
         public CreepBody Body { get; private set; }
         public string Name { get; set; }
         public Dictionary<string, JSONObject> Actions { get; private set; }
-        public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public float TotalResources { get; set; }
         public float Hits { get; set; }
         public float HitsMax { get; set; }
         public float Fatigue { get; set; }
@@ -74,11 +74,13 @@ namespace Screeps3D.RoomObjects
         public Vector3 PrevPosition { get; protected set; }
         public Vector3 BumpPosition { get; private set; }
         public Quaternion Rotation { get; private set; }
+        public Dictionary<string, float> Store { get; private set; }
 
         internal Creep()
         {
             Body = new CreepBody();
-            Actions = new Dictionary<string, JSONObject>(); 
+            Actions = new Dictionary<string, JSONObject>();
+            Store = new Dictionary<string, float>();
         }
 
         internal override void Unpack(JSONObject data, bool initial)
@@ -90,8 +92,8 @@ namespace Screeps3D.RoomObjects
                 UnpackUtility.Name(this, data);
             }
             
-            UnpackUtility.Energy(this, data);
             UnpackUtility.HitPoints(this, data);
+            UnpackUtility.Store(this, data);
 
             var actionObj = data["actionLog"];
             if (actionObj != null)
@@ -174,5 +176,6 @@ namespace Screeps3D.RoomObjects
             if (PrevPosition != Position)
                 Rotation = Quaternion.LookRotation(PrevPosition - Position);
         }
+
     }
 }

@@ -1,12 +1,13 @@
-﻿using Common.Utils;
+﻿using Common;
 using UnityEngine;
 
 namespace Screeps3D.RoomObjects.Views
 {
-    public class ContainerView : MonoBehaviour, IObjectViewComponent
+    public class StoreView : MonoBehaviour, IObjectViewComponent
     {
-        [SerializeField] private ScaleVisAxes _energyDisplay;
-        private Container _container;
+        [SerializeField] private ScaleVis _storeDisplay;
+
+        private IStoreObject _storeObject;
 
         public void Init()
         {
@@ -14,7 +15,7 @@ namespace Screeps3D.RoomObjects.Views
 
         public void Load(RoomObject roomObject)
         {
-            _container = roomObject as Container;
+            _storeObject = roomObject as IStoreObject;
             AdjustScale();
         }
 
@@ -29,7 +30,7 @@ namespace Screeps3D.RoomObjects.Views
 
         private void AdjustScale()
         {
-            _energyDisplay.Visible(_container.TotalResources / _container.EnergyCapacity);
+            _storeDisplay.Visible(_storeObject.TotalResources / _storeObject.EnergyCapacity);
         }
     }
 }

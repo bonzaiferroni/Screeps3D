@@ -1,4 +1,6 @@
-﻿using Screeps_API;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Screeps_API;
 
 namespace Screeps3D.RoomObjects
 {
@@ -99,6 +101,22 @@ namespace Screeps3D.RoomObjects
             {
                 progressObj.Progress = progressData.n;
             }
+        }
+
+        internal static void Store(IStoreObject obj, JSONObject data)
+        {
+            foreach (var resourceType in Constants.RESOURCES_ALL)
+            {
+                if (!data.HasField(resourceType)) continue; // Early
+                
+                if (obj.Store.ContainsKey(resourceType))
+                    obj.Store[resourceType] = data[resourceType].n;
+                else
+                    obj.Store.Add(resourceType, data[resourceType].n);
+            }
+            obj.TotalResources = obj.Store.Sum(a => a.Value);
+            if (data.HasField("energyCapacity"))
+                obj.EnergyCapacity = data["energyCapacity"].n;
         }
     }
 }

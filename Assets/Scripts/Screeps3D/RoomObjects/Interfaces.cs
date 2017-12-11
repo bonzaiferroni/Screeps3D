@@ -1,4 +1,5 @@
-﻿using Screeps3D.Rooms;
+﻿using System.Collections.Generic;
+using Screeps3D.Rooms;
 using Screeps_API;
 
 namespace Screeps3D.RoomObjects
@@ -43,6 +44,13 @@ namespace Screeps3D.RoomObjects
     internal interface IDecay : IRoomObject
     {
         float NextDecayTime { get; set; }
+    }
+
+    internal interface IStoreObject : IRoomObject
+    {
+        Dictionary<string, float> Store { get; }
+        float EnergyCapacity { get; set; }
+        float TotalResources { get; set; }
     }
 
     internal interface IProgress

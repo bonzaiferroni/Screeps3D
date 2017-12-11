@@ -1,4 +1,6 @@
-﻿namespace Screeps3D.RoomObjects
+﻿using System.Collections.Generic;
+
+namespace Screeps3D.RoomObjects
 {
     /*{
         "_id":"594a8f75895ce86149c2c013",
@@ -26,16 +28,22 @@
         "UH":30,
         "OH":5,
     }*/
-    public class Terminal : Structure, IEnergyObject
+    public class Terminal : Structure, IStoreObject
     {
-        public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public float TotalResources { get; set; }
+        public Dictionary<string, float> Store { get; private set; }
+
+        internal Terminal()
+        {
+            Store = new Dictionary<string, float>();
+        }
 
         internal override void Unpack(JSONObject data, bool initial)
         {
             base.Unpack(data, initial);
-
-            UnpackUtility.Energy(this, data);
+            UnpackUtility.Store(this, data);
         }
+
     }
 }
