@@ -58,4 +58,9 @@ namespace Screeps3D.RoomObjects
         float Progress { get; set; }
         float ProgressMax { get; set; }
     }
+
+    internal interface IActionObject
+    {
+        Dictionary<string, JSONObject> Actions { get; }
+    }
 }

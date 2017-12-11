@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Screeps3D.Effects;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
@@ -37,7 +38,8 @@ namespace Screeps3D.RoomObjects.Views
         {
             var beam = BeamConfigs.FirstOrDefault(c => _creep.Actions.ContainsKey(c.Key) && !_creep.Actions[c.Key].IsNull);
             if (beam.Value == null) return;
-            StartCoroutine(Beam.Draw(_creep, _creep.Actions[beam.Key], _lineRenderer, beam.Value));
+            EffectsUtility2.Beam(_creep, _creep.Actions[beam.Key], beam.Value);
+            // StartCoroutine(Beam.Draw(_creep, _creep.Actions[beam.Key], _lineRenderer, beam.Value));
         }
 
         public void Unload(RoomObject roomObject)

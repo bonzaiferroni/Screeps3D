@@ -118,5 +118,18 @@ namespace Screeps3D.RoomObjects
             if (data.HasField("energyCapacity"))
                 obj.EnergyCapacity = data["energyCapacity"].n;
         }
+        
+        internal static void ActionLog(IActionObject actionObject, JSONObject data)
+        {
+            var actionLog = data["actionLog"];
+            if (actionLog != null)
+            {
+                foreach (var key in actionLog.keys)
+                {
+                    var actionData = actionLog[key];
+                    actionObject.Actions[key] = actionData;
+                }
+            }
+        }
     }
 }

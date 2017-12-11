@@ -42,7 +42,7 @@ namespace Screeps3D.Player
 
         private void ShowObjects(Room room)
         {
-            if (queue.Count >= 2)
+            if (queue.Count >= 1)
             {
                 var otherRoom = queue.Dequeue();
                 otherRoom.ShowObjects(false);

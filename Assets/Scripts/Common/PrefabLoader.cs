@@ -4,7 +4,7 @@ using Object = UnityEngine.Object;
 
 namespace Common
 {
-    public class PrefabLoader {
+    public static class PrefabLoader {
 
         private static Dictionary<string, GameObject> cache = new Dictionary<string, GameObject>();
 

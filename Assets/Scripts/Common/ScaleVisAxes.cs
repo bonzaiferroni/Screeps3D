@@ -15,9 +15,9 @@ namespace Common
 
             public bool IsVisible { get; private set; }
 
-            private Vector3 _current;
-            private Vector3 _target;
-            private Vector3 _targetRef;
+            private float _current;
+            private float _target;
+            private float _targetRef;
 
             private void Start()
             {
@@ -48,7 +48,7 @@ namespace Common
                     target = 0;
                 }
 
-                _target = new Vector3(_x ? target : 1, _y ? target : 1, _z ? target : 1);
+                _target = target;
                 
                 if (instant)
                 {
@@ -73,13 +73,27 @@ namespace Common
 
             public void Update()
             {
-                if (Vector3.Distance(_current, _target) < .0001f)
+                if (Mathf.Abs(_current - _target) < .0001f)
                 {
+                    if (_target == 0)
+                    {
+                        Scale(Vector3.zero);
+                    }
+                    else
+                    {
+                        Scale(_target);
+                    }
                     enabled = false;
+                    return;
                 }
 
-                _current = Vector3.SmoothDamp(_current, _target, ref _targetRef, _speed);
+                _current = Mathf.SmoothDamp(_current, _target, ref _targetRef, _speed);
                 Scale(_current);
+            }
+
+            private void Scale(float amount)
+            {
+                Scale(new Vector3(_x ? amount : 1, _y ? amount : 1, _z ? amount : 1));
             }
 
             private void Scale(Vector3 amount)

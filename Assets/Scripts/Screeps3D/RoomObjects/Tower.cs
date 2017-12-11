@@ -21,7 +21,7 @@ namespace Screeps3D.RoomObjects
         }
     }*/
 
-    public class Tower : Structure, IEnergyObject
+    public class Tower : Structure, IEnergyObject, IActionObject
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
@@ -38,16 +38,7 @@ namespace Screeps3D.RoomObjects
             base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
-            
-            var actionObj = data["actionLog"];
-            if (actionObj != null)
-            {
-                foreach (var key in actionObj.keys)
-                {
-                    var actionData = actionObj[key];
-                    Actions[key] = actionData;
-                }
-            }
+            UnpackUtility.ActionLog(this, data);
         }
         
     }

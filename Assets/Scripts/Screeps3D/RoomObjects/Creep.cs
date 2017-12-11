@@ -57,7 +57,7 @@ namespace Screeps3D.RoomObjects
         }
     }*/
 
-    internal class Creep : RoomObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject
+    internal class Creep : RoomObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject, IActionObject
     {
         public string UserId { get; set; }
         public ScreepsUser Owner { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using Common.Utils;
+using Screeps3D.Effects;
 using UnityEngine;
 
 namespace Screeps3D.RoomObjects.Views
@@ -44,7 +45,8 @@ namespace Screeps3D.RoomObjects.Views
             var endPos = PosUtility.Convert(action.Value, _tower.Room);
             _rotationRoot.rotation = Quaternion.LookRotation(endPos - _tower.Position);
             var color = action.Key == "attack" ? Color.blue : action.Key == "heal" ? Color.green : Color.yellow;
-            StartCoroutine(Beam.Draw(_tower, action.Value, _lineRenderer, new BeamConfig(color, 0.6f, 0.3f)));
+            EffectsUtility2.Beam(_tower, action.Value, new BeamConfig(color, 0.6f, 0.3f));
+            // StartCoroutine(Beam.Draw(_tower, action.Value, _lineRenderer, new BeamConfig(color, 0.6f, 0.3f)));
         }
 
         public void Unload(RoomObject roomObject)

@@ -73,6 +73,7 @@ namespace Screeps_API
 
         private void Message(object sender, MessageEventArgs e)
         {
+            Debug.Log(e.Data);
             _messages.Enqueue(e);
         }
 
