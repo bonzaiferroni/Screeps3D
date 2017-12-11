@@ -57,16 +57,13 @@ namespace Screeps3D.RoomObjects
         }
     }*/
 
-    internal class Creep : RoomObject, IEnergyObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject, IActionObject
+    internal class Creep : RoomObject, INamedObject, IHitpointsObject, IOwnedObject, IStoreObject, IActionObject 
     {
         public string UserId { get; set; }
         public ScreepsUser Owner { get; set; }
         public CreepBody Body { get; private set; }
         public string Name { get; set; }
         public Dictionary<string, JSONObject> Actions { get; set; }
-        public float Energy { get; set; }
-        public float EnergyCapacity { get; set; }
-        public float TotalResources { get; set; }
         public float Hits { get; set; }
         public float HitsMax { get; set; }
         public float Fatigue { get; set; }
@@ -76,6 +73,9 @@ namespace Screeps3D.RoomObjects
         public Vector3 BumpPosition { get; private set; }
         public Quaternion Rotation { get; private set; }
         public Dictionary<string, float> Store { get; private set; }
+        public float StoreCapacity { get; set; }
+        public float TotalResources { get; set; }
+        
 
         internal Creep()
         {

@@ -19,7 +19,7 @@ namespace Screeps3D.RoomObjects
     public class Container : Structure, IStoreObject
     {
         public Dictionary<string, float> Store { get; private set; }
-        public float EnergyCapacity { get; set; }
+        public float StoreCapacity { get; set; }
         public float TotalResources { get; set; }
 
         internal Container()

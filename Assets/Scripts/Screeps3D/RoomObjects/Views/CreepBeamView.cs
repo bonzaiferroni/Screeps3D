@@ -19,14 +19,10 @@ namespace Screeps3D.RoomObjects.Views
             {"upgradeController", new BeamConfig(Color.yellow, 0.3f, 1f)}
         };
 
-        private LineRenderer _lineRenderer;
         private Creep _creep;
-        private bool _beaming;
 
         public void Init()
         {
-            _lineRenderer = gameObject.GetComponent<LineRenderer>();
-            _lineRenderer.enabled = false;
         }
 
         public void Load(RoomObject roomObject)
@@ -38,13 +34,12 @@ namespace Screeps3D.RoomObjects.Views
         {
             var beam = BeamConfigs.FirstOrDefault(c => _creep.Actions.ContainsKey(c.Key) && !_creep.Actions[c.Key].IsNull);
             if (beam.Value == null) return;
-            EffectsUtility2.Beam(_creep, _creep.Actions[beam.Key], beam.Value);
+            EffectsUtility.Beam(_creep, _creep.Actions[beam.Key], beam.Value);
             // StartCoroutine(Beam.Draw(_creep, _creep.Actions[beam.Key], _lineRenderer, beam.Value));
         }
 
         public void Unload(RoomObject roomObject)
         {
-            
         }
     }
 }

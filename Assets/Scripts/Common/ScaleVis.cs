@@ -1,4 +1,5 @@
 ﻿using System;
+using Screeps3D.RoomObjects.Views;
 using UnityEngine;
 
 namespace Common
@@ -38,7 +39,7 @@ namespace Common
         public void Visible(float target, bool instant = false)
         {
             enabled = true;
-            IsVisible = target == 1;
+            IsVisible = target > 0;
 
             if (float.IsNaN(target))
             {

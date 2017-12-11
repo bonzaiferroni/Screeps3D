@@ -4,7 +4,7 @@ using Screeps_API;
 
 namespace Screeps3D.RoomObjects
 {
-    public class UnpackUtility
+    public static class UnpackUtility
     {
         
         internal static void Id(RoomObject roomObject, JSONObject data)
@@ -116,7 +116,7 @@ namespace Screeps3D.RoomObjects
             }
             obj.TotalResources = obj.Store.Sum(a => a.Value);
             if (data.HasField("energyCapacity"))
-                obj.EnergyCapacity = data["energyCapacity"].n;
+                obj.StoreCapacity = data["energyCapacity"].n;
         }
         
         internal static void ActionLog(IActionObject actionObject, JSONObject data)

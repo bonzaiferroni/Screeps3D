@@ -45,7 +45,7 @@ namespace Screeps3D.RoomObjects.Views
             var endPos = PosUtility.Convert(action.Value, _tower.Room);
             _rotationRoot.rotation = Quaternion.LookRotation(endPos - _tower.Position);
             var color = action.Key == "attack" ? Color.blue : action.Key == "heal" ? Color.green : Color.yellow;
-            EffectsUtility2.Beam(_tower, action.Value, new BeamConfig(color, 0.6f, 0.3f));
+            EffectsUtility.Beam(_tower, action.Value, new BeamConfig(color, 0.6f, 0.3f));
             // StartCoroutine(Beam.Draw(_tower, action.Value, _lineRenderer, new BeamConfig(color, 0.6f, 0.3f)));
         }
 

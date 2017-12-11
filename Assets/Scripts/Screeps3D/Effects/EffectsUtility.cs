@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Screeps3D.Effects
 {
-    public static class EffectsUtility2
+    public static class EffectsUtility
     {
         public static void Beam(RoomObject origin, JSONObject target, BeamConfig config)
         {
@@ -18,6 +18,20 @@ namespace Screeps3D.Effects
             var go = PoolLoader.Load(BeamEffect.PATH);
             var effect = go.GetComponent<BeamEffect>();
             effect.Load(startPos, endPos, color);
+        }
+    }
+    
+    public class BeamConfig
+    {
+        public Color Color { get; private set; }
+        public float StartHeight { get; private set; }
+        public float EndHeight { get; private set; }
+
+        public BeamConfig(Color color, float startHeight, float endHeight)
+        {
+            Color = color;
+            StartHeight = startHeight;
+            EndHeight = endHeight;
         }
     }
 }

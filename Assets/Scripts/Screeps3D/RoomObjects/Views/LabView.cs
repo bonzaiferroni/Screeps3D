@@ -43,15 +43,13 @@ namespace Screeps3D.RoomObjects.Views
             if (action.Value == null)
                 return; // Early
 
-            Debug.Log("Firing Beam");
             var data = action.Value;
-            Debug.Log(data);
 
             var start1 = PosUtility.Convert((int) data["x1"].n, (int) data["y1"].n, _lab.Room) + Vector3.up * .6f;
             var start2 = PosUtility.Convert((int) data["x2"].n, (int) data["y2"].n, _lab.Room) + Vector3.up * .6f;
             var endPos = _lab.Position + Vector3.up * .3f;
-            EffectsUtility2.Beam(start1, endPos, Color.white);
-            EffectsUtility2.Beam(start2, endPos, Color.white);
+            EffectsUtility.Beam(start1, endPos, Color.white);
+            EffectsUtility.Beam(start2, endPos, Color.white);
             // StartCoroutine(Beam.Draw(_lab, action.Value, _lineRenderer, new BeamConfig(Color.white, 0.6f, 0.3f)));
         }
     }

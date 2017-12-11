@@ -14,7 +14,7 @@ namespace Screeps3D.RoomObjects.Views
         public void Load(RoomObject roomObject)
         {
             _creep = roomObject as Creep;
-            _carry.SetActive(_creep.EnergyCapacity > 0);
+            _carry.SetActive(_creep.StoreCapacity > 0);
         }
 
         public void Delta(JSONObject data)

@@ -34,9 +34,9 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         private void UpdateLabel()
         {
-            _meter.Visible(_storeObject.TotalResources / _storeObject.EnergyCapacity);
+            _meter.Visible(_storeObject.TotalResources / _storeObject.StoreCapacity);
             _label.text = string.Format("{0:n0} / {1:n0}", _storeObject.TotalResources,
-                (long) _storeObject.EnergyCapacity);
+                (long) _storeObject.StoreCapacity);
         }
 
         private void OnDelta(JSONObject obj)

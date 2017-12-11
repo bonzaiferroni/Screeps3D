@@ -73,7 +73,6 @@ namespace Screeps_API
 
         private void Message(object sender, MessageEventArgs e)
         {
-            Debug.Log(e.Data);
             _messages.Enqueue(e);
         }
 
@@ -99,25 +98,19 @@ namespace Screeps_API
 
         private void ProcessMessage(MessageEventArgs e)
         {
-            try
+            if (e.Data.Substring(0, 3) == "gz:")
             {
-                if (e.Data.Substring(0, 3) == "gz:")
-                {
-                    Debug.Log(e.Data);
-                }
-                // Debug.Log(string.Format("Socket Message: {0}", e.Data));
-                var parse = e.Data.Split(' ');
-                if (parse.Length == 3 && parse[0] == "auth" && parse[1] == "ok")
-                {
-                    Debug.Log("socket auth success");
-                }
-                var json = new JSONObject(e.Data);
-                FindSubscription(json);
-                if (OnMessage != null) OnMessage.Invoke(e);
-            } catch (Exception exception)
-            {
-                Debug.Log(string.Format("Exception in ScreepSocket.OnMessage\n{0}", exception));
+                Debug.Log(e.Data);
             }
+            // Debug.Log(string.Format("Socket Message: {0}", e.Data));
+            var parse = e.Data.Split(' ');
+            if (parse.Length == 3 && parse[0] == "auth" && parse[1] == "ok")
+            {
+                Debug.Log("socket auth success");
+            }
+            var json = new JSONObject(e.Data);
+            FindSubscription(json);
+            if (OnMessage != null) OnMessage.Invoke(e);
         }
 
         private void FindSubscription(JSONObject json)

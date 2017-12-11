@@ -45,8 +45,8 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override void Unload()
         {
-            _creep = null;
             _creep.OnDelta -= OnTick;
+            _creep = null;
         }
     }
 }

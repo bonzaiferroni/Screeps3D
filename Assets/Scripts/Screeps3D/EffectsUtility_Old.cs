@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Screeps3D.Effects;
 using Screeps3D.RoomObjects;
 using UnityEngine;
 
@@ -42,20 +43,6 @@ namespace Screeps3D
             }
             lineRenderer.enabled = false;
             CurrentBeams.Remove(id);
-        }
-    }
-    
-    public class BeamConfig
-    {
-        public Color Color { get; private set; }
-        public float StartHeight { get; private set; }
-        public float EndHeight { get; private set; }
-
-        public BeamConfig(Color color, float startHeight, float endHeight)
-        {
-            Color = color;
-            StartHeight = startHeight;
-            EndHeight = endHeight;
         }
     }
 }

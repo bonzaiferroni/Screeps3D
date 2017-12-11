@@ -12,6 +12,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
         [SerializeField] private TextMeshProUGUI _label;
 
         private IStoreObject _selected;
+        private RoomObject _roomObject;
 
         public override string Name
         {
@@ -25,8 +26,9 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override void Load(RoomObject roomObject)
         {
+            _roomObject = roomObject;
+            _roomObject.OnDelta += OnDelta;
             _selected = roomObject as IStoreObject;
-            roomObject.OnDelta += OnDelta;
             UpdateLabel();
         }
         
@@ -69,6 +71,8 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override void Unload()
         {
+            _roomObject.OnDelta -= OnDelta;
+            _roomObject = null;
             _selected = null;
         }
     }
