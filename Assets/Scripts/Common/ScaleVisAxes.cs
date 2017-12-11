@@ -41,11 +41,16 @@ namespace Common
             public void Visible(float target, bool instant = false)
             {
                 enabled = true;
-                IsVisible = true;
+                IsVisible = target > 0;
 
-                if (float.IsNaN(target))
+                if (float.IsNaN(target) || target < 0)
                 {
                     target = 0;
+                }
+
+                if (target > 1)
+                {
+                    target = 1;
                 }
 
                 _target = target;

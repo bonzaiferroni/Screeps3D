@@ -133,6 +133,7 @@ namespace Screeps_API
 
         public void Unsub(string path, Action<JSONObject> callback = null)
         {
+            Debug.Log("unsub " + path);
             Socket.Send(string.Format("unsubscribe {0}", path));
             if (callback != null)
             {

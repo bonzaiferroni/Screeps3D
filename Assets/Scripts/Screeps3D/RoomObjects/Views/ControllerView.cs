@@ -59,7 +59,7 @@ namespace Screeps3D.RoomObjects.Views
 
             if (_controller.Owner != null)
             {
-                _playerRend.materials[0].mainTexture = _controller.Owner.badge;
+                _playerRend.materials[0].mainTexture = _controller.Owner.Badge;
                 _playerRend.materials[0].color = Color.white;
             }
             else

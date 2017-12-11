@@ -23,7 +23,7 @@ namespace Screeps3D.Rooms
                 _path = string.Format("roomMap2:{0}", room.RoomName);
             }
             // temporarily hooked into OnShowObjects so roads will render
-            room.OnShowObjects += ManageSubscription;
+            room.OnShowMap += ManageSubscription;
         }
 
         private void ManageSubscription(bool showObjects)

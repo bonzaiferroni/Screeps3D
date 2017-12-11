@@ -25,7 +25,7 @@ namespace Screeps_API
         {
             if (connected)
             {
-                _api.Socket.Subscribe(string.Format("user:{0}/cpu", _api.Me.userId), RecieveData);
+                _api.Socket.Subscribe(string.Format("user:{0}/cpu", _api.Me.UserId), RecieveData);
             }
         }
 

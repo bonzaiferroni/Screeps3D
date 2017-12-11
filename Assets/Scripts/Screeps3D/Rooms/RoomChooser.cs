@@ -39,7 +39,7 @@ namespace Screeps3D.Rooms
             _panel.Show(isConnected);
             if (!isConnected)
                 return;
-            ScreepsAPI.Instance.Http.GetRooms(ScreepsAPI.Instance.Me.userId, InitializeChooser);
+            ScreepsAPI.Instance.Http.GetRooms(ScreepsAPI.Instance.Me.UserId, InitializeChooser);
         }
 
         private void InitializeChooser(string str)
