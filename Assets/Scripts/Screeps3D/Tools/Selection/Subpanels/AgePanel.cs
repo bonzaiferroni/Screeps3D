@@ -27,11 +27,11 @@ namespace Screeps3D.Tools.Selection.Subpanels
         public override void Load(RoomObject roomObject)
         {
             _creep = roomObject as Creep;
-            ScreepsAPI.Instance.OnTick += OnTick;
+            _creep.OnDelta += OnTick;
             UpdateLabel();
         }
 
-        private void OnTick(long obj)
+        private void OnTick(JSONObject obj)
         {
             UpdateLabel();
         }
@@ -46,7 +46,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
         public override void Unload()
         {
             _creep = null;
-            ScreepsAPI.Instance.OnTick -= OnTick;
+            _creep.OnDelta -= OnTick;
         }
     }
 }
