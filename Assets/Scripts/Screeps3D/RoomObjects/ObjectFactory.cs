@@ -30,6 +30,8 @@
                     return new ConstructionSite();
                 case Constants.TYPE_LAB:
                     return new Lab();
+                case Constants.TYPE_CONSTRUCTED_WALL:
+                    return new ConstructedWall();
                 default:
                     return new RoomObject();
             }
