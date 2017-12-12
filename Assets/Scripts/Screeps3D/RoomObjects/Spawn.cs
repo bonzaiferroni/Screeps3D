@@ -25,12 +25,28 @@
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public string SpawningName { get; set; }
+        public float SpawningNeedTime { get; set; }
+        public float SpawningRemainingTime { get; set; }
+
 
         internal override void Unpack(JSONObject data, bool initial)
         {
             base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
+
+            if (!data.HasField("spawning")) return; // Early
+
+            var spawningData = data["spawning"];
+            if (spawningData.HasField("name"))
+                SpawningName = spawningData["name"].str;
+
+            if (spawningData.HasField("needTime"))
+                SpawningNeedTime = spawningData["needTime"].n;
+            
+            if (spawningData.HasField("remainingTime"))
+                SpawningRemainingTime = spawningData["remainingTime"].n;
         }
     }
 }
