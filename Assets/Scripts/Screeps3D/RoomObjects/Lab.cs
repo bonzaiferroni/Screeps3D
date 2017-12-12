@@ -23,12 +23,13 @@ namespace Screeps3D.RoomObjects
             "runReaction":null || "runReaction":{"x1":19,"y1":31,"x2":18,"y2":32}
         }
     }*/
-    public class Lab : Structure, IEnergyObject, IActionObject
+    public class Lab : Structure, IEnergyObject, IActionObject, IResourceObject
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
-        public float MineralAmount { get; set; }
-        public string MineralType { get; set; }
+        public float ResourceAmount { get; set; }
+        public float ResourceCapacity { get; set; }
+        public string ResourceType { get; set; }
         public float Cooldown { get; set; }
         public Dictionary<string, JSONObject> Actions { get; set; }
 
@@ -44,13 +45,19 @@ namespace Screeps3D.RoomObjects
             var minAmountData = data["mineralAmount"];
             if (minAmountData != null)
             {
-                MineralAmount = minAmountData.n;
+                ResourceAmount = minAmountData.n;
+            }
+            
+            var minCapacityData = data["mineralCapacity"];
+            if (minCapacityData != null)
+            {
+                ResourceCapacity = minCapacityData.n;
             }
 
             var minTypeData = data["mineralType"];
             if (minTypeData != null)
             {
-                MineralType = minTypeData.str;
+                ResourceType = minTypeData.str;
             }
 
             var coolDownData = data["cooldown"];

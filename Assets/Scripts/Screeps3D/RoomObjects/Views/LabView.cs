@@ -35,7 +35,7 @@ namespace Screeps3D.RoomObjects.Views
 
         private void UpdateDisplays()
         {
-            _mineral.Visible(_lab.MineralAmount / 3000);
+            _mineral.Visible(_lab.ResourceAmount / 3000);
             _energy.Visible(_lab.Energy / _lab.EnergyCapacity);
             
             

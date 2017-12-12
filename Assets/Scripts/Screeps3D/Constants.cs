@@ -18,6 +18,12 @@ namespace Screeps3D
         public const string TYPE_CONSTRUCTION = "constructionSite";
         public const string TYPE_LAB = "lab";
         public const string TYPE_CONSTRUCTED_WALL = "constructedWall";
+        public const string TYPE_NUKER = "nuker";
+        public const string TYPE_MINERAL = "mineral";
+        public const string TYPE_POWER_SPAWN = "powerSpawn";
+        public const string TYPE_SOURCE = "source";
+
+
 
 
         public static readonly Dictionary<int, float> CONTROLLER_LEVELS = new Dictionary<int, float>
@@ -75,6 +81,14 @@ namespace Screeps3D
             {"terminal", 100000},
             {"container", 5000},
             {"nuker", 100000},
+        };
+        
+        public static readonly Dictionary<float, float> MINERAL_DENSITY = new Dictionary<float, float>
+        {
+            {1, 15000},
+            {2, 35000},
+            {3, 70000},
+            {4, 100000}
         };
         
         public static readonly HashSet<string> RESOURCES_ALL = new HashSet<string>()

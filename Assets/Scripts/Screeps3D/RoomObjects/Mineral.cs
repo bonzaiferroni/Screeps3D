@@ -11,7 +11,39 @@
       "room": "E2S7"
     }*/
 
-    public class Mineral : RoomObject
+    public class Mineral : RoomObject, IResourceObject
     {
+        public float ResourceAmount { get; set; }
+        public float ResourceCapacity { get; set; }
+        public string ResourceType { get; set; }
+        
+        internal override void Unpack(JSONObject data, bool initial)
+        {
+            base.Unpack(data, initial);
+            
+            var densityData = data["density"];
+            if (densityData != null)
+            {
+                var density = densityData.n;
+                ResourceCapacity = Constants.MINERAL_DENSITY.ContainsKey(density)
+                    ? Constants.MINERAL_DENSITY[density]
+                    : 0;
+            }
+            
+            var mineralType = data["mineralType"];
+            if (mineralType != null)
+            {
+                ResourceType = mineralType.str;
+            }
+            
+            var minAmountData = data["mineralAmount"];
+            if (minAmountData != null)
+            {
+                ResourceAmount = minAmountData.n;
+            }
+            
+        }
     }
+    
+    
 }

@@ -15,7 +15,36 @@
         "hits":5000,
         "hitsMax":5000
     }*/
-    public class PowerSpawn : Structure
+    public class PowerSpawn : Structure, IEnergyObject, IResourceObject
     {
+        public float Energy { get; set; }
+        public float EnergyCapacity { get; set; }
+        public float ResourceAmount { get; set; }
+        public float ResourceCapacity { get; set; }
+        public string ResourceType { get; set; }
+
+        internal PowerSpawn()
+        {
+            ResourceType = "power";
+        }
+        
+        internal override void Unpack(JSONObject data, bool initial)
+        {
+            base.Unpack(data, initial);
+
+            UnpackUtility.Energy(this, data);
+
+            var minAmountData = data["power"];
+            if (minAmountData != null)
+            {
+                ResourceAmount = minAmountData.n;
+            }
+            
+            var minCapacityData = data["powerCapacity"];
+            if (minCapacityData != null)
+            {
+                ResourceCapacity = minCapacityData.n;
+            }
+        }
     }
 }

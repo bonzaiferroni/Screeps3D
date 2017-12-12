@@ -23,6 +23,13 @@ namespace Screeps3D.RoomObjects
         float Energy { get; set; }
         float EnergyCapacity { get; set; }
     }
+    
+    internal interface IResourceObject
+    {
+        float ResourceAmount { get; set; }
+        float ResourceCapacity { get; set; }
+        string ResourceType { get; set; }
+    }
 
     internal interface INamedObject
     {

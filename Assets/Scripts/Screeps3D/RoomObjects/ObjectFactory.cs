@@ -32,6 +32,14 @@
                     return new Lab();
                 case Constants.TYPE_CONSTRUCTED_WALL:
                     return new ConstructedWall();
+                case Constants.TYPE_NUKER:
+                    return new Nuker();
+                case Constants.TYPE_MINERAL:
+                    return new Mineral();
+                case Constants.TYPE_POWER_SPAWN:
+                    return new PowerSpawn();
+                case Constants.TYPE_SOURCE:
+                    return new Source();
                 default:
                     return new RoomObject();
             }

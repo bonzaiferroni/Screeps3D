@@ -17,16 +17,37 @@
         "cooldownTime":2.247301E+07
     }*/
 
-    public class Nuker : Structure, IEnergyObject
+    public class Nuker : Structure, IEnergyObject, IResourceObject
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
 
+        public float ResourceAmount { get; set; }
+        public float ResourceCapacity { get; set; }
+        public string ResourceType { get; set; }
+
+        internal Nuker()
+        {
+            ResourceType = "G";
+        }
+        
         internal override void Unpack(JSONObject data, bool initial)
         {
             base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
+            
+            var minAmountData = data["G"];
+            if (minAmountData != null)
+            {
+                ResourceAmount = minAmountData.n;
+            }
+            
+            var minCapacityData = data["GCapacity"];
+            if (minCapacityData != null)
+            {
+                ResourceCapacity = minCapacityData.n;
+            }
         }
     }
 }
