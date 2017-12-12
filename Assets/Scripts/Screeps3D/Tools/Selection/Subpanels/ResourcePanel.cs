@@ -38,7 +38,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
             var label = _resourceObject.ResourceType.IsNullOrEmpty() ? "Resource" : _resourceObject.ResourceType;
             if (label[0] == 'p') label = "Power";
             _typeLabel.text = string.Format("{0}:", label);
-            _meter.Visible(_resourceObject.ResourceAmount / _resourceObject.ResourceAmount);
+            _meter.Visible(_resourceObject.ResourceAmount / _resourceObject.ResourceCapacity);
             _label.text = string.Format("{0:n0} / {1:n0}", _resourceObject.ResourceAmount,
                 (long) _resourceObject.ResourceCapacity);
         }
