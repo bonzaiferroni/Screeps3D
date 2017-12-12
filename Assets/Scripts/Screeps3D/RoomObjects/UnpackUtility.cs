@@ -121,9 +121,9 @@ namespace Screeps3D.RoomObjects
 
         internal static void Store(IStoreObject obj, JSONObject data)
         {
-            foreach (var resourceType in Constants.RESOURCES_ALL)
+            foreach (var resourceType in data.keys)
             {
-                if (!data.HasField(resourceType)) continue; // Early
+                if (!Constants.RESOURCES_ALL.Contains(resourceType)) continue; // Early
                 
                 if (obj.Store.ContainsKey(resourceType))
                     obj.Store[resourceType] = data[resourceType].n;
