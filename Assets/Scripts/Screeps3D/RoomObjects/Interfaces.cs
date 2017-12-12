@@ -47,6 +47,11 @@ namespace Screeps3D.RoomObjects
         ScreepsUser Owner { get; set; }
     }
 
+    internal interface ICooldownObject
+    {
+        float Cooldown { get; set; }
+    }
+
     internal interface IHitpointsObject
     {
         float Hits { get; set; }

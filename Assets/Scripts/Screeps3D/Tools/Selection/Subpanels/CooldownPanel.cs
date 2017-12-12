@@ -8,8 +8,9 @@ namespace Screeps3D.Tools.Selection.Subpanels
     public class CooldownPanel : Subpanel
     {
         [SerializeField] private TextMeshProUGUI _label;
-        
-        private Lab _lab;
+
+        private RoomObject _roomObject;
+        private ICooldownObject _cooldownObject;
 
         public override string Name
         {
@@ -18,13 +19,14 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override Type ObjectType
         {
-            get { return typeof(Lab); }
+            get { return typeof(ICooldownObject); }
         }
 
         public override void Load(RoomObject roomObject)
         {
-            _lab = roomObject as Lab;
-            _lab.OnDelta += OnDelta;
+            _roomObject = roomObject;
+            _cooldownObject = roomObject as ICooldownObject;
+            _roomObject.OnDelta += OnDelta;
             UpdateDisplay();
         }
 
@@ -38,13 +40,14 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         private void UpdateDisplay()
         {
-            _label.text = string.Format("{0}", _lab.Cooldown);
+            _label.text = string.Format("{0}", _cooldownObject.Cooldown);
         }
 
         public override void Unload()
         {
-            _lab.OnDelta -= OnDelta;
-            _lab = null;
+            _roomObject.OnDelta -= OnDelta;
+            _roomObject = null;
+            _cooldownObject = null;
         }
     }
 }

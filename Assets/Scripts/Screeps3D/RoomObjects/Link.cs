@@ -19,12 +19,12 @@ namespace Screeps3D.RoomObjects
             "transferEnergy":null
         }
     }*/
-    public class Link : Structure, IEnergyObject
+    public class Link : Structure, IEnergyObject, ICooldownObject, IActionObject
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
         public Dictionary<string, JSONObject> Actions { get; set; }
-
+        public float Cooldown { get; set; }
 
         internal Link()
         {
@@ -36,16 +36,9 @@ namespace Screeps3D.RoomObjects
             base.Unpack(data, initial);
 
             UnpackUtility.Energy(this, data);
-            
-            var actionObj = data["actionLog"];
-            if (actionObj != null)
-            {
-                foreach (var key in actionObj.keys)
-                {
-                    var actionData = actionObj[key];
-                    Actions[key] = actionData;
-                }
-            }
+            UnpackUtility.Cooldown(this, data);
+            UnpackUtility.ActionLog(this, data);
         }
+
     }
 }

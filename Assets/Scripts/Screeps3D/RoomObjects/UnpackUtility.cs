@@ -92,6 +92,15 @@ namespace Screeps3D.RoomObjects
             }
         }
 
+        internal static void Cooldown(ICooldownObject obj, JSONObject data)
+        {
+            var coolDownData = data["cooldown"];
+            if (coolDownData != null)
+            {
+                obj.Cooldown = coolDownData.n;
+            }
+        }
+
         internal static void Decay(IDecay obj, JSONObject data)
         {
             var decayData = data["nextDecayTime"];

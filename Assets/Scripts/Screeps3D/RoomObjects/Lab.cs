@@ -23,7 +23,7 @@ namespace Screeps3D.RoomObjects
             "runReaction":null || "runReaction":{"x1":19,"y1":31,"x2":18,"y2":32}
         }
     }*/
-    public class Lab : Structure, IEnergyObject, IActionObject, IResourceObject
+    public class Lab : Structure, IEnergyObject, IActionObject, IResourceObject, ICooldownObject
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
@@ -60,12 +60,7 @@ namespace Screeps3D.RoomObjects
                 ResourceType = minTypeData.str;
             }
 
-            var coolDownData = data["cooldown"];
-            if (coolDownData != null)
-            {
-                Cooldown = coolDownData.n;
-            }
-            
+            UnpackUtility.Cooldown(this, data);
             UnpackUtility.Energy(this, data);
             UnpackUtility.ActionLog(this, data);
         }
