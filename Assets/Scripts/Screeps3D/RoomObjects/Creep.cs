@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Screeps3D.Effects;
 using Screeps3D.Rooms;
 using Screeps_API;
 using UnityEngine;
@@ -132,6 +133,9 @@ namespace Screeps3D.RoomObjects
             SetPosition();
             AssignBumpPosition();
             AssignRotation();
+            
+            if (Actions.ContainsKey("say") && !Actions["say"].IsNull)
+                EffectsUtility.Speech(this, Actions["say"]["message"].str);
             
             if (View != null)
                 View.Delta(delta);

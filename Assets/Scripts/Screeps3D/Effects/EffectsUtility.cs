@@ -1,5 +1,6 @@
 ﻿using Common;
 using Screeps3D.RoomObjects;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Screeps3D.Effects
@@ -18,6 +19,13 @@ namespace Screeps3D.Effects
             var go = PoolLoader.Load(BeamEffect.PATH);
             var effect = go.GetComponent<BeamEffect>();
             effect.Load(startPos, endPos, color);
+        }
+
+        public static void Speech(RoomObject creep, string message)
+        {
+            var go = PoolLoader.Load(SpeechEffect.PATH);
+            var effect = go.GetComponent<SpeechEffect>();
+            effect.Load(creep, message);
         }
     }
     
