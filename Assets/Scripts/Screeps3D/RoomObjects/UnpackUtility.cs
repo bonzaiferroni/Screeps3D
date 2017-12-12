@@ -14,6 +14,13 @@ namespace Screeps3D.RoomObjects
                 roomObject.Id = idObj.str;
         }
         
+        internal static void Regeneration(IRegenerationObject roomObject, JSONObject data)
+        {
+            var regenObj = data["nextRegenerationTime"];
+            if (regenObj != null)
+                roomObject.NextRegenerationTime = regenObj.n;
+        }
+        
         internal static void Type(RoomObject roomObject, JSONObject data)
         {
             var typeObj = data["type"];

@@ -13,15 +13,17 @@
       "nextRegenerationTime": 8529
     }*/
 
-    public class Source : RoomObject, IEnergyObject
+    public class Source : RoomObject, IEnergyObject, IRegenerationObject
     {
         public float Energy { get; set; }
         public float EnergyCapacity { get; set; }
+        public float NextRegenerationTime { get; set; }
 
         internal override void Unpack(JSONObject data, bool initial)
         {
             base.Unpack(data, initial);
             UnpackUtility.Energy(this, data);
+            UnpackUtility.Regeneration(this, data);
         }
     }
 }

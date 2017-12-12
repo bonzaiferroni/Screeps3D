@@ -8,18 +8,21 @@
       "mineralAmount": 100000,
       "x": 25,
       "y": 28,
-      "room": "E2S7"
+      "room": "E2S7",
+      "nextRegenerationTime": 4049238
     }*/
 
-    public class Mineral : RoomObject, IResourceObject
+    public class Mineral : RoomObject, IResourceObject, IRegenerationObject
     {
         public float ResourceAmount { get; set; }
         public float ResourceCapacity { get; set; }
         public string ResourceType { get; set; }
+        public float NextRegenerationTime { get; set; }
         
         internal override void Unpack(JSONObject data, bool initial)
         {
-            base.Unpack(data, initial);
+            base.Unpack(data, initial);            
+            UnpackUtility.Regeneration(this, data);
             
             var densityData = data["density"];
             if (densityData != null)
@@ -43,6 +46,7 @@
             }
             
         }
+
     }
     
     
