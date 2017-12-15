@@ -6,7 +6,19 @@ namespace Common
 {
     public static class PoolLoader
     {
+        
         public static Dictionary<string, Stack<GameObject>> _pools = new Dictionary<string, Stack<GameObject>>();
+        private static Transform _parent;
+        
+        private static Transform Parent
+        {
+            get
+            {
+                if (!_parent)
+                    _parent = new GameObject("pooledObjects").transform;
+                return _parent;
+            }
+        }
 
         public static GameObject Load(string path)
         {
@@ -20,7 +32,7 @@ namespace Common
                 var go = PrefabLoader.Look(path);
                 if (!go)
                     throw new Exception(string.Format("no resource found at path: {0}", path));
-                _pools[path].Push(UnityEngine.Object.Instantiate(go));
+                _pools[path].Push(UnityEngine.Object.Instantiate(go, Parent));
             }
 
             return _pools[path].Pop();
