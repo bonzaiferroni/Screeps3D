@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 65824214554613786}
   - component: {fileID: 114238993835008996}
   - component: {fileID: 114475890210296088}
+  - component: {fileID: 114631465045293878}
   m_Layer: 9
   m_Name: rampart
   m_TagString: Untagged
@@ -120,5 +121,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89c143c9faac4c8193ea547a8365995a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114631465045293878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844723516779114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0756159d041494b819cbbfd7980257c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
