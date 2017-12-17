@@ -8,22 +8,20 @@ namespace Screeps3D.RoomObjects.Views
     {
         private static readonly Dictionary<int, float> Scales = new Dictionary<int, float>
         {
-            {1, 0.01f},
-            {1000000, 0.1f},
-            {10000000, 1},
+            {1, 0.3f},
+            {1000000, 0.5f},
+            {10000000, 1f},
             {100000000, 1.5f},
             {300000000, 2f}
         };
 
         private IHitpointsObject _wall;
-        private GameObject _gameObject;
         public void Init()
         {
         }
 
         public void Load(RoomObject roomObject)
         {
-            _gameObject = roomObject.View.gameObject;
             _wall = roomObject as IHitpointsObject;
             SetScale();
         }
@@ -37,21 +35,28 @@ namespace Screeps3D.RoomObjects.Views
 
         private void SetScale()
         {
-            if (_wall.Hits > 290000000)
+            if (_wall.Hits <= 1)
             {
-                SetHeight(2);
+                SetScaleY(0.3f);
                 return;
             }
+
+            if (_wall.Hits >= 290000000)
+            {
+                SetScaleY(2);
+                return;
+            }
+
             var heighest = Scales.First(h => h.Key >= _wall.Hits);
-            var lowest = Scales.Last(h => h.Key <= _wall.Hits);
+            var lowest = Scales.Last(h => h.Key < _wall.Hits);
             var factor = (_wall.Hits - lowest.Key) / (heighest.Key - lowest.Key);
-            SetHeight((heighest.Value - lowest.Value) * factor + lowest.Value);
+            SetScaleY((heighest.Value - lowest.Value) * factor + lowest.Value);
         }
 
-        private void SetHeight(float height)
+        private void SetScaleY(float height)
         {
-            var ls = _gameObject.transform.localScale;
-            _gameObject.transform.localScale = new Vector3(ls.x, height, ls.z);
+            var ls = transform.localScale;
+            transform.localScale = new Vector3(ls.x, height, ls.z);
         }
 
         public void Unload(RoomObject roomObject)
