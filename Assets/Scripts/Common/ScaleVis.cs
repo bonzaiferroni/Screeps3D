@@ -22,6 +22,7 @@ namespace Common
         public float TargetVisibility { get; private set; }
         private float _targetRef;
         private Action<bool> _onFinishedAnimation;
+        private bool _modified;
 
         private void Start()
         {
@@ -29,7 +30,7 @@ namespace Common
             {
                 Scale(0);
             }
-            if (!IsVisible)
+            if (!_modified)
             {
                 SetVisibility(_visibleOnStart, !_animateOnStart);
             }
@@ -43,6 +44,7 @@ namespace Common
 
         public void SetVisibility(float target, bool instant = false)
         {
+            _modified = true;
             enabled = true;
             IsVisible = target > 0;
 

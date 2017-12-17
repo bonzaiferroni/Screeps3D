@@ -8,8 +8,29 @@ namespace Common
         
         public VerticalPanelGroup Group { get; internal set; }
 
-        [SerializeField] protected IVisibilityMod Vis;
-        
+        public bool IsVisible
+        {
+            get { return _isVisible; }
+        }
+
+        protected IVisibilityMod Vis
+        {
+            get
+            {
+                if (_vis == null)
+                {
+                    if (_noVis)
+                        return null;
+                    _vis = GetComponent<IVisibilityMod>();
+                    _noVis = _vis == null;
+                }
+                return _vis;
+            }
+        }
+
+        private bool _noVis;
+        private IVisibilityMod _vis;
+        private bool _isVisible = true;
         private float _height;
         private float _targetPos;
         private RectTransform _rect;
@@ -34,7 +55,7 @@ namespace Common
             set
             {
                 _targetPos = value;
-                if (Vis != null && Vis.CurrentVisibility > .01f)
+                if (Vis != null && Vis.CurrentVisibility > .5f)
                 {
                     enabled = true;
                 }
@@ -71,6 +92,30 @@ namespace Common
         private void SetPos(float value)
         {
             Rect.anchoredPosition = Vector2.up * value;
+        }
+
+        public void Hide()
+        {
+            Show(false);
+        }
+
+        public void Show()
+        {
+            Show(true);
+        }
+
+        public void Show(bool isVisible)
+        {
+            if (IsVisible == isVisible)
+                return;
+
+            _isVisible = isVisible;
+            if (Vis != null)
+                Vis.SetVisibility(isVisible);
+            else
+                gameObject.SetActive(isVisible);
+            if (Group)
+                Group.UpdateGeometry();
         }
     }
 }

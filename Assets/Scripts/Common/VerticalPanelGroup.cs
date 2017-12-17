@@ -53,11 +53,12 @@ namespace Common
         {
             if (!_updateGeometry)
                 return;
+            _updateGeometry = false;
 
             var height = 0f;
             foreach (var element in _elements)
             {
-                if (!element.gameObject.activeInHierarchy)
+                if (!element.IsVisible)
                     continue;
                 element.TargetPos = -height;
                 height += element.Height + _spacing;

@@ -21,14 +21,9 @@ namespace Screeps3D.Tools.Selection
             Vis.OnFinishedAnimation += OnFinishedAnimation;
         }
 
-        public void Init()
-        {
-            Vis = GetComponent<ScaleVis>();
-        }
-
         public void Load(RoomObject obj)
         {
-            Vis.Show();
+            Show();
 
             SubpanelFactory.Instance.AddSubpanels(obj, _subpanels);
 
@@ -45,7 +40,7 @@ namespace Screeps3D.Tools.Selection
                 subpanel.Unload();
             }
 
-            Vis.Hide();
+            Hide();
         }
 
         private void OnFinishedAnimation(bool visible)
@@ -71,7 +66,6 @@ namespace Screeps3D.Tools.Selection
         public static SelectionPanel GetInstance()
         {
             var panel = PoolLoader.Load(Path).GetComponent<SelectionPanel>();
-            panel.Init();
             return panel;
         }
     }

@@ -22,11 +22,17 @@ namespace Screeps3D.Tools.Selection
         {
             if (_panels.ContainsKey(obj.Id))
                 return;
-
-            var panel = SelectionPanel.GetInstance();
-            panel.Load(obj);
-            _panelGroup.AddElement(panel);
-            _panels[obj.Id] = panel;
+            
+            Scheduler.Instance.Add(() =>
+            {
+                if (!Selection.Instance.Selections.ContainsKey(obj.Id))
+                    return;
+                
+                var panel = SelectionPanel.GetInstance();
+                panel.Load(obj);
+                _panelGroup.AddElement(panel);
+                _panels[obj.Id] = panel;
+            });
         }
 
         private void OnDeselect(RoomObject obj)

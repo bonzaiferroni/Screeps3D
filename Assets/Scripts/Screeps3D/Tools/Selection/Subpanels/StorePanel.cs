@@ -40,13 +40,12 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
             if (resources.Count == 0)
             {
-                gameObject.SetActive(false);
-                Height = 0;
+                Hide();
                 return;
             }
-            if (!gameObject.activeInHierarchy)
+            if (!IsVisible)
             {
-                gameObject.SetActive(true);
+                Show();
             }
             
             var sb = new StringBuilder();

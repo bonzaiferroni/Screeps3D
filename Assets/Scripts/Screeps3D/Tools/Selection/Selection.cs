@@ -20,6 +20,8 @@ namespace Screeps3D.Tools.Selection
         private Vector3 _startPosition;
         private bool _isSelecting;
         private readonly Dictionary<string, RoomObject> _selections = new Dictionary<string, RoomObject>();
+        
+        public Dictionary<string, RoomObject> Selections { get { return _selections; }}
 
         public Action<RoomObject> OnSelect;
         public Action<RoomObject> OnDeselect;
