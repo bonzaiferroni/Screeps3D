@@ -7,19 +7,16 @@ using UnityEngine.UI;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class OwnerPanel : Subpanel
+    public class OwnerPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private Image _badge;
 
         private IOwnedObject _selected;
-        private float _height;
-
-        public override float Height { get { return _height; } }
 
         public override string Name
         {
-            get { return "owner"; }
+            get { return "Owner"; }
         }
 
         public override Type ObjectType
@@ -30,17 +27,16 @@ namespace Screeps3D.Tools.Selection.Subpanels
         public override void Load(RoomObject roomObject)
         {
             _selected = roomObject as IOwnedObject;
-            if (_selected.Owner != null)
+            if (_selected != null && _selected.Owner != null)
             {
-                _height = rect.sizeDelta.y;
                 gameObject.SetActive(true);
                 _label.text = string.Format("{0}", _selected.Owner.Username);
                 _badge.sprite = Sprite.Create(_selected.Owner.Badge,
                     new Rect(0.0f, 0.0f, BadgeManager.BADGE_SIZE, BadgeManager.BADGE_SIZE), new Vector2(.5f, .5f));
-            } else
+            } 
+            else
             {
                 gameObject.SetActive(false);
-                _height = 0;
             }
         }
 

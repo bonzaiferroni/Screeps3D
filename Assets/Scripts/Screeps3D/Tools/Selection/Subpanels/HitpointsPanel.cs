@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class HitpointsPanel : Subpanel
+    public class HitpointsPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private ScaleVisAxes _meter;
@@ -15,7 +15,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "hitpoints"; }
+            get { return "Hits"; }
         }
 
         public override Type ObjectType
@@ -33,7 +33,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         private void UpdateLabel()
         {
-            _meter.Visible(_hitsObject.Hits / _hitsObject.HitsMax);
+            _meter.SetVisibility(_hitsObject.Hits / _hitsObject.HitsMax);
             _label.text = string.Format("{0:n0} / {1:n0}", _hitsObject.Hits, (long) _hitsObject.HitsMax);
         }
 

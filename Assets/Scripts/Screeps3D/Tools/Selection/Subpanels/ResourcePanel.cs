@@ -7,7 +7,7 @@ using WebSocketSharp;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class ResourcePanel : Subpanel
+    public class ResourcePanel : SelectionSubpanel
     {
         [SerializeField] private TextMeshProUGUI _typeLabel;
         [SerializeField] private TextMeshProUGUI _label;
@@ -17,7 +17,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "resource"; }
+            get { return "Resource"; }
         }
 
         public override Type ObjectType
@@ -38,7 +38,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
             var label = _resourceObject.ResourceType.IsNullOrEmpty() ? "Resource" : _resourceObject.ResourceType;
             if (label[0] == 'p') label = "Power";
             _typeLabel.text = string.Format("{0}:", label);
-            _meter.Visible(_resourceObject.ResourceAmount / _resourceObject.ResourceCapacity);
+            _meter.SetVisibility(_resourceObject.ResourceAmount / _resourceObject.ResourceCapacity);
             _label.text = string.Format("{0:n0} / {1:n0}", _resourceObject.ResourceAmount,
                 (long) _resourceObject.ResourceCapacity);
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class CooldownPanel : Subpanel
+    public class CooldownPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
 
@@ -14,7 +14,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "cooldown"; }
+            get { return "Cooldown"; }
         }
 
         public override Type ObjectType

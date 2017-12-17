@@ -10,11 +10,10 @@ namespace Screeps3D.Tools.Selection
     {
         [SerializeField] private Transform _inactiveParent;
 
-        private Dictionary<string, Stack<Subpanel>> _pools = new Dictionary<string, Stack<Subpanel>>();
-        private List<Func<RoomObject, Subpanel>> _factories = new List<Func<RoomObject, Subpanel>>();
-        private string _path = "Prefabs/Selection/Subpanels/";
+        private readonly List<Func<RoomObject, SelectionSubpanel>> _factories = new List<Func<RoomObject, SelectionSubpanel>>();
+        private const string Path = "Prefabs/Selection/Subpanels/";
 
-        private string[] _prefabNames =
+        private readonly string[] _prefabNames =
         {
             "Type", "Owner", "Name", "Pos", "Hits", "Energy", "Age", "Fatigue", "Decay", "Progress", "Construction", 
             "Capacity", "Store", "Cooldown", "Resource", "Spawning", "Regeneration"
@@ -25,60 +24,48 @@ namespace Screeps3D.Tools.Selection
             for (var i = 0; i < _prefabNames.Length; i++)
             {
                 var panelName = _prefabNames[i];
-                var panel = PrefabLoader.Look(string.Format("{0}{1}", _path, panelName));
+                var path = string.Format("{0}{1}", Path, panelName);
+                var panel = PrefabLoader.Look(path);
                 if (!panel)
                     continue;
                 
-                var component = panel.GetComponent<Subpanel>();
+                var component = panel.GetComponent<SelectionSubpanel>();
                 if (!component) 
                     continue;
                 
-                _pools[component.Name] = new Stack<Subpanel>();
-
                 _factories.Add(roomObject =>
                 {
                     if (!component.ObjectType.IsInstanceOfType(roomObject))
                     {
                         return null;
                     }
-                    if (_pools[component.Name].Count > 0)
-                    {
-                        return _pools[component.Name].Pop();
-                    } else
-                    {
-                        var go = Instantiate(panel.gameObject);
-                        var subpanel = go.GetComponent<Subpanel>();
-                        subpanel.Init();
-                        return subpanel;
-                    }
+                    return PoolLoader.Load(path).GetComponent<SelectionSubpanel>();
                 });
             }
         }
 
-        internal void AddSubpanels(SelectionPanel parent)
+        internal void AddSubpanels(RoomObject selected, List<SelectionSubpanel> subpanels)
         {
-            // remove previous
-            foreach (var subpanel in parent.subpanels)
+            foreach (var factory in _factories)
             {
-                _pools[subpanel.Name].Push(subpanel);
+                var subpanel = factory(selected);
+                if (!subpanel) continue;
+                subpanels.Add(subpanel);
+                subpanel.Load(selected);
+            }
+        }
+
+        public void ReturnSubpanels(List<SelectionSubpanel> subpanels)
+        {
+            foreach (var subpanel in subpanels)
+            {
+                var path = string.Format("{0}{1}", Path, subpanel.Name);
+                PoolLoader.Return(path, subpanel.gameObject);
                 subpanel.transform.SetParent(_inactiveParent, false);
                 subpanel.transform.localScale = Vector3.one;
             }
-
-            parent.subpanels.Clear();
-            parent.Height = 0f;
-            foreach (var factory in _factories)
-            {
-                var panel = factory(parent.Selected);
-                if (!panel) continue;
-                parent.subpanels.Add(panel);
-                panel.Load(parent.Selected);
-                panel.transform.SetParent(parent.transform, false);
-                panel.rect.anchoredPosition = new Vector2(0, -parent.Height);
-                parent.Height += panel.Height;
-            }
-            parent.Height += 10;
-            parent.rect.sizeDelta = new Vector2(0, parent.Height);
+            
+            subpanels.Clear();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Screeps3D.RoomObjects.Views
 
         private void AdjustScale()
         {
-            _storeDisplay.Visible(_storeObject.TotalResources / _storeObject.StoreCapacity);
+            _storeDisplay.SetVisibility(_storeObject.TotalResources / _storeObject.StoreCapacity);
         }
     }
 }

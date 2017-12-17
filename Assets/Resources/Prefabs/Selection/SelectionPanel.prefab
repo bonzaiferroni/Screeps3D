@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114799555729500154}
   - component: {fileID: 114943782797372914}
   - component: {fileID: 114127385259239366}
+  - component: {fileID: 114662343803454350}
   m_Layer: 5
   m_Name: SelectionPanel
   m_TagString: Untagged
@@ -57,6 +58,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114662343803454350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585217408194782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f84eeb7666c94d59b04e871e6c6f309a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _element: {fileID: 114943782797372914}
+  _spacing: 0
+  _bottomPadding: 5
 --- !u!114 &114799555729500154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,9 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0dbd230caa4450b371bfe864d7906a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animateOnStart: 1
-  visibleOnStart: 1
-  speed: 0.2
+  _animateOnStart: 1
+  _visibleOnStart: 1
+  _speed: 0.2
 --- !u!114 &114943782797372914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51622fb43e342deab5939a1919946f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panelGroup: {fileID: 114662343803454350}
 --- !u!222 &222742721632154748
 CanvasRenderer:
   m_ObjectHideFlags: 1

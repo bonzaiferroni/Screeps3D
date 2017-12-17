@@ -7,7 +7,7 @@ using WebSocketSharp;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class SpawnPanel : Subpanel
+    public class SpawnPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private ScaleVisAxes _meter;
@@ -16,7 +16,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "spawn"; }
+            get { return "Spawning"; }
         }
 
         public override Type ObjectType
@@ -36,12 +36,12 @@ namespace Screeps3D.Tools.Selection.Subpanels
         {
             if (_spawn.SpawningName.IsNullOrEmpty())
             {
-                _meter.Visible(0);
+                _meter.SetVisibility(0);
                 _label.text = "Idle";
                 return;
             }
             var progress = _spawn.SpawningNeedTime - _spawn.SpawningRemainingTime;
-            _meter.Visible(progress / _spawn.SpawningNeedTime);
+            _meter.SetVisibility(progress / _spawn.SpawningNeedTime);
             _label.text = string.Format("{0:n0} / {1:n0} ({2})", progress, _spawn.SpawningNeedTime, _spawn.SpawningName);
         }
 

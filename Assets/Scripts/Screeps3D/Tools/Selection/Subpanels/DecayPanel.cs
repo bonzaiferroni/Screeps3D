@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class DecayPanel : Subpanel
+    public class DecayPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         
@@ -14,7 +14,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "decay"; }
+            get { return "Decay"; }
         }
 
         public override Type ObjectType

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class CapacityPanel : Subpanel
+    public class CapacityPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private ScaleVisAxes _meter;
@@ -16,7 +16,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "capacity"; }
+            get { return "Capacity"; }
         }
 
         public override Type ObjectType
@@ -34,7 +34,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         private void UpdateLabel()
         {
-            _meter.Visible(_storeObject.TotalResources / _storeObject.StoreCapacity);
+            _meter.SetVisibility(_storeObject.TotalResources / _storeObject.StoreCapacity);
             _label.text = string.Format("{0:n0} / {1:n0}", _storeObject.TotalResources,
                 (long) _storeObject.StoreCapacity);
         }

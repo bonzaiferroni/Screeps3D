@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class TypePanel : Subpanel
+    public class TypePanel : LinePanel
     {
         [SerializeField] private TMP_Text _label;
         [SerializeField] private Button _button;
@@ -14,7 +14,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "type"; }
+            get { return "Type"; }
         }
 
         public override Type ObjectType

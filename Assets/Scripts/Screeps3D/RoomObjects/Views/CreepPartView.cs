@@ -32,9 +32,9 @@ namespace Screeps3D.RoomObjects.Views
             var amount = 0f;
             foreach (var part in creep.Body.Parts)
             {
-                if (part.type != partType)
+                if (part.Type != partType)
                     continue;
-                amount += part.hits;
+                amount += part.Hits;
             }
 
             var scaleAmount = 0f;

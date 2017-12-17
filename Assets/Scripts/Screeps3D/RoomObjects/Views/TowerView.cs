@@ -55,7 +55,7 @@ namespace Screeps3D.RoomObjects.Views
 
         private void AdjustScale()
         {
-            _energyDisplay.Visible(_tower.Energy / _tower.EnergyCapacity);
+            _energyDisplay.SetVisibility(_tower.Energy / _tower.EnergyCapacity);
         }
 
         private void Update()

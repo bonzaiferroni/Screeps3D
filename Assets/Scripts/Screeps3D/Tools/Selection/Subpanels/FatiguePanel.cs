@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class FatiguePanel : Subpanel
+    public class FatiguePanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         
@@ -13,7 +13,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "fatigue"; }
+            get { return "Fatigue"; }
         }
 
         public override Type ObjectType

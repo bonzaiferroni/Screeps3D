@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class RegenerationPanel : Subpanel
+    public class RegenerationPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         private IRegenerationObject _regenObject;
@@ -14,7 +14,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "regeneration"; }
+            get { return "Regeneration"; }
         }
 
         public override Type ObjectType

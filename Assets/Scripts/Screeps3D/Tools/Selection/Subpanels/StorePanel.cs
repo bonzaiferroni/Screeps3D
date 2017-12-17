@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class StorePanel : Subpanel
+    public class StorePanel : SelectionSubpanel
     {
         [SerializeField] private TextMeshProUGUI _label;
 
@@ -16,7 +16,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "store"; }
+            get { return "Store"; }
         }
 
         public override Type ObjectType
@@ -38,14 +38,25 @@ namespace Screeps3D.Tools.Selection.Subpanels
                 .Where(a => a.Value > 0)
                 .OrderBy(a => GetResourceOrder(a.Key)).ToList();
 
-            var t = transform as RectTransform;
-            t.sizeDelta = new Vector2(t.sizeDelta.x, resources.Count * 20);
+            if (resources.Count == 0)
+            {
+                gameObject.SetActive(false);
+                Height = 0;
+                return;
+            }
+            if (!gameObject.activeInHierarchy)
+            {
+                gameObject.SetActive(true);
+            }
             
             var sb = new StringBuilder();
             foreach (var resource in resources)
                 sb.AppendLine(string.Format("{0}: {1}", char.ToUpper(resource.Key[0]) + resource.Key.Substring(1), resource.Value));
 
             _label.text = sb.ToString();
+
+            Rect.sizeDelta = new Vector2(Rect.sizeDelta.x, resources.Count * 20);
+            Height = resources.Count * LineHeight;
         }
 
         private void OnDelta(JSONObject obj)

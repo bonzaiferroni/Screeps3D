@@ -29,10 +29,10 @@ namespace Common
 
             if (_pools[path].Count == 0)
             {
-                var go = PrefabLoader.Look(path);
-                if (!go)
+                var prefab = PrefabLoader.Look(path);
+                if (!prefab)
                     throw new Exception(string.Format("no resource found at path: {0}", path));
-                _pools[path].Push(UnityEngine.Object.Instantiate(go, Parent));
+                _pools[path].Push(UnityEngine.Object.Instantiate(prefab, Parent));
             }
 
             return _pools[path].Pop();

@@ -46,8 +46,8 @@ namespace Screeps3D.RoomObjects
             {
                 Parts.Add(new CreepPart
                 {
-                    hits = partObj["hits"].n,
-                    type = partObj["type"].str,
+                    Hits = partObj["hits"].n,
+                    Type = partObj["type"].str,
                 });
             }
         }
@@ -55,7 +55,7 @@ namespace Screeps3D.RoomObjects
 
     public class CreepPart
     {
-        public string type;
-        public float hits;
+        public string Type;
+        public float Hits;
     }
 }

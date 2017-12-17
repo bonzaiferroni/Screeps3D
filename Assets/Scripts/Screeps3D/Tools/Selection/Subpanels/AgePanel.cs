@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class AgePanel : Subpanel
+    public class AgePanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private ScaleVisAxes _meter;
@@ -16,7 +16,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         public override string Name
         {
-            get { return "age"; }
+            get { return "Age"; }
         }
 
         public override Type ObjectType
@@ -40,7 +40,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
         {
             var ttl = _creep.AgeTime - _creep.Room.GameTime;
             _label.text = string.Format("{0:n0}", ttl);
-            _meter.Visible((float) ttl / 1500);
+            _meter.SetVisibility((float) ttl / 1500);
         }
 
         public override void Unload()

@@ -92,7 +92,7 @@ namespace Screeps3D.RoomObjects.Views
             var count = 0;
             foreach (var part in _creep.Body.Parts)
             {
-                if (part.type == type && part.hits > 0)
+                if (part.Type == type && part.Hits > 0)
                 {
                     count++;
                 }

@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class ConstructionPanel : Subpanel
+    public class ConstructionPanel : LinePanel
     {
 
         [SerializeField] private TextMeshProUGUI _label;
         
         public override string Name
         {
-            get { return "construction"; }
+            get { return "Construction"; }
         }
 
         public override Type ObjectType

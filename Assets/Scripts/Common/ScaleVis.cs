@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Common
 {
-    public class ScaleVis : MonoBehaviour, IVisibilityControl
+    public class ScaleVis : MonoBehaviour, IVisibilityMod
     {
         [SerializeField] private bool _animateOnStart = true;
         [SerializeField] private bool _visibleOnStart = true;
@@ -12,11 +12,16 @@ namespace Common
 
         public bool IsVisible { get; private set; }
 
-        public Action<bool> OnFinishedAnimation;
+        public Action<bool> OnFinishedAnimation
+        {
+            get { return _onFinishedAnimation; }
+            set { _onFinishedAnimation = value; }
+        }
 
-        private float _current;
-        private float _target = 1;
+        public float CurrentVisibility { get; private set; }
+        public float TargetVisibility { get; private set; }
         private float _targetRef;
+        private Action<bool> _onFinishedAnimation;
 
         private void Start()
         {
@@ -26,63 +31,71 @@ namespace Common
             }
             if (!IsVisible)
             {
-                Visible(_visibleOnStart, !_animateOnStart);
+                SetVisibility(_visibleOnStart, !_animateOnStart);
             }
         }
 
-        public void Visible(bool show, bool instant = false)
+        public void SetVisibility(bool show, bool instant = false)
         {
             var target = show ? 1 : 0;
-            Visible(target, instant);
+            SetVisibility(target, instant);
         }
 
-        public void Visible(float target, bool instant = false)
+        public void SetVisibility(float target, bool instant = false)
         {
             enabled = true;
             IsVisible = target > 0;
 
-            if (float.IsNaN(target))
+            if (float.IsNaN(target) || target < 0)
             {
                 target = 0;
             }
+            
+            if (target > 1)
+            {
+                target = 1;
+            }
 
-            this._target = target;
+            this.TargetVisibility = target;
 
             if (instant)
             {
-                _current = target;
+                CurrentVisibility = target;
             }
         }
 
         public void Show(bool instant = false)
         {
-            Visible(true, instant);
+            SetVisibility(true, instant);
         }
 
         public void Hide(bool instant = false)
         {
-            Visible(false, instant);
+            SetVisibility(false, instant);
         }
 
         public void Toggle(bool instant = false)
         {
-            Visible(!IsVisible, instant);
+            SetVisibility(!IsVisible, instant);
         }
 
         public void Update()
         {
-            if (Mathf.Abs(_current - _target) < .0001f)
+            if (Mathf.Abs(CurrentVisibility - TargetVisibility) < .0001f)
             {
                 if (OnFinishedAnimation != null)
                     OnFinishedAnimation(IsVisible);
+                Scale(TargetVisibility);
                 enabled = false;
             }
-
-            _current = Mathf.SmoothDamp(_current, _target, ref _targetRef, _speed);
-            Scale(_current);
+            else
+            {
+                CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, _speed);
+                Scale(CurrentVisibility);
+            }
         }
 
-        private void Scale(float amount)
+        protected virtual void Scale(float amount)
         {
             transform.localScale = Vector3.one * amount;
         }
