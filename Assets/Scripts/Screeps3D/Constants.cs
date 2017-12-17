@@ -5,28 +5,25 @@ namespace Screeps3D
 {
     public static class Constants
     {
-        public const string TYPE_STORAGE = "storage";
-        public const string TYPE_EXTENSION = "extension";
-        public const string TYPE_SPAWN = "spawn";
-        public const string TYPE_CREEP = "creep";
-        public const string TYPE_TOWER = "tower";
-        public const string TYPE_CONTROLLER = "controller";
-        public const string TYPE_TERMINAL = "terminal";
-        public const string TYPE_CONTAINER = "container";
-        public const string TYPE_LINK = "link";
-        public const string TYPE_RAMPART = "rampart";
-        public const string TYPE_CONSTRUCTION = "constructionSite";
-        public const string TYPE_LAB = "lab";
-        public const string TYPE_CONSTRUCTED_WALL = "constructedWall";
-        public const string TYPE_NUKER = "nuker";
-        public const string TYPE_MINERAL = "mineral";
-        public const string TYPE_POWER_SPAWN = "powerSpawn";
-        public const string TYPE_SOURCE = "source";
+        public const string TypeStorage = "storage";
+        public const string TypeExtension = "extension";
+        public const string TypeSpawn = "spawn";
+        public const string TypeCreep = "creep";
+        public const string TypeTower = "tower";
+        public const string TypeController = "controller";
+        public const string TypeTerminal = "terminal";
+        public const string TypeContainer = "container";
+        public const string TypeLink = "link";
+        public const string TypeRampart = "rampart";
+        public const string TypeConstruction = "constructionSite";
+        public const string TypeLab = "lab";
+        public const string TypeConstructedWall = "constructedWall";
+        public const string TypeNuker = "nuker";
+        public const string TypeMineral = "mineral";
+        public const string TypePowerSpawn = "powerSpawn";
+        public const string TypeSource = "source";
 
-
-
-
-        public static readonly Dictionary<int, float> CONTROLLER_LEVELS = new Dictionary<int, float>
+        public static readonly Dictionary<int, float> ControllerLevels = new Dictionary<int, float>
         {
             {1, 200},
             {2, 45000},
@@ -37,7 +34,7 @@ namespace Screeps3D
             {7, 10935000}
         };
 
-        public static readonly Dictionary<string, bool> CONTACT_ACTIONS = new Dictionary<string, bool>
+        public static readonly Dictionary<string, bool> ContactActions = new Dictionary<string, bool>
         {
             {"attack", true},
             {"heal", true},
@@ -50,7 +47,7 @@ namespace Screeps3D
             {"upgradeController", false}
         };
         
-        public static readonly Dictionary<int, Color> FLAG_COLORS = new Dictionary<int, Color>
+        public static readonly Dictionary<int, Color> FlagColors = new Dictionary<int, Color>
         {
             {1, new Color(.95f, .262f, .218f)},
             {2, new Color(0.6117f, 0.1529411764705882f, 0.6901960784313725f)},
@@ -64,7 +61,7 @@ namespace Screeps3D
             {10, new Color(1f, 1f, 1f)},
         };
 
-        public static readonly Dictionary<string, float> CONSTRUCTION_COST = new Dictionary<string, float>
+        public static readonly Dictionary<string, float> ConstructionCost = new Dictionary<string, float>
         {
             {"spawn", 15000},
             {"extension", 3000},
@@ -83,7 +80,7 @@ namespace Screeps3D
             {"nuker", 100000},
         };
         
-        public static readonly Dictionary<float, float> MINERAL_DENSITY = new Dictionary<float, float>
+        public static readonly Dictionary<float, float> MineralDensity = new Dictionary<float, float>
         {
             {1, 15000},
             {2, 35000},
@@ -91,7 +88,7 @@ namespace Screeps3D
             {4, 100000}
         };
         
-        public static readonly HashSet<string> RESOURCES_ALL = new HashSet<string>()
+        public static readonly HashSet<string> ResourcesAll = new HashSet<string>()
         {
             "energy", 
             "power", 

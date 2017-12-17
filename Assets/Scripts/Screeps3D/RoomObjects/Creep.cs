@@ -151,7 +151,7 @@ namespace Screeps3D.RoomObjects
             if (Room == null)
                 return;
             BumpPosition = default(Vector3);
-            foreach (var kvp in Constants.CONTACT_ACTIONS)
+            foreach (var kvp in Constants.ContactActions)
             {
                 if (!kvp.Value)
                     continue;

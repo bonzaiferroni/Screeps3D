@@ -51,9 +51,9 @@ namespace Screeps3D.Player
 
         private void EnableInRange()
         {
-            foreach (var collider in Physics.OverlapSphere(transform.position, MAP_DISTANCE, 1 << 10))
+            foreach (var col in Physics.OverlapSphere(transform.position, MAP_DISTANCE, 1 << 10))
             {
-                var roomView = collider.GetComponent<RoomView>();
+                var roomView = col.GetComponent<RoomView>();
                 if (!roomView || Vector3.Distance(transform.position, roomView.Room.Position) > MAP_DISTANCE)
                     continue;
                 if (_mapRooms.Contains(roomView.Room))

@@ -6,39 +6,39 @@
         {
             switch (type)
             {
-                case Constants.TYPE_CREEP:
+                case Constants.TypeCreep:
                     return new Creep();
-                case Constants.TYPE_EXTENSION:
+                case Constants.TypeExtension:
                     return new Extension();
-                case Constants.TYPE_SPAWN:
+                case Constants.TypeSpawn:
                     return new Spawn();
-                case Constants.TYPE_STORAGE:
+                case Constants.TypeStorage:
                     return new Storage();
-                case Constants.TYPE_TOWER:
+                case Constants.TypeTower:
                     return new Tower();
-                case Constants.TYPE_CONTROLLER:
+                case Constants.TypeController:
                     return new Controller();
-                case Constants.TYPE_TERMINAL:
+                case Constants.TypeTerminal:
                     return new Terminal();
-                case Constants.TYPE_CONTAINER:
+                case Constants.TypeContainer:
                     return new Container();
-                case Constants.TYPE_LINK:
+                case Constants.TypeLink:
                     return new Link();
-                case Constants.TYPE_RAMPART:
+                case Constants.TypeRampart:
                     return new Rampart();
-                case Constants.TYPE_CONSTRUCTION:
+                case Constants.TypeConstruction:
                     return new ConstructionSite();
-                case Constants.TYPE_LAB:
+                case Constants.TypeLab:
                     return new Lab();
-                case Constants.TYPE_CONSTRUCTED_WALL:
+                case Constants.TypeConstructedWall:
                     return new ConstructedWall();
-                case Constants.TYPE_NUKER:
+                case Constants.TypeNuker:
                     return new Nuker();
-                case Constants.TYPE_MINERAL:
+                case Constants.TypeMineral:
                     return new Mineral();
-                case Constants.TYPE_POWER_SPAWN:
+                case Constants.TypePowerSpawn:
                     return new PowerSpawn();
-                case Constants.TYPE_SOURCE:
+                case Constants.TypeSource:
                     return new Source();
                 default:
                     return new RoomObject();

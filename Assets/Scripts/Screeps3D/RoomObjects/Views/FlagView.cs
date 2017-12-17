@@ -30,8 +30,8 @@ namespace Screeps3D.RoomObjects.Views
             if (_flag == null)
                 return;
 
-            var primary = Constants.FLAG_COLORS[_flag.PrimaryColor];
-            var secondary = Constants.FLAG_COLORS[_flag.SecondaryColor];
+            var primary = Constants.FlagColors[_flag.PrimaryColor];
+            var secondary = Constants.FlagColors[_flag.SecondaryColor];
             rend.materials[0].color = Color.Lerp(rend.materials[0].color, primary, Time.deltaTime);
             rend.materials[1].color = Color.Lerp(rend.materials[1].color, secondary, Time.deltaTime);
         }

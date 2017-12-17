@@ -28,8 +28,8 @@
             if (densityData != null)
             {
                 var density = densityData.n;
-                ResourceCapacity = Constants.MINERAL_DENSITY.ContainsKey(density)
-                    ? Constants.MINERAL_DENSITY[density]
+                ResourceCapacity = Constants.MineralDensity.ContainsKey(density)
+                    ? Constants.MineralDensity[density]
                     : 0;
             }
             

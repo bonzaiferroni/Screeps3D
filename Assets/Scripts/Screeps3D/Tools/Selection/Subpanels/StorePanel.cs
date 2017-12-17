@@ -61,7 +61,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
 
         private void OnDelta(JSONObject obj)
         {
-            var hasChanged = obj.keys.Any(k => Constants.RESOURCES_ALL.Contains(k));
+            var hasChanged = obj.keys.Any(k => Constants.ResourcesAll.Contains(k));
             
             if (hasChanged)
                 UpdateLabel();

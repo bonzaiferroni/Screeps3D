@@ -16,8 +16,8 @@
                 StructureType = typeData.str;
             
             ProgressMax = 1;
-            if (Constants.CONSTRUCTION_COST.ContainsKey(StructureType))
-                ProgressMax = Constants.CONSTRUCTION_COST[StructureType];
+            if (Constants.ConstructionCost.ContainsKey(StructureType))
+                ProgressMax = Constants.ConstructionCost[StructureType];
         }
     }
 }

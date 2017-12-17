@@ -41,9 +41,9 @@ namespace Screeps3D.RoomObjects
 
             UnpackUtility.Progress(this, data);
             ProgressMax = 0;
-            if (Constants.CONTROLLER_LEVELS.ContainsKey(Level))
+            if (Constants.ControllerLevels.ContainsKey(Level))
             {
-                ProgressMax = Constants.CONTROLLER_LEVELS[Level];
+                ProgressMax = Constants.ControllerLevels[Level];
             }
 
             var downgradeTimeData = data["downgradeTime"];
