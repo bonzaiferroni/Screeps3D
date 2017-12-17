@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection
 {
-    public class SelectionUi : BaseSingleton<SelectionUi>
+    public class SelectionUI : BaseSingleton<SelectionUI>
     {
         [SerializeField] private VerticalPanelGroup _panelGroup;
 
