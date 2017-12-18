@@ -7,7 +7,7 @@ using WebSocketSharp;
 
 namespace Screeps3D.Tools.Selection.Subpanels
 {
-    public class ResourcePanel : SelectionSubpanel
+    public class ResourcePanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _typeLabel;
         [SerializeField] private TextMeshProUGUI _label;
