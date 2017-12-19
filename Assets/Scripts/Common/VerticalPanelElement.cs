@@ -31,7 +31,7 @@ namespace Common
         private bool _noVis;
         private IVisibilityMod _vis;
         private bool _isVisible = true;
-        private float _height;
+        [SerializeField] private float _height;
         private float _targetPos;
         private RectTransform _rect;
         private float _posRef;

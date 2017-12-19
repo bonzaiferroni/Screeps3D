@@ -59,7 +59,8 @@ namespace Screeps3D.Tools.Selection
                 if (dragging)
                 {
                     SelectBoxedObjects();
-                } else if (!overUI && rayTarget)
+                } 
+                else if (!overUI && rayTarget)
                 {
                     ToggleSelection(rayTarget.RoomObject);
                 }
@@ -93,7 +94,8 @@ namespace Screeps3D.Tools.Selection
             if (_selections.ContainsKey(obj.Id))
             {
                 DeselectObject(obj);
-            } else
+            } 
+            else
             {
                 SelectObject(obj);
             }

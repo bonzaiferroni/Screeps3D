@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Common
 {
@@ -13,9 +14,7 @@ namespace Common
 
                 if (_instance != null) return _instance;
 
-                var obj = new GameObject { name = typeof(T).Name };
-                _instance = obj.AddComponent<T>();
-                return _instance;
+                throw new Exception(string.Format("expecting singleton of type {0} in scene", typeof(T)));
             }
         }
  
@@ -23,9 +22,10 @@ namespace Common
         {
             if (_instance == null) {
                 _instance = this as T;
-                DontDestroyOnLoad(gameObject);
-            } else {
-                Destroy(gameObject);
+            } 
+            else
+            {
+                throw new Exception(string.Format("multiple singletons of type {0}", typeof(T)));
             }
         }
     }

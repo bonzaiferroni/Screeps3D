@@ -8,6 +8,7 @@ namespace Common
         [SerializeField] private VerticalPanelElement _element;
         [SerializeField] private float _spacing;
         [SerializeField] private float _bottomPadding;
+        [SerializeField] private bool _autoFindElements;
         
         private List<VerticalPanelElement> _elements = new List<VerticalPanelElement>();
         private bool _updateGeometry;
@@ -25,9 +26,24 @@ namespace Common
             }
         }
 
+        private void Start()
+        {
+            if (_autoFindElements)
+            {
+                for (var i = 0; i < transform.childCount; i++)
+                {
+                    var element = transform.GetChild(i).GetComponent<VerticalPanelElement>();
+                    if (!element)
+                        continue;
+                    AddElement(element);
+                }
+            }
+        }
+
         public void AddElement(VerticalPanelElement element)
         {
-            element.transform.SetParent(transform, false);
+            if (element.transform.parent != transform)
+                element.transform.SetParent(transform, false);
             element.Group = this;
             Elements.Add(element);
             _updateGeometry = true;

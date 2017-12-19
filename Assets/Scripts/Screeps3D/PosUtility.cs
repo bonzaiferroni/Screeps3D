@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Screeps3D
 {
-    public class PosUtility
+    public static class PosUtility
     {
         public static Vector3 Convert(int x, int y, Room room)
         {

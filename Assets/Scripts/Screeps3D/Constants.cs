@@ -23,6 +23,8 @@ namespace Screeps3D
         public const string TypePowerSpawn = "powerSpawn";
         public const string TypeSource = "source";
 
+        public const float ShardHeight = 100;
+
         public static readonly Dictionary<int, float> ControllerLevels = new Dictionary<int, float>
         {
             {1, 200},

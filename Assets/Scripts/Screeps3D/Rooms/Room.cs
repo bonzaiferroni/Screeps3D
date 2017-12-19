@@ -46,9 +46,14 @@ namespace Screeps3D.Rooms
             ShardNumber = shardNumber;
             XCoord = xCoord;
             YCoord = yCoord;
-            Position = new Vector3(xDir == "E" ? xCoord * 50 : (-xCoord - 1) * 50, shardNumber * 25,
-                yDir == "N" ? yCoord * 50 : (-yCoord - 1) * 50);
+            Position = FindPosition(xDir, xCoord, yDir, yCoord, shardNumber);
             Objects = new Dictionary<string, RoomObject>();
+        }
+
+        public static Vector3 FindPosition(string xDir, int xCoord, string yDir, int yCoord, int shardNumber)
+        {
+            return new Vector3(xDir == "E" ? xCoord * 50 : (-xCoord - 1) * 50, shardNumber * Constants.ShardHeight,
+                yDir == "N" ? yCoord * 50 : (-yCoord - 1) * 50);
         }
 
         public void ShowObjects(bool show)

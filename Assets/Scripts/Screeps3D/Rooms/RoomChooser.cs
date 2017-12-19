@@ -13,14 +13,12 @@ namespace Screeps3D.Rooms
         
         [SerializeField] private TMP_Dropdown _shardInput;
         [SerializeField] private TMP_InputField _roomInput;
-        [SerializeField] private FadePanel _panel;
         private List<string> _shards = new List<string>();
 
         private void Start()
         {
             _roomInput.onSubmit.AddListener(ChooseRoom);
             ScreepsAPI.Instance.OnConnectionStatusChange += OnConnectionStatusChange;
-            _panel.Show(false, true);
         }
 
         private void ChooseRoom(string roomName)
@@ -36,7 +34,6 @@ namespace Screeps3D.Rooms
 
         private void OnConnectionStatusChange(bool isConnected)
         {
-            _panel.Show(isConnected);
             if (!isConnected)
                 return;
             ScreepsAPI.Instance.Http.GetRooms(ScreepsAPI.Instance.Me.UserId, InitializeChooser);
