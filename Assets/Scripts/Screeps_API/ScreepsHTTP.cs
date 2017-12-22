@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Screeps3D;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -40,6 +41,8 @@ namespace Screeps_API
             {
                 if (outcome.isNetworkError || outcome.isHttpError)
                 {
+                    Debugger.ScreenText = string.Format("HTTP: error ({1}), reason: {0}", outcome.error,
+                        outcome.responseCode);
                     Debug.Log(string.Format("HTTP: error ({1}), reason: {0}", outcome.error, outcome.responseCode));
                     if (onError != null)
                     {

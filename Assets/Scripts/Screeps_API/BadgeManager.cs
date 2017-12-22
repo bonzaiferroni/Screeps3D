@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Screeps3D;
 using Svg;
 using UnityEngine;
 // using Svg;
@@ -24,14 +23,18 @@ namespace Screeps_API
             Invader = GenerateInvader();
         }
 
-        private Texture2D GenerateInvader()
+        private Texture2D GenerateInvader(Color color = default(Color))
         {
+            if (color == default(Color))
+            {
+                color = Color.red;
+            }
             var texture = new Texture2D(BADGE_SIZE, BADGE_SIZE);
             for (var x = 0; x < BADGE_SIZE; x++)
             {
                 for (var y = 0; y < BADGE_SIZE; y++)
                 {
-                    texture.SetPixel(x, y, Color.red);
+                    texture.SetPixel(x, y, color);
                 }
             }
             texture.Apply();
@@ -75,6 +78,7 @@ namespace Screeps_API
                 texture.Apply();
                 return texture;
             }
+            // return GenerateInvader(Color.white);
         }
 
         public Texture2D Generate(JSONObject badge, float size = BADGE_SIZE)
