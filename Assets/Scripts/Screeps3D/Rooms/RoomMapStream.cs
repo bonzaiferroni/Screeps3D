@@ -15,7 +15,7 @@ namespace Screeps3D.Rooms
         {
             _room = room;
 
-            if (ScreepsAPI.Instance.Address.hostName.ToLowerInvariant() == "screeps.com")
+            if (ScreepsAPI.Address.hostName.ToLowerInvariant() == "screeps.com")
             {
                 _path = string.Format("roomMap2:{0}/{1}", room.ShardName, room.RoomName);
             } else
@@ -40,12 +40,12 @@ namespace Screeps3D.Rooms
 
         private void Subscribe()
         {
-            ScreepsAPI.Instance.Socket.Subscribe(_path, ReceiveData);
+            ScreepsAPI.Socket.Subscribe(_path, ReceiveData);
         }
 
         private void Unsubscribe()
         {
-            ScreepsAPI.Instance.Socket.Unsub(_path);
+            ScreepsAPI.Socket.Unsub(_path);
         }
         
         private void ReceiveData(JSONObject Data)

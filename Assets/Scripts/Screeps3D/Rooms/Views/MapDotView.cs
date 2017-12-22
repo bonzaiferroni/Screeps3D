@@ -5,9 +5,9 @@ namespace Screeps3D.Rooms.Views
 {
     public class MapDotView : MonoBehaviour
     {
-        public const string PATH = "Prefabs/mapDot";
+        public const string Path = "Prefabs/mapDot";
         
-        [SerializeField] private ScaleVis _vis;
+        [SerializeField] private ScaleVisibility _vis;
         [SerializeField] private MeshRenderer _rend;
         private MapView _mapView;
 
@@ -27,9 +27,9 @@ namespace Screeps3D.Rooms.Views
 
         private void OnFinishedAnimation(bool shown)
         {
-            if (!shown)
+            if (!shown && _mapView)
             {
-                PoolLoader.Return(PATH, gameObject);
+                PoolLoader.Return(Path, gameObject);
                 _mapView.RemoveAt(X, Y);
             }
         }

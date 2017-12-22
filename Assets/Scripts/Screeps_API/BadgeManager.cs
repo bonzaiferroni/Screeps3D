@@ -15,14 +15,12 @@ namespace Screeps_API
         
         public Texture2D Invader { get; private set; }
         
-        private ScreepsAPI _api;
         private BadgePathGenerator _badgePaths = new BadgePathGenerator();
         private BadgeColorGenerator _badgeColors = new BadgeColorGenerator();
         private Dictionary<string, Texture2D> _badges = new Dictionary<string, Texture2D>();
 
-        public void Init(ScreepsAPI screepsApi)
+        private void Start()
         {
-            _api = screepsApi;
             Invader = GenerateInvader();
         }
 
@@ -51,7 +49,7 @@ namespace Screeps_API
             var body = new RequestBody();
             body.AddField("username", username);
 
-            _api.Http.Request("GET", "/api/user/badge-svg", body, xml =>
+            ScreepsAPI.Http.Request("GET", "/api/user/badge-svg", body, xml =>
             {
                 _badges[username] = Texturize(xml);
                 callback(_badges[username]);

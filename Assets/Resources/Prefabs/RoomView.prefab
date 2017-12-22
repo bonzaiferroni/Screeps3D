@@ -1117,6 +1117,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e17298e3b94180958bccb0bee11f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _terrain: {fileID: 114443474438515910}
-  _roadNetwork: {fileID: 114548753471103968}
   _vis: {fileID: 114091160785336574}

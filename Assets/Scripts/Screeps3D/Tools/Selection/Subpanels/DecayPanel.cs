@@ -26,7 +26,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
         {
             _decay = roomObject as IDecay;
             UpdateLabel();
-            ScreepsAPI.Instance.OnTick += OnTick;
+            ScreepsAPI.OnTick += OnTick;
         }
 
         private void OnTick(long obj)
@@ -37,7 +37,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
         public override void Unload()
         {
             _decay = null;
-            ScreepsAPI.Instance.OnTick -= OnTick;
+            ScreepsAPI.OnTick -= OnTick;
         }
 
         private void UpdateLabel()

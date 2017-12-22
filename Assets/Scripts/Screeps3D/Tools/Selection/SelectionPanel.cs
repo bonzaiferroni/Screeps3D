@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Screeps3D.Tools.Selection
 {
-    [RequireComponent(typeof(ScaleVis))]
+    [RequireComponent(typeof(ScaleVisibility))]
     public class SelectionPanel : VerticalPanelElement
     {
         private List<SelectionSubpanel> _subpanels = new List<SelectionSubpanel>();

@@ -1,11 +1,11 @@
-﻿using Common.Utils;
+﻿using Common;
 using UnityEngine;
 
 namespace Screeps3D.RoomObjects.Views
 {
     public class StorageView : MonoBehaviour, IObjectViewComponent
     {
-        [SerializeField] private ScaleVisAxes _energyDisplay;
+        [SerializeField] private ScaleAxes _energyDisplay;
 
         private Storage _energyObject;
 

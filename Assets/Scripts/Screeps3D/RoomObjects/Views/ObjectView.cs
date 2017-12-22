@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Screeps3D.RoomObjects.Views
 {
-    [RequireComponent(typeof(ScaleVis))]
+    [RequireComponent(typeof(ScaleVisibility))]
     public class ObjectView : MonoBehaviour
     {
         internal RoomObject RoomObject { get; private set; }
         internal IObjectViewComponent[] components;
-        protected ScaleVis _vis;
+        protected ScaleVisibility _vis;
 
         internal void Init()
         {
             components = GetComponentsInChildren<IObjectViewComponent>();
-            _vis = GetComponent<ScaleVis>();
+            _vis = GetComponent<ScaleVisibility>();
             _vis.OnFinishedAnimation += OnFinishedAnimation;
 
             foreach (var component in components)

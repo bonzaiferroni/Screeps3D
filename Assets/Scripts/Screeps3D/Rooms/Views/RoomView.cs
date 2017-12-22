@@ -1,13 +1,12 @@
 ﻿using Common;
+using Screeps3D.Player;
 using UnityEngine;
 
 namespace Screeps3D.Rooms.Views
 {
     public class RoomView : MonoBehaviour
     {
-        [SerializeField] private TerrainView _terrain;
-        [SerializeField] private RoadNetworkView _roadNetwork;
-        [SerializeField] private ScaleVis _vis;
+        [SerializeField] private ScaleVisibility _vis;
         
         public Room Room { get; private set; }
         private IRoomViewComponent[] _viewComponents;

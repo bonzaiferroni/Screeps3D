@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace Screeps3D.Rooms
 {
@@ -8,30 +9,22 @@ namespace Screeps3D.Rooms
         private bool[,] _positions;
         private float _constant;
         private float _random;
-        private int _i;
 
         public void SetHeights(bool[,] positions, float constant, float random)
         {
             _filter = GetComponent<MeshFilter>();
-            enabled = true;
-            this._positions = positions;
-            this._constant = constant;
-            this._random = random;
-            _i = 0;
-        }
-
-        private void Update()
-        {
-            Deform();
+            _positions = positions;
+            _constant = constant;
+            _random = random;
+            Scheduler.Instance.Add(Deform);
         }
 
         public void Deform()
         {
-            var time = Time.time;
             var vertices = _filter.mesh.vertices;
-            for (; _i < vertices.Length; _i++)
+            for (var i = 0; i < vertices.Length; i++)
             {
-                var point = vertices[_i];
+                var point = vertices[i];
                 if (point.x < 0 || point.x > 50 || point.z < 0 || point.z > 50)
                     continue;
 
@@ -47,18 +40,12 @@ namespace Screeps3D.Rooms
                 }
                 if (_positions[x, y])
                 {
-                    vertices[_i] = new Vector3(point.x, _constant + Random.value * _random, point.z);
-                }
-                if (Time.time - time > .001f)
-                {
-                    _filter.mesh.vertices = vertices;
-                    return;
+                    vertices[i] = new Vector3(point.x, _constant + Random.value * _random, point.z);
                 }
             }
 
             _filter.mesh.vertices = vertices;
             _filter.mesh.RecalculateNormals();
-            enabled = false;
         }
     }
 }

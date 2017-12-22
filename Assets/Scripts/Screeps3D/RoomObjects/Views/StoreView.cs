@@ -5,7 +5,7 @@ namespace Screeps3D.RoomObjects.Views
 {
     public class StoreView : MonoBehaviour, IObjectViewComponent
     {
-        [SerializeField] private ScaleVis _storeDisplay;
+        [SerializeField] private ScaleVisibility _storeDisplay;
 
         private IStoreObject _storeObject;
 

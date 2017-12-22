@@ -7,7 +7,8 @@ namespace Common
         float CurrentVisibility { get; }
         float TargetVisibility { get; }
         bool IsVisible { get; }
-        Action<bool> OnFinishedAnimation { get; set; }
+        bool IsVisibleOnStart { get; }
+        event Action<bool> OnFinishedAnimation;
 
         void SetVisibility(bool visible, bool instant = false);
         void SetVisibility(float visibility, bool instant = false);

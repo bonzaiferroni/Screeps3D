@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.Utils;
+using Common;
 using Screeps3D.RoomObjects;
 using TMPro;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
     public class ProgressPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
-        [SerializeField] private ScaleVisAxes _meter;
+        [SerializeField] private ScaleAxes _meter;
         
         private IProgress _progressor;
         private RoomObject _roomObject;

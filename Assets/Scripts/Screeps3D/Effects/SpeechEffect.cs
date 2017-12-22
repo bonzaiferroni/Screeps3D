@@ -2,7 +2,6 @@
 using Common;
 using Screeps3D.RoomObjects;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Screeps3D.Effects

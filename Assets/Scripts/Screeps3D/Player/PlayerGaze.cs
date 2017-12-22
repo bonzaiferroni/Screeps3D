@@ -10,9 +10,9 @@ namespace Screeps3D.Player
 {
     public class PlayerGaze : MonoBehaviour
     {
-        private const int VIEW_DISTANCE = 2;
-        private const int SUBSCRIBE_LIMIT = 2;
-        private const float MAP_DISTANCE = 100;
+        public const int ViewDistance = 2;
+        public const int SubscribeLimit = 2;
+        public const float MapDistance = 200;
         
         private Dictionary<Room, bool> _loadedNeighbors = new Dictionary<Room, bool>();
         private Queue<Room> queue = new Queue<Room>();
@@ -21,6 +21,9 @@ namespace Screeps3D.Player
 
         private void Update()
         {
+            if (!ScreepsAPI.Instance || !ScreepsAPI.IsConnected)
+                return;
+            
             DisplayObjects();
             DisplayMap();
         }
@@ -40,7 +43,7 @@ namespace Screeps3D.Player
             for (var i = 0; i < _mapRooms.Count; i++)
             {
                 var room = _mapRooms[i];
-                if (Vector3.Distance(transform.position, room.Position) <= MAP_DISTANCE)
+                if (Vector3.Distance(transform.position, room.Position) <= MapDistance)
                     continue;
 
                 room.ShowMap(false);
@@ -51,10 +54,10 @@ namespace Screeps3D.Player
 
         private void EnableInRange()
         {
-            foreach (var col in Physics.OverlapSphere(transform.position, MAP_DISTANCE, 1 << 10))
+            foreach (var col in Physics.OverlapSphere(transform.position, MapDistance, 1 << 10))
             {
                 var roomView = col.GetComponent<RoomView>();
-                if (!roomView || Vector3.Distance(transform.position, roomView.Room.Position) > MAP_DISTANCE)
+                if (!roomView || Vector3.Distance(transform.position, roomView.Room.Position) > MapDistance)
                     continue;
                 if (_mapRooms.Contains(roomView.Room))
                     continue;
@@ -66,15 +69,12 @@ namespace Screeps3D.Player
 
         private void DisplayObjects()
         {
-            if (!ScreepsAPI.Instance || !ScreepsAPI.Instance.IsConnected)
-            {
-                return;
-            }
 
             var ray = Camera.main.ViewportPointToRay(new Vector3(.5f, .5f, 0));
             if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonUp(0))
             {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                // temporarily disable click to show
+                // ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             }
 
             RaycastHit hit;
@@ -88,11 +88,24 @@ namespace Screeps3D.Player
 
                 ShowObjects(roomView.Room);
             }
+            else
+            {
+                HideAll();
+            }
+        }
+
+        private void HideAll()
+        {
+            while (queue.Count > 0)
+            {
+                var room = queue.Dequeue();
+                room.ShowObjects(false);
+            }
         }
 
         private void ShowObjects(Room room)
         {
-            if (queue.Count >= SUBSCRIBE_LIMIT)
+            if (queue.Count >= SubscribeLimit)
             {
                 var otherRoom = queue.Dequeue();
                 otherRoom.ShowObjects(false);
@@ -109,9 +122,9 @@ namespace Screeps3D.Player
                 return;
             _loadedNeighbors[room] = true;
             
-            for (var xDelta = -VIEW_DISTANCE; xDelta <= VIEW_DISTANCE; xDelta++)
+            for (var xDelta = -ViewDistance; xDelta <= ViewDistance; xDelta++)
             {
-                for (var yDelta = -VIEW_DISTANCE; yDelta <= VIEW_DISTANCE; yDelta++)
+                for (var yDelta = -ViewDistance; yDelta <= ViewDistance; yDelta++)
                 {
                     if (xDelta == 0 && yDelta == 0) continue;
                     var neighbor = RoomManager.Instance.GetNeighbor(room, xDelta, yDelta);

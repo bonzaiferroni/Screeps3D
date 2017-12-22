@@ -50,7 +50,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
             
             var sb = new StringBuilder();
             foreach (var resource in resources)
-                sb.AppendLine(string.Format("{0}: {1}", char.ToUpper(resource.Key[0]) + resource.Key.Substring(1), resource.Value));
+                sb.AppendLine(string.Format("{0}: {1:n0}", char.ToUpper(resource.Key[0]) + resource.Key.Substring(1), resource.Value));
 
             _label.text = sb.ToString();
 

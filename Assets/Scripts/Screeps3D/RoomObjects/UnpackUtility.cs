@@ -88,7 +88,7 @@ namespace Screeps3D.RoomObjects
             if (userData != null)
             {
                 obj.UserId = userData.str;
-                obj.Owner = ScreepsAPI.Instance.UserManager.GetUser(userData.str); 
+                obj.Owner = ScreepsAPI.UserManager.GetUser(userData.str); 
             }
         }
 

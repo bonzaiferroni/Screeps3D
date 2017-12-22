@@ -76,7 +76,6 @@ namespace Screeps3D.RoomObjects
         public Dictionary<string, float> Store { get; private set; }
         public float StoreCapacity { get; set; }
         public float TotalResources { get; set; }
-        
 
         internal Creep()
         {
@@ -140,10 +139,7 @@ namespace Screeps3D.RoomObjects
             if (View != null)
                 View.Delta(delta);
             
-            if (OnDelta != null)
-            {
-                OnDelta(delta);
-            }
+            RaiseDeltaEvent(delta);
         }
 
         private void AssignBumpPosition()

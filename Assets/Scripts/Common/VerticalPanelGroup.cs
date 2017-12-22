@@ -80,7 +80,7 @@ namespace Common
                 height += element.Height + _spacing;
             }
             height += _bottomPadding;
-
+            
             Rect.sizeDelta = Vector2.up * height;
             
             if (_element)

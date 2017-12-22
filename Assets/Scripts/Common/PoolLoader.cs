@@ -7,7 +7,7 @@ namespace Common
     public static class PoolLoader
     {
         
-        public static Dictionary<string, Stack<GameObject>> _pools = new Dictionary<string, Stack<GameObject>>();
+        private static Dictionary<string, Stack<GameObject>> _pools = new Dictionary<string, Stack<GameObject>>();
         private static Transform _parent;
         
         private static Transform Parent
@@ -20,22 +20,43 @@ namespace Common
             }
         }
 
-        public static GameObject Load(string path)
+        private static Stack<GameObject> GetStack(string path)
         {
             if (!_pools.ContainsKey(path))
             {
                 _pools[path] = new Stack<GameObject>();
             }
+            return _pools[path];
+        }
 
-            if (_pools[path].Count == 0)
+        private static GameObject Instantiate(string path)
+        {
+            var prefab = PrefabLoader.Look(path);
+            if (!prefab)
+                throw new Exception(string.Format("no resource found at path: {0}", path));
+            return UnityEngine.Object.Instantiate(prefab, Parent);
+        }
+
+        public static void Preload(string path, int count)
+        {
+            var stack = GetStack(path);
+
+            for (var i = 0; i < count; i++)
             {
-                var prefab = PrefabLoader.Look(path);
-                if (!prefab)
-                    throw new Exception(string.Format("no resource found at path: {0}", path));
-                _pools[path].Push(UnityEngine.Object.Instantiate(prefab, Parent));
+                stack.Push(Instantiate(path));
+            }
+        }
+
+        public static GameObject Load(string path)
+        {
+            var stack = GetStack(path);
+
+            if (stack.Count == 0)
+            {
+                stack.Push(Instantiate(path));
             }
 
-            return _pools[path].Pop();
+            return stack.Pop();
         }
 
         public static void Return(string path, GameObject go)

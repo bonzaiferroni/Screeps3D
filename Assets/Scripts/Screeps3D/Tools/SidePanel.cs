@@ -10,13 +10,13 @@ namespace Screeps3D.Tools
         
         private void Start()
         {
-            ScreepsAPI.Instance.OnConnectionStatusChange += OnConnectionStatusChange;
-            _panel.Show(false, true);
+            PanelManager.OnModeChange += OnModeChange;
+            _panel.Hide(true);
         }
 
-        private void OnConnectionStatusChange(bool isConnected)
+        private void OnModeChange(PanelMode mode)
         {
-            _panel.Show(isConnected);
+            _panel.SetVisibility(mode == PanelMode.Room || mode == PanelMode.Map);
         }
     }
 }

@@ -1,34 +1,29 @@
 ﻿using System;
-using Screeps3D.RoomObjects.Views;
 using UnityEngine;
 
 namespace Common
 {
-    public class ScaleVis : MonoBehaviour, IVisibilityMod
+    public abstract class BaseVisibility : MonoBehaviour, IVisibilityMod
     {
+        public event Action<bool> OnFinishedAnimation;
+
         [SerializeField] private bool _animateOnStart = true;
         [SerializeField] private bool _visibleOnStart = true;
         [SerializeField] private float _speed = .2f;
-
-        public bool IsVisible { get; private set; }
-
-        public Action<bool> OnFinishedAnimation
-        {
-            get { return _onFinishedAnimation; }
-            set { _onFinishedAnimation = value; }
-        }
-
+        
+        private float _targetRef;
+        private bool _modified;
+        
         public float CurrentVisibility { get; private set; }
         public float TargetVisibility { get; private set; }
-        private float _targetRef;
-        private Action<bool> _onFinishedAnimation;
-        private bool _modified;
+        public bool IsVisible { get; private set; }
+        public bool IsVisibleOnStart { get { return _visibleOnStart; }}
 
         private void Start()
         {
             if (_animateOnStart)
             {
-                Scale(0);
+                Modify(0);
             }
             if (!_modified)
             {
@@ -42,12 +37,16 @@ namespace Common
             SetVisibility(target, instant);
         }
 
-        public void SetVisibility(float target, bool instant = false)
+        public virtual void SetVisibility(float target, bool instant = false)
         {
             _modified = true;
+
+            if (target == TargetVisibility)
+                return;
+            
             enabled = true;
             IsVisible = target > 0;
-
+            
             if (float.IsNaN(target) || target < 0)
             {
                 target = 0;
@@ -87,19 +86,16 @@ namespace Common
             {
                 if (OnFinishedAnimation != null)
                     OnFinishedAnimation(IsVisible);
-                Scale(TargetVisibility);
+                Modify(TargetVisibility);
                 enabled = false;
             }
             else
             {
                 CurrentVisibility = Mathf.SmoothDamp(CurrentVisibility, TargetVisibility, ref _targetRef, _speed);
-                Scale(CurrentVisibility);
+                Modify(CurrentVisibility);
             }
         }
 
-        protected virtual void Scale(float amount)
-        {
-            transform.localScale = Vector3.one * amount;
-        }
+        protected abstract void Modify(float amount);
     }
 }

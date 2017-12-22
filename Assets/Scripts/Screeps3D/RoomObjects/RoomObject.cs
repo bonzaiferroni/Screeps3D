@@ -21,8 +21,8 @@ namespace Screeps3D.RoomObjects
         public bool Initialized { get; protected set; }
         public bool Shown { get; protected set; }
         
-        public Action<bool> OnShow;
-        public Action<JSONObject> OnDelta;
+        public event Action<bool> OnShow;
+        public event Action<JSONObject> OnDelta;
 
         internal virtual void Delta(JSONObject delta, Room room)
         {
@@ -44,7 +44,12 @@ namespace Screeps3D.RoomObjects
             
             if (View != null)
                 View.Delta(delta);
-            
+
+            RaiseDeltaEvent(delta);
+        }
+
+        protected void RaiseDeltaEvent(JSONObject delta)
+        {
             if (OnDelta != null)
             {
                 OnDelta(delta);

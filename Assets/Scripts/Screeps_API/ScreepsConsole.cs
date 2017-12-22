@@ -11,25 +11,23 @@ namespace Screeps_API
         public Action<string> OnConsoleError;
         public Action<string> OnConsoleResult;
         
-        private ScreepsAPI _api;
         private Queue<JSONObject> queue = new Queue<JSONObject>();
 
-        public void Init(ScreepsAPI screepsApi)
+        private void Start()
         {
-            _api = screepsApi;
-            _api.OnConnectionStatusChange += OnConnectionStatusChange;
+            ScreepsAPI.OnConnectionStatusChange += OnConnectionStatusChange;
         }
 
         public void Input(string javascript)
         {
-            _api.Http.ConsoleInput(AddEscapes(javascript));
+            ScreepsAPI.Http.ConsoleInput(AddEscapes(javascript));
         }
 
         private void OnConnectionStatusChange(bool connected)
         {
             if (connected)
             {
-                _api.Socket.Subscribe(string.Format("user:{0}/console", _api.Me.UserId), RecieveData);
+                ScreepsAPI.Socket.Subscribe(string.Format("user:{0}/console", ScreepsAPI.Me.UserId), RecieveData);
             }
         }
 
@@ -74,9 +72,7 @@ namespace Screeps_API
                 OnConsoleError(RemoveEscapes(errorData.str));
             }
 
-            _api.Time++;
-            if (_api.OnTick != null)
-                _api.OnTick(_api.Time);
+            ScreepsAPI.Instance.IncrementTime();
         }
 
         private string AddEscapes(string str)

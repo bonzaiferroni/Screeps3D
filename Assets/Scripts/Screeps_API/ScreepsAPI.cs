@@ -9,45 +9,36 @@ namespace Screeps_API
     [RequireComponent(typeof(ScreepsSocket))]
     public class ScreepsAPI : BaseSingleton<ScreepsAPI>
     {
-        public static ScreepsAPI Instance { get; private set; }
-
-        public Address Address { get; private set; }
-        public Credentials Credentials { get; private set; }
-        public ScreepsHTTP Http { get; private set; }
-        public ScreepsSocket Socket { get; private set; }
-        public ScreepsUser Me { get; private set; }
-        public BadgeManager Badges { get; private set; }
-        public UserManager UserManager { get; private set; }
-        public CpuMonitor Monitor { get; private set; }
-        public ScreepsConsole Console { get; private set; }
-        public long Time { get; internal set; }
+        public static Address Address { get; private set; }
+        public static Credentials Credentials { get; private set; }
+        public static ScreepsHTTP Http { get; private set; }
+        public static ScreepsSocket Socket { get; private set; }
+        public static ScreepsUser Me { get; private set; }
+        public static BadgeManager Badges { get; private set; }
+        public static UserManager UserManager { get; private set; }
+        public static CpuMonitor Monitor { get; private set; }
+        public static ScreepsConsole Console { get; private set; }
+        public static long Time { get; internal set; }
+        public static bool IsConnected { get; private set; }
         
-        public Action<bool> OnConnectionStatusChange;
-        public Action<long> OnTick;
-        public Action OnShutdown;
+        public static event Action<bool> OnConnectionStatusChange;
+        public static event Action<long> OnTick;
+        public static event Action OnShutdown;
 
         private string _token;
 
-        public bool IsConnected { get; private set; }
 
         public override void Awake()
         {
             base.Awake();
-            Instance = this;
 
             Http = GetComponent<ScreepsHTTP>();
-            Http.Init(this);
             Socket = GetComponent<ScreepsSocket>();
-            Socket.Init(this);
             Badges = GetComponent<BadgeManager>();
-            Badges.Init(this);
             Monitor = GetComponent<CpuMonitor>();
-            Monitor.Init(this);
             Console = GetComponent<ScreepsConsole>();
-            Console.Init(this);
-            UserManager = new UserManager(this);
+            UserManager = new UserManager();
         }
-
 
         // Use this for initialization
         public void Connect(Credentials credentials, Address address)
@@ -63,13 +54,24 @@ namespace Screeps_API
             }, () => { Debug.Log("login failed"); });
         }
 
+        internal void IncrementTime()
+        {
+            Time++;
+            if (OnTick != null)
+                OnTick(Time);
+        }
+
+        internal void AuthFailure()
+        {
+            SetConnectionStatus(false);
+        }
+
         private void AssignUser(string str)
         {
             var obj = new JSONObject(str);
             Me = UserManager.CacheUser(obj);
 
-            if (OnConnectionStatusChange != null) OnConnectionStatusChange.Invoke(true);
-            IsConnected = true;
+            SetConnectionStatus(true);
             
             Http.Request("GET", "/api/game/time", null, SetTime);
         }
@@ -87,6 +89,12 @@ namespace Screeps_API
         {
             if (OnShutdown != null)
                 OnShutdown();
+        }
+
+        private void SetConnectionStatus(bool isConnected)
+        {
+            IsConnected = isConnected;
+            if (OnConnectionStatusChange != null) OnConnectionStatusChange(isConnected);
         }
     }
 }

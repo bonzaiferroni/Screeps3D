@@ -5,7 +5,7 @@ namespace Screeps3D.RoomObjects.Views
 {
     public class EnergyView : MonoBehaviour, IObjectViewComponent
     {
-        [SerializeField] private ScaleVis _energyDisplay;
+        [SerializeField] private ScaleVisibility _energyDisplay;
 
         private IEnergyObject _energyObject;
 

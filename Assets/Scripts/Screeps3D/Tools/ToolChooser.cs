@@ -11,14 +11,25 @@ namespace Screeps3D.Tools
         [SerializeField] private Toggle _flagToggle;
         [SerializeField] private Toggle _constructionToggle;
         
+        private IVisibilityMod _vis;
         public ToolType CurrentTool { get; private set; }
         public Action<ToolType> OnToolChange;
 
         private void Start()
         {
+            _vis = GetComponent<IVisibilityMod>();
             _selectionToggle.onValueChanged.AddListener(isOn => ToggleInput(isOn, ToolType.Selection));
             _flagToggle.onValueChanged.AddListener(isOn => ToggleInput(isOn, ToolType.Flag));
             _constructionToggle.onValueChanged.AddListener(isOn => ToggleInput(isOn, ToolType.Construction));
+
+            PanelManager.OnModeChange += OnModeChange;
+            
+            _vis.Hide(true);
+        }
+
+        private void OnModeChange(PanelMode mode)
+        {
+            _vis.SetVisibility(mode == PanelMode.Room);
         }
 
         private void ToggleInput(bool isOn, ToolType toolType)

@@ -8,7 +8,6 @@ namespace Screeps_API
     public class ScreepsSocket : MonoBehaviour
     {
         private WebSocket Socket { get; set; }
-        private ScreepsAPI _api;
         private Dictionary<string, Action<JSONObject>> _subscriptions = new Dictionary<string, Action<JSONObject>>();
         private Queue<MessageEventArgs> _messages = new Queue<MessageEventArgs>();
 
@@ -16,11 +15,6 @@ namespace Screeps_API
         public Action<CloseEventArgs> OnClose;
         public Action<MessageEventArgs> OnMessage;
         public Action<ErrorEventArgs> OnError;
-
-        public void Init(ScreepsAPI screepsApi)
-        {
-            _api = screepsApi;
-        }
 
         private void OnDestroy()
         {
@@ -35,10 +29,10 @@ namespace Screeps_API
                 Socket.Close();
             }
 
-            var protocol = _api.Address.ssl ? "wss" : "ws";
-            var port = _api.Address.ssl ? "443" : _api.Address.port;
+            var protocol = ScreepsAPI.Address.ssl ? "wss" : "ws";
+            var port = ScreepsAPI.Address.ssl ? "443" : ScreepsAPI.Address.port;
             Socket = new WebSocket(
-                string.Format("{0}://{1}:{2}/socket/websocket", protocol, _api.Address.hostName, port));
+                string.Format("{0}://{1}:{2}/socket/websocket", protocol, ScreepsAPI.Address.hostName, port));
             Socket.OnOpen += Open;
             Socket.OnError += Error;
             Socket.OnMessage += Message;
@@ -51,7 +45,7 @@ namespace Screeps_API
             try
             {
                 Debug.Log("Socket Open");
-                Socket.Send(string.Format("auth {0}", _api.Http.Token));
+                Socket.Send(string.Format("auth {0}", ScreepsAPI.Http.Token));
                 if (OnOpen != null) OnOpen.Invoke(e);
             } catch (Exception exception)
             {

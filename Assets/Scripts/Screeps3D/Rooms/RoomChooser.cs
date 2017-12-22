@@ -18,7 +18,7 @@ namespace Screeps3D.Rooms
         private void Start()
         {
             _roomInput.onSubmit.AddListener(ChooseRoom);
-            ScreepsAPI.Instance.OnConnectionStatusChange += OnConnectionStatusChange;
+            ScreepsAPI.OnConnectionStatusChange += OnConnectionStatusChange;
         }
 
         private void ChooseRoom(string roomName)
@@ -36,7 +36,7 @@ namespace Screeps3D.Rooms
         {
             if (!isConnected)
                 return;
-            ScreepsAPI.Instance.Http.GetRooms(ScreepsAPI.Instance.Me.UserId, InitializeChooser);
+            ScreepsAPI.Http.GetRooms(ScreepsAPI.Me.UserId, InitializeChooser);
         }
 
         private void InitializeChooser(string str)

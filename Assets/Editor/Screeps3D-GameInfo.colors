@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12323, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Screeps3D-GameInfo
+  m_EditorClassIdentifier: 
+  m_Presets:
+  - m_Name: 
+    m_Color: {r: 0.13333334, g: 0.24705882, b: 0.20392157, a: 1}
+  - m_Name: 
+    m_Color: {r: 0.13333334, g: 0.32156864, b: 0.24313726, a: 1}
+  - m_Name: 
+    m_Color: {r: 0, g: 0.6431373, b: 0.50980395, a: 1}

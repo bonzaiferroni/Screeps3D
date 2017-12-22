@@ -35,7 +35,7 @@ namespace Screeps3D
                 callback(terrainData);
             };
 
-            ScreepsAPI.Instance.Http.GetRoom(room.RoomName, room.ShardName, serverCallback);
+            ScreepsAPI.Http.GetRoom(room.RoomName, room.ShardName, serverCallback);
         }
     }
 }

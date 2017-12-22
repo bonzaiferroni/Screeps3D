@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Screeps3D.Menus.Options;
 using Screeps3D.RoomObjects;
 using Screeps3D.RoomObjects.Views;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Screeps3D.Tools.Selection
 {
@@ -34,33 +34,33 @@ namespace Screeps3D.Tools.Selection
 
         private void Update()
         {
-            var ctrlKey = Input.GetKey(KeyCode.LeftControl);
-            var overUI = EventSystem.current.IsPointerOverGameObject();
             var dragging = IsDragging();
 
             ObjectView rayTarget = null;
-            if (!dragging && !overUI)
+            if (!dragging && !InputMonitor.OverUI)
             {
                 rayTarget = Rayprobe();
+                SelectionOutline.DrawOutline(rayTarget);
             }
-            SelectionOutline.DrawOutline(rayTarget);
 
-            if (Input.GetMouseButtonDown(0) && !overUI)
+            if (Input.GetMouseButtonDown(0) && !InputMonitor.OverUI)
             {
                 _isSelecting = true;
                 _startPosition = Input.mousePosition;
-                if (!ctrlKey)
-                    DeselectAll();
             }
 
             if (Input.GetMouseButtonUp(0))
             {
                 _isSelecting = false;
-                if (dragging)
+                
+                if (!InputMonitor.Control && !dragging && !InputMonitor.OverUI)
+                    DeselectAll();
+                
+                if (dragging && MultiSelect.IsOn)
                 {
                     SelectBoxedObjects();
                 } 
-                else if (!overUI && rayTarget)
+                else if (!InputMonitor.OverUI && rayTarget)
                 {
                     ToggleSelection(rayTarget.RoomObject);
                 }
@@ -69,20 +69,19 @@ namespace Screeps3D.Tools.Selection
 
         private void OnGUI()
         {
-            if (!IsDragging()) return; // Early
+            if (!IsDragging() || !MultiSelect.IsOn) return; // Early
             SelectionBox.DrawSelectionBox(_startPosition, Input.mousePosition);
         }
 
         private bool IsDragging()
         {
-            return _isSelecting && (Input.mousePosition - _startPosition).magnitude > 10;
+            return _isSelecting && (Input.mousePosition - _startPosition).magnitude > 5;
         }
 
         private ObjectView Rayprobe()
         {
             RaycastHit hitInfo;
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100);
             var hit = Physics.Raycast(ray, out hitInfo);
             if (!hit) return null; // Early
 

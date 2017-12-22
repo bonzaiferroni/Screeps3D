@@ -7,8 +7,9 @@ namespace Common
     public static class PrefabLoader {
 
         private static Dictionary<string, GameObject> cache = new Dictionary<string, GameObject>();
+        private static Transform _parent;
 
-        public static GameObject Load(string path)
+        public static GameObject Load(string path, Transform parent = null)
         {
             if (!cache.ContainsKey(path))
             {
@@ -16,7 +17,15 @@ namespace Common
             }
             if (cache[path])
             {
-                return Object.Instantiate(cache[path]);
+                if (parent == null)
+                {
+                    if (_parent == null)
+                    {
+                        _parent = new GameObject("prefabLoader").transform;
+                    }
+                    parent = _parent;
+                }
+                return Object.Instantiate(cache[path], parent);
             }
             else
             {

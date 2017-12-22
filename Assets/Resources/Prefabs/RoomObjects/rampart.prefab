@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4665084566565970}
   - component: {fileID: 114627227206308866}
   - component: {fileID: 114776621939475220}
+  - component: {fileID: 65969952818444174}
   m_Layer: 9
   m_Name: rampart
   m_TagString: Untagged
@@ -38,7 +39,6 @@ GameObject:
   - component: {fileID: 4685725359426144}
   - component: {fileID: 33219448380871592}
   - component: {fileID: 23304351471651460}
-  - component: {fileID: 65725000045856278}
   - component: {fileID: 114063900629727640}
   m_Layer: 9
   m_Name: model
@@ -115,12 +115,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792723384646916}
   m_Mesh: {fileID: 4300002, guid: b77bdc31ac6dfa14c9e28409377ee71a, type: 3}
---- !u!65 &65725000045856278
+--- !u!65 &65969952818444174
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1792723384646916}
+  m_GameObject: {fileID: 1062595755300534}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

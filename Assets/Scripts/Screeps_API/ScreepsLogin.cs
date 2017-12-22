@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using Screeps3D;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,23 +17,23 @@ namespace Screeps_API
         [SerializeField] private TMP_InputField _email;
         [SerializeField] private TMP_InputField _passwordInput;
         [SerializeField] private Button _connect;
-        [SerializeField] public FadePanel panel;
+        [SerializeField] private FadePanel _panel;
         public Action<Credentials, Address> OnSubmit;
         public string secret = "abc123";
 
         private void Start()
         {
             _connect.onClick.AddListener(OnClick);
-            this._save.onValueChanged.AddListener(UpdateSaveSetting);
+            _save.onValueChanged.AddListener(UpdateSaveSetting);
             RefreshSavedSettings();
-            _api.OnConnectionStatusChange += OnConnectionStatusChange;
-            panel.Show(false, true);
-            panel.Show(); // fade in
+
+            PanelManager.OnModeChange += OnModeChange;
+            _panel.Hide(true);
         }
 
-        private void OnConnectionStatusChange(bool isConnected)
+        private void OnModeChange(PanelMode mode)
         {
-            panel.Show(!isConnected);
+            _panel.SetVisibility(mode == PanelMode.Login);
         }
 
         private void RefreshSavedSettings()

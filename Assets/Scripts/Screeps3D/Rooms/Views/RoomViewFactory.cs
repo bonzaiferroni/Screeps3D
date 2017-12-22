@@ -3,15 +3,20 @@ using UnityEngine;
 
 namespace Screeps3D.Rooms.Views
 {
-    public class RoomViewFactory : BaseSingleton<RoomViewFactory>
+    public static class RoomViewFactory
     {
-        [SerializeField] private GameObject _roomPrefab;
-
-        public RoomView GenerateView(Room room)
+        private static Transform _parent;
+        private const string Path = "Prefabs/RoomView";
+        
+        public static RoomView GetInstance(Room room)
         {
-            var go = Instantiate(_roomPrefab);
+            if (_parent == null)
+            {
+                _parent = new GameObject("RoomViews").transform;
+            }
+            
+            var go = PrefabLoader.Load(Path, _parent);
             var view = go.GetComponent<RoomView>();
-            view.transform.SetParent(transform);
             view.gameObject.name = room.Name;
             view.transform.localPosition = room.Position;
             view.Init(room);

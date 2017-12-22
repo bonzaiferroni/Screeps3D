@@ -11,27 +11,25 @@ namespace Screeps3D
     public class ConsoleViewer : MonoBehaviour
     {
         [SerializeField] private UnityConsole _console;
-        private ScreepsAPI _api;
 
         private void Start()
         {
-            _api = ScreepsAPI.Instance;
-            _api.OnConnectionStatusChange += OnConnectionStatusChange;
             _console.OnInput += OnInput;
-            _api.Console.OnConsoleMessage += OnMessage;
-            _api.Console.OnConsoleError += OnError;
-            _api.Console.OnConsoleResult += OnResult;
-            _console._panel.Show(false, true);
+            ScreepsAPI.Console.OnConsoleMessage += OnMessage;
+            ScreepsAPI.Console.OnConsoleError += OnError;
+            ScreepsAPI.Console.OnConsoleResult += OnResult;
+            
+            PanelManager.OnModeChange += OnModeChange;
         }
 
-        private void OnConnectionStatusChange(bool isConnected)
+        private void OnModeChange(PanelMode mode)
         {
-            _console._panel.Show(isConnected);
+            _console._panel.SetVisibility(mode != PanelMode.Login);
         }
 
         private void OnInput(string obj)
         {
-            _api.Console.Input(obj);
+            ScreepsAPI.Console.Input(obj);
         }
 
         private void OnMessage(string obj)

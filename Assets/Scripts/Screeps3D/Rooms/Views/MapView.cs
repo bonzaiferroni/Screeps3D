@@ -58,7 +58,7 @@ namespace Screeps3D.Rooms.Views
                 if (key.Length <= 2)
                     continue;
                 
-                var color = key == ScreepsAPI.Instance.Me.UserId ? Color.green : Color.red;
+                var color = key == ScreepsAPI.Me.UserId ? Color.green : Color.red;
                 foreach (var numArray in data[key].list)
                 {
                     var x = (int) numArray.list[0].n;
@@ -66,7 +66,7 @@ namespace Screeps3D.Rooms.Views
                     var view = _dots[x, y];
                     if (!view || view.Color != color)
                     {
-                        var go = PoolLoader.Load(MapDotView.PATH);
+                        var go = PoolLoader.Load(MapDotView.Path);
                         view = go.GetComponent<MapDotView>();
                     }
                     

@@ -1,7 +1,6 @@
 ﻿using System;
-using Common.Utils;
+using Common;
 using Screeps3D.RoomObjects;
-using Screeps_API;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
     public class AgePanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
-        [SerializeField] private ScaleVisAxes _meter;
+        [SerializeField] private ScaleAxes _meter;
         
         private Creep _creep;
 
@@ -27,6 +26,9 @@ namespace Screeps3D.Tools.Selection.Subpanels
         public override void Load(RoomObject roomObject)
         {
             _creep = roomObject as Creep;
+            if (_creep == null)
+                return;
+            
             _creep.OnDelta += OnTick;
             UpdateLabel();
         }

@@ -63,7 +63,7 @@ namespace Screeps3D.RoomObjects
                     var userData = reservationData["user"];
                     if (userData != null)
                     {
-                        ReservedBy = ScreepsAPI.Instance.UserManager.GetUser(userData.str);
+                        ReservedBy = ScreepsAPI.UserManager.GetUser(userData.str);
                     }
 
                     var endTimeData = reservationData["endTime"];

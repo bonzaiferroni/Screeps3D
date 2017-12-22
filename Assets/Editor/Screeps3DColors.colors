@@ -11,4 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 12323, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Screeps3DColors
   m_EditorClassIdentifier: 
-  m_Presets: []
+  m_Presets:
+  - m_Name: 
+    m_Color: {r: 0.10980392, g: 0.10980392, b: 0.10980392, a: 0.822}

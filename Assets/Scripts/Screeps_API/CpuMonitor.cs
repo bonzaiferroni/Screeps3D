@@ -12,20 +12,18 @@ namespace Screeps_API
         public int CPU { get; private set; }
         public int Memory { get; private set; }
         
-        private ScreepsAPI _api;
         private Queue<JSONObject> queue = new Queue<JSONObject>();
 
-        internal void Init(ScreepsAPI screepsApi)
+        private void Start()
         {
-            _api = screepsApi;
-            _api.OnConnectionStatusChange += SubscribeCpu;
+            ScreepsAPI.OnConnectionStatusChange += SubscribeCpu;
         }
 
         private void SubscribeCpu(bool connected)
         {
             if (connected)
             {
-                _api.Socket.Subscribe(string.Format("user:{0}/cpu", _api.Me.UserId), RecieveData);
+                ScreepsAPI.Socket.Subscribe(string.Format("user:{0}/cpu", ScreepsAPI.Me.UserId), RecieveData);
             }
         }
 

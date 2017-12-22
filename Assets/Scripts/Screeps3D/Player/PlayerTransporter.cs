@@ -8,7 +8,6 @@ namespace Screeps3D.Player
     public class PlayerTransporter : BaseSingleton<PlayerTransporter>
     {
         [SerializeField] private RoomChooser _chooser;
-        [SerializeField] private PlayerGaze _playerGaze;
 
         private Stack<Room> _loadStack = new Stack<Room>();
 
@@ -26,7 +25,7 @@ namespace Screeps3D.Player
 
         private void TransportPlayer(Vector3 pos)
         {
-            _playerGaze.transform.position = new Vector3(pos.x + 25, pos.y, pos.z + 25);
+            CameraRig.Position = pos + new Vector3(25, 0, 25);
         }
     }
 }

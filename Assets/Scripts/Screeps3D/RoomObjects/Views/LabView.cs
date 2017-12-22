@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Common.Utils;
+using Common;
 using Screeps3D.Effects;
 using UnityEngine;
 
@@ -7,8 +7,8 @@ namespace Screeps3D.RoomObjects.Views
 {
     public class LabView : MonoBehaviour, IObjectViewComponent
     {
-        [SerializeField] private ScaleVisAxes _mineral;
-        [SerializeField] private ScaleVisAxes _energy;
+        [SerializeField] private ScaleAxes _mineral;
+        [SerializeField] private ScaleAxes _energy;
         private LineRenderer _lineRenderer;
         private Lab _lab;
 

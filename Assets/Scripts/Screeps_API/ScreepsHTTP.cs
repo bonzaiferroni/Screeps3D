@@ -10,19 +10,12 @@ namespace Screeps_API
     {
         public string Token { get; private set; }
 
-        private ScreepsAPI _api;
-
-        public void Init(ScreepsAPI api)
-        {
-            _api = api;
-        }
-
         public void Request(string requestMethod, string path, RequestBody body = null,
             Action<string> onSuccess = null, Action onError = null)
         {
             // Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
             UnityWebRequest www;
-            var fullPath = _api.Address.Http(path);
+            var fullPath = ScreepsAPI.Address.Http(path);
             if (requestMethod == UnityWebRequest.kHttpVerbGET)
             {
                 if (body != null)
@@ -51,11 +44,15 @@ namespace Screeps_API
                     if (onError != null)
                     {
                         onError();
-                    } else
+                    } 
+                    else
                     {
-                        Auth((reply) => { Request(requestMethod, path, body, onSuccess); }, () =>
+                        Auth((reply) =>
                         {
-                            if (_api.OnConnectionStatusChange != null) _api.OnConnectionStatusChange.Invoke(false);
+                            Request(requestMethod, path, body, onSuccess);
+                        }, () =>
+                        {
+                            ScreepsAPI.Instance.AuthFailure();
                         });
                     }
                 } else
@@ -93,8 +90,8 @@ namespace Screeps_API
         public void Auth(Action<string> onSuccess, Action onError = null)
         {
             var body = new RequestBody();
-            body.AddField("email", _api.Credentials.email);
-            body.AddField("password", _api.Credentials.password);
+            body.AddField("email", ScreepsAPI.Credentials.email);
+            body.AddField("password", ScreepsAPI.Credentials.password);
 
             Request("POST", "/api/auth/signin", body, onSuccess, onError);
         }

@@ -28,10 +28,11 @@ namespace Common
             }
         }
 
+        [SerializeField] private float _height;
+        
         private bool _noVis;
         private IVisibilityMod _vis;
         private bool _isVisible = true;
-        [SerializeField] private float _height;
         private float _targetPos;
         private RectTransform _rect;
         private float _posRef;
@@ -76,6 +77,14 @@ namespace Common
             }
         }
 
+        private void Start()
+        {
+            if (Vis != null && !Vis.IsVisibleOnStart)
+            {
+                Hide();
+            }
+        }
+
         private void Update()
         {
             if (Mathf.Abs(Rect.anchoredPosition.y - TargetPos) < .0001f)
@@ -116,6 +125,11 @@ namespace Common
                 gameObject.SetActive(isVisible);
             if (Group)
                 Group.UpdateGeometry();
+        }
+
+        public void Toggle()
+        {
+            Show(!IsVisible);
         }
     }
 }

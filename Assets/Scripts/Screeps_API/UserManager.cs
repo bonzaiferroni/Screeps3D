@@ -5,14 +5,7 @@ namespace Screeps_API
 {
     public class UserManager
     {
-        private ScreepsAPI _api;
-
         private Dictionary<string, ScreepsUser> users = new Dictionary<string, ScreepsUser>();
-
-        internal UserManager(ScreepsAPI screepsApi)
-        {
-            _api = screepsApi;
-        }
 
         public ScreepsUser GetUser(string id)
         {
@@ -39,12 +32,12 @@ namespace Screeps_API
             var badgeData = data["badge"];
             if (badgeData != null)
             {
-                badge = _api.Badges.Generate(badgeData);
+                badge = ScreepsAPI.Badges.Generate(badgeData);
             } 
             else
             {
                 isNpc = true;
-                badge = _api.Badges.Invader;
+                badge = ScreepsAPI.Badges.Invader;
             }
 
             var username = "unknown"; 

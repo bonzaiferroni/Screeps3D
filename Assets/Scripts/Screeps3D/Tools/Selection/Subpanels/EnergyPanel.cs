@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.Utils;
+using Common;
 using Screeps3D.RoomObjects;
 using TMPro;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace Screeps3D.Tools.Selection.Subpanels
     public class EnergyPanel : LinePanel
     {
         [SerializeField] private TextMeshProUGUI _label;
-        [SerializeField] private ScaleVisAxes _meter;
+        [SerializeField] private ScaleAxes _meter;
         private IEnergyObject _energyObject;
         private RoomObject _roomObject;
 

@@ -100,7 +100,7 @@ namespace Screeps3D.Rooms
             foreach (var id in usersData.keys)
             {
                 var userData = usersData[id];
-                ScreepsAPI.Instance.UserManager.CacheUser(userData);
+                ScreepsAPI.UserManager.CacheUser(userData);
             }
         }
 

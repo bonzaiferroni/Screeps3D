@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
-using Common.Utils;
+using Common;
 using Screeps3D.Effects;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Screeps3D.RoomObjects.Views
 {
     public class TowerView : MonoBehaviour, IObjectViewComponent
     {
-        [SerializeField] private ScaleVisAxes _energyDisplay;
+        [SerializeField] private ScaleAxes _energyDisplay;
         [SerializeField] private Transform _rotationRoot;
         private Quaternion _targetRot;
         private bool _idle;
