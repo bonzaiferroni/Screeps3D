@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Common;
 using Screeps3D;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,7 +17,7 @@ namespace Screeps_API
         {
             // Debug.Log(string.Format("HTTP: attempting {0} to {1}", requestMethod, path));
             UnityWebRequest www;
-            var fullPath = ScreepsAPI.Address.Http(path);
+            var fullPath = ScreepsAPI.Cache.Address.Http(path);
             if (requestMethod == UnityWebRequest.kHttpVerbGET)
             {
                 if (body != null)
@@ -41,8 +42,8 @@ namespace Screeps_API
             {
                 if (outcome.isNetworkError || outcome.isHttpError)
                 {
-                    Debugger.ScreenText = string.Format("HTTP: error ({1}), reason: {0}", outcome.error,
-                        outcome.responseCode);
+                    NotifyText.Message(string.Format("HTTP: error ({1}), reason: {0}", outcome.error,
+                        outcome.responseCode));
                     Debug.Log(string.Format("HTTP: error ({1}), reason: {0}", outcome.error, outcome.responseCode));
                     if (onError != null)
                     {
@@ -92,11 +93,18 @@ namespace Screeps_API
 
         public void Auth(Action<string> onSuccess, Action onError = null)
         {
-            var body = new RequestBody();
-            body.AddField("email", ScreepsAPI.Credentials.email);
-            body.AddField("password", ScreepsAPI.Credentials.password);
-
-            Request("POST", "/api/auth/signin", body, onSuccess, onError);
+            if (!string.IsNullOrEmpty(ScreepsAPI.Cache.Credentials.Token))
+            {
+                Token = ScreepsAPI.Cache.Credentials.Token;
+                Request("GET", "/api/auth/me", null, onSuccess, onError);
+            }
+            else
+            {
+                var body = new RequestBody();
+                body.AddField("email", ScreepsAPI.Cache.Credentials.Email);
+                body.AddField("password", ScreepsAPI.Cache.Credentials.Password);
+                Request("POST", "/api/auth/signin", body, onSuccess, onError);
+            }
         }
 
         public void GetUser(Action<string> onSuccess)

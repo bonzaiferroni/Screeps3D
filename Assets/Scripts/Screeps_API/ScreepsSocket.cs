@@ -29,10 +29,11 @@ namespace Screeps_API
                 Socket.Close();
             }
 
-            var protocol = ScreepsAPI.Address.ssl ? "wss" : "ws";
-            var port = ScreepsAPI.Address.ssl ? "443" : ScreepsAPI.Address.port;
+            var protocol = ScreepsAPI.Cache.Address.Ssl ? "wss" : "ws";
+            var port = ScreepsAPI.Cache.Address.Ssl ? "443" : ScreepsAPI.Cache.Address.Port;
+            Debug.Log(string.Format("{0}://{1}:{2}/socket/websocket", protocol, ScreepsAPI.Cache.Address.HostName, port));
             Socket = new WebSocket(
-                string.Format("{0}://{1}:{2}/socket/websocket", protocol, ScreepsAPI.Address.hostName, port));
+                string.Format("{0}://{1}:{2}/socket/websocket", protocol, ScreepsAPI.Cache.Address.HostName, port));
             Socket.OnOpen += Open;
             Socket.OnError += Error;
             Socket.OnMessage += Message;
@@ -92,6 +93,11 @@ namespace Screeps_API
 
         private void ProcessMessage(MessageEventArgs e)
         {
+            if (e.Data == null)
+            {
+                return;
+            }
+            
             if (e.Data.Substring(0, 3) == "gz:")
             {
                 Debug.Log(e.Data);

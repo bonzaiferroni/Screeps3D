@@ -23,20 +23,33 @@ namespace Common
         /**
          * Loads the save data from the disk
          */
-        public static T Load<T>(string identifier)
+        public static T Load<T>(string identifier) where T : class
         {
             var path = GetPath(identifier);
 
             if (File.Exists(path))
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                FileStream file = File.Open(path, FileMode.Open);
-                var obj = (T) bf.Deserialize(file);
-                file.Close();
-                return obj;
-            } else
+                FileStream file = null;
+                try
+                {
+                    file = File.Open(path, FileMode.Open);
+                    var obj = (T) bf.Deserialize(file);
+                    file.Close();
+                    return obj;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                    if (file != null)
+                        file.Close();
+                    return null;
+                }
+            } 
+            else
             {
-                throw new Exception("no file saved");
+                Debug.LogError("saved data not found");
+                return null;
             }
         }
 

@@ -9,8 +9,7 @@ namespace Screeps_API
     [RequireComponent(typeof(ScreepsSocket))]
     public class ScreepsAPI : BaseSingleton<ScreepsAPI>
     {
-        public static Address Address { get; private set; }
-        public static Credentials Credentials { get; private set; }
+        public static ServerCache Cache { get; private set; }
         public static ScreepsHTTP Http { get; private set; }
         public static ScreepsSocket Socket { get; private set; }
         public static ScreepsUser Me { get; private set; }
@@ -41,14 +40,14 @@ namespace Screeps_API
         }
 
         // Use this for initialization
-        public void Connect(Credentials credentials, Address address)
+        public void Connect(ServerCache cache)
         {
-            Credentials = credentials;
-            Address = address;
+            Cache = cache;
+            
             // configure HTTP
             Http.Auth(o =>
             {
-                Debug.Log("login successful");
+                NotifyText.Message("Success", Color.green, 1);
                 Socket.Connect();
                 Http.GetUser(AssignUser);
             }, () => { Debug.Log("login failed"); });

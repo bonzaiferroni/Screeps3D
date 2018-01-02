@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Common;
 using Screeps3D;
 using TMPro;
@@ -12,28 +13,129 @@ namespace Screeps_API
         [SerializeField] private ScreepsAPI _api;
         [SerializeField] private Toggle _save;
         [SerializeField] private Toggle _ssl;
-        [SerializeField] private TMP_InputField _server;
         [SerializeField] private TMP_InputField _port;
         [SerializeField] private TMP_InputField _email;
-        [SerializeField] private TMP_InputField _passwordInput;
+        [SerializeField] private TMP_InputField _password;
+        [SerializeField] private TMP_InputField _token;
+        [SerializeField] private TMP_Dropdown _serverSelect;
         [SerializeField] private Button _connect;
         [SerializeField] private FadePanel _panel;
+        [SerializeField] private Button _addServer;
+        [SerializeField] private Button _removeServer;
         public Action<Credentials, Address> OnSubmit;
         public string secret = "abc123";
+        private CacheList _servers;
+        private int _serverIndex;
+        private string _savePath = "servers";
 
         private void Start()
         {
-            _connect.onClick.AddListener(OnClick);
-            _save.onValueChanged.AddListener(UpdateSaveSetting);
-            RefreshSavedSettings();
-
             PanelManager.OnModeChange += OnModeChange;
             _panel.Hide(true);
+            
+            RefreshSavedSettings_New();
+            UpdateServerDropdown();
+            UpdateFieldVisibility();
+            UpdateFieldContent();
+            
+            _connect.onClick.AddListener(OnClick);
+            _save.onValueChanged.AddListener(UpdateSaveSetting);
+            _serverSelect.onValueChanged.AddListener(OnServerChange);
+            _addServer.onClick.AddListener(OnAddServer);
+            _removeServer.onClick.AddListener(OnRemoveServer);
+        }
+
+        private void OnRemoveServer()
+        {
+            if (_serverIndex == 0)
+                return;
+            
+            _servers.RemoveAt(_serverIndex);
+            OnServerChange(_serverIndex - 1);
+            UpdateServerDropdown();
+        }
+
+        private void UpdateServerDropdown()
+        {
+            _serverSelect.ClearOptions();
+            var options = new List<TMP_Dropdown.OptionData>();
+            foreach (var server in _servers)
+            {
+                options.Add(new TMP_Dropdown.OptionData(server.Address.HostName));
+            }
+            _serverSelect.AddOptions(options);
+            _serverSelect.value = _serverIndex;
+        }
+
+        private void OnAddServer()
+        {
+            PlayerInput.Get("Server Hostname (example: <i>botarena.screepspl.us</i>)", OnSubmitServer);
+        }
+
+        private void OnSubmitServer(string hostName)
+        {
+            if (hostName == null)
+                return;
+
+            if (_servers.Find(x => x.Address.HostName.ToLowerInvariant() == hostName.ToLowerInvariant()) != null)
+            {
+                NotifyText.Message(string.Format("hostname {0} already used", hostName));
+                return;
+            }
+            
+            var server = new ServerCache();
+            server.Address.HostName = hostName;
+            _servers.Add(server);
+            OnServerChange(_servers.IndexOf(server));
+            UpdateServerDropdown();
+        }
+
+        private void OnServerChange(int serverIndex)
+        {
+            PlayerPrefs.SetInt("serverIndex", serverIndex);
+            _serverIndex = serverIndex;
+            UpdateFieldVisibility();
+            UpdateFieldContent();
+        }
+
+        private void UpdateFieldVisibility()
+        {
+            _ssl.gameObject.SetActive(_serverIndex != 0);
+            _port.gameObject.SetActive(_serverIndex != 0);
+            _email.gameObject.SetActive(_serverIndex != 0);
+            _password.gameObject.SetActive(_serverIndex != 0);
+            _removeServer.gameObject.SetActive(_serverIndex != 0);
+            _token.gameObject.SetActive(_serverIndex == 0);
+        }
+
+        private void UpdateFieldContent()
+        {
+            var cache = _servers[_serverIndex];
+            _port.text = cache.Address.Port ?? "";
+            _email.text = cache.Credentials.Email ?? "";
+            _token.text = cache.Credentials.Token ?? "";
+            _password.text = cache.Credentials.Password ?? "";
+            _token.text = cache.Credentials.Token ?? "";
+            _ssl.isOn = cache.Address.Ssl;
+            _save.isOn = cache.SaveCredentials;
         }
 
         private void OnModeChange(PanelMode mode)
         {
             _panel.SetVisibility(mode == PanelMode.Login);
+        }
+
+        private void RefreshSavedSettings_New()
+        {
+            _servers = SaveManager.Load<CacheList>(_savePath);
+            if (_servers == null)
+            {
+                _servers = new CacheList();
+                var publicServer = new ServerCache();
+                publicServer.Address.HostName = "Screeps.com";
+                publicServer.Address.Ssl = true;
+                _servers.Add(publicServer);
+            }
         }
 
         private void RefreshSavedSettings()
@@ -42,29 +144,39 @@ namespace Screeps_API
             Debug.Log(string.Format("save value: {0}", save));
             if (save == 1)
             {
-                this._save.isOn = true;
+                _save.isOn = true;
                 var port = PlayerPrefs.GetString("port");
                 if (port != null)
                 {
-                    this._server.text = port;
+                    // _server.text = port;
                 }
-
 
                 var server = PlayerPrefs.GetString("server");
                 if (server != null)
                 {
-                    this._server.text = server;
+                    // _server.text = server;
                 }
                 var email = PlayerPrefs.GetString("email");
                 if (email != null)
                 {
-                    this._email.text = email;
+                    _email.text = email;
                 }
+                var encryptedToken = PlayerPrefs.GetString("token");
+                if (!string.IsNullOrEmpty(encryptedToken))
+                {
+                    var token = Crypto.DecryptStringAES(encryptedToken, secret);
+                    _token.text = token;
+                }
+                
                 var encryptedPassword = PlayerPrefs.GetString("password");
-                var password = Crypto.DecryptStringAES(encryptedPassword, secret);
+                if (!string.IsNullOrEmpty(encryptedPassword))
+                {
+                    var password = Crypto.DecryptStringAES(encryptedPassword, secret);
+                    _password.text = password;
+                }
+                
                 var ssl = PlayerPrefs.GetInt("ssl");
-                this._ssl.isOn = ssl == 1;
-                this._passwordInput.text = password;
+                _ssl.isOn = ssl == 1;
             }
         }
 
@@ -80,56 +192,56 @@ namespace Screeps_API
 
         private void OnClick()
         {
-            if (_save.isOn)
+            var cache = _servers[_serverIndex];
+            cache.SaveCredentials = _save.isOn;
+            cache.Address.Port = _port.text;
+            cache.Address.Ssl = _ssl.isOn;
+            
+            cache.SaveCredentials = _save.isOn;
+            if (cache.SaveCredentials)
             {
-                PlayerPrefs.SetString("port", _port.text);
-                PlayerPrefs.SetString("server", _server.text);
-                PlayerPrefs.SetString("email", _email.text);
-                var password = this._passwordInput.text;
-                var encryptedPassword = Crypto.EncryptStringAES(password, secret);
-                PlayerPrefs.SetString("password", encryptedPassword);
-                PlayerPrefs.SetInt("ssl", _ssl.isOn ? 1 : 0);
+                cache.Credentials.Email = _email.text;
+                cache.Credentials.Password = _password.text;
+                cache.Credentials.Token = _token.text;
             }
 
-            var credentials = new Credentials
-            {
-                email = _email.text,
-                password = _passwordInput.text
-            };
-            var address = new Address
-            {
-                hostName = _server.text,
-                path = "/",
-                ssl = this._ssl.isOn,
-                port = _port.text
-            };
-            _api.Connect(credentials, address);
+            SaveManager.Save(_savePath, _servers);
+            NotifyText.Message("Connecting...");
+            _api.Connect(cache);
         }
     }
 
-    public struct Credentials
+    [Serializable]
+    public class Credentials
     {
-        public string email;
-        public string password;
+        public string Token;
+        public string Email;
+        public string Password;
     }
 
-    public struct Address
+    [Serializable]
+    public class Address
     {
-        public bool ssl;
-        public string hostName;
-        public string port;
-        public string path;
+        public bool Ssl;
+        public string HostName;
+        public string Port;
+        public string Path = "/";
 
         public string Http(string path = "")
         {
-            if (path.StartsWith("/") && this.path.EndsWith("/"))
+            if (path.StartsWith("/") && Path.EndsWith("/"))
             {
                 path = path.Substring(1);
             }
-            var protocol = ssl ? "https" : "http";
-            var port = hostName.ToLowerInvariant() == "screeps.com" ? "" : string.Format(":{0}", this.port);
+            var protocol = Ssl ? "https" : "http";
+            var port = HostName.ToLowerInvariant() == "screeps.com" ? "" : string.Format(":{0}", this.Port);
             // Debug.Log(string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path));
-            return string.Format("{0}://{1}{2}{3}{4}", protocol, hostName, port, this.path, path);
+            return string.Format("{0}://{1}{2}{3}{4}", protocol, HostName, port, this.Path, path);
         }
     }
+    
+    [Serializable]
+    public class CacheList : List<ServerCache> { } 
+    // I'm not sure why it is necessary to use this class rather than just the list, but the binary formatter
+    // seems to require it
 }
