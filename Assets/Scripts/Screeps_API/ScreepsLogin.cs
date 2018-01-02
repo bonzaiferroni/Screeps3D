@@ -30,19 +30,25 @@ namespace Screeps_API
 
         private void Start()
         {
-            PanelManager.OnModeChange += OnModeChange;
-            _panel.Hide(true);
+            GameManager.OnModeChange += OnModeChange;
             
-            RefreshSavedSettings_New();
+            LoadCache();
             UpdateServerDropdown();
             UpdateFieldVisibility();
             UpdateFieldContent();
             
             _connect.onClick.AddListener(OnClick);
-            _save.onValueChanged.AddListener(UpdateSaveSetting);
             _serverSelect.onValueChanged.AddListener(OnServerChange);
             _addServer.onClick.AddListener(OnAddServer);
             _removeServer.onClick.AddListener(OnRemoveServer);
+        }
+
+        private void OnModeChange(GameMode mode)
+        {
+            if (mode == GameMode.Login)
+                _panel.Show();
+            else 
+                _panel.Hide();
         }
 
         private void OnRemoveServer()
@@ -53,6 +59,7 @@ namespace Screeps_API
             _servers.RemoveAt(_serverIndex);
             OnServerChange(_serverIndex - 1);
             UpdateServerDropdown();
+            SaveManager.Save(_savePath, _servers);
         }
 
         private void UpdateServerDropdown()
@@ -69,25 +76,20 @@ namespace Screeps_API
 
         private void OnAddServer()
         {
-            PlayerInput.Get("Server Hostname (example: <i>botarena.screepspl.us</i>)", OnSubmitServer);
+            PlayerInput.Get("Server Hostname\n<size=12>example: 127.0.0.1</size>", OnSubmitServer);
         }
 
         private void OnSubmitServer(string hostName)
         {
             if (hostName == null)
                 return;
-
-            if (_servers.Find(x => x.Address.HostName.ToLowerInvariant() == hostName.ToLowerInvariant()) != null)
-            {
-                NotifyText.Message(string.Format("hostname {0} already used", hostName));
-                return;
-            }
             
             var server = new ServerCache();
             server.Address.HostName = hostName;
             _servers.Add(server);
             OnServerChange(_servers.IndexOf(server));
             UpdateServerDropdown();
+            SaveManager.Save(_savePath, _servers);
         }
 
         private void OnServerChange(int serverIndex)
@@ -100,12 +102,13 @@ namespace Screeps_API
 
         private void UpdateFieldVisibility()
         {
-            _ssl.gameObject.SetActive(_serverIndex != 0);
-            _port.gameObject.SetActive(_serverIndex != 0);
-            _email.gameObject.SetActive(_serverIndex != 0);
-            _password.gameObject.SetActive(_serverIndex != 0);
+            var isPublic = _servers[_serverIndex].Address.HostName.ToLowerInvariant() == "screeps.com";
+            _ssl.gameObject.SetActive(!isPublic);
+            _port.gameObject.SetActive(!isPublic);
+            _email.gameObject.SetActive(!isPublic);
+            _password.gameObject.SetActive(!isPublic);
             _removeServer.gameObject.SetActive(_serverIndex != 0);
-            _token.gameObject.SetActive(_serverIndex == 0);
+            _token.gameObject.SetActive(isPublic);
         }
 
         private void UpdateFieldContent()
@@ -115,17 +118,11 @@ namespace Screeps_API
             _email.text = cache.Credentials.Email ?? "";
             _token.text = cache.Credentials.Token ?? "";
             _password.text = cache.Credentials.Password ?? "";
-            _token.text = cache.Credentials.Token ?? "";
             _ssl.isOn = cache.Address.Ssl;
             _save.isOn = cache.SaveCredentials;
         }
 
-        private void OnModeChange(PanelMode mode)
-        {
-            _panel.SetVisibility(mode == PanelMode.Login);
-        }
-
-        private void RefreshSavedSettings_New()
+        private void LoadCache()
         {
             _servers = SaveManager.Load<CacheList>(_savePath);
             if (_servers == null)
@@ -135,58 +132,6 @@ namespace Screeps_API
                 publicServer.Address.HostName = "Screeps.com";
                 publicServer.Address.Ssl = true;
                 _servers.Add(publicServer);
-            }
-        }
-
-        private void RefreshSavedSettings()
-        {
-            var save = PlayerPrefs.GetInt("saveCredentials");
-            Debug.Log(string.Format("save value: {0}", save));
-            if (save == 1)
-            {
-                _save.isOn = true;
-                var port = PlayerPrefs.GetString("port");
-                if (port != null)
-                {
-                    // _server.text = port;
-                }
-
-                var server = PlayerPrefs.GetString("server");
-                if (server != null)
-                {
-                    // _server.text = server;
-                }
-                var email = PlayerPrefs.GetString("email");
-                if (email != null)
-                {
-                    _email.text = email;
-                }
-                var encryptedToken = PlayerPrefs.GetString("token");
-                if (!string.IsNullOrEmpty(encryptedToken))
-                {
-                    var token = Crypto.DecryptStringAES(encryptedToken, secret);
-                    _token.text = token;
-                }
-                
-                var encryptedPassword = PlayerPrefs.GetString("password");
-                if (!string.IsNullOrEmpty(encryptedPassword))
-                {
-                    var password = Crypto.DecryptStringAES(encryptedPassword, secret);
-                    _password.text = password;
-                }
-                
-                var ssl = PlayerPrefs.GetInt("ssl");
-                _ssl.isOn = ssl == 1;
-            }
-        }
-
-        private void UpdateSaveSetting(bool value)
-        {
-            PlayerPrefs.SetInt("saveCredentials", value ? 1 : 0);
-            if (!value)
-            {
-                PlayerPrefs.SetString("email", "");
-                PlayerPrefs.SetString("password", "");
             }
         }
 

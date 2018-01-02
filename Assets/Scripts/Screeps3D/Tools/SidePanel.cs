@@ -10,13 +10,13 @@ namespace Screeps3D.Tools
         
         private void Start()
         {
-            PanelManager.OnModeChange += OnModeChange;
+            GameManager.OnModeChange += OnModeChange;
             _panel.Hide(true);
         }
 
-        private void OnModeChange(PanelMode mode)
+        private void OnModeChange(GameMode mode)
         {
-            _panel.SetVisibility(mode == PanelMode.Room || mode == PanelMode.Map);
+            _panel.SetVisibility(mode == GameMode.Room || mode == GameMode.Map);
         }
     }
 }

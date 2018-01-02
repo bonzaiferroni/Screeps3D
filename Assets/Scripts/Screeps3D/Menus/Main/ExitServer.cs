@@ -1,4 +1,6 @@
-﻿namespace Screeps3D.Menus.Main
+﻿using Screeps_API;
+
+namespace Screeps3D.Menus.Main
 {
     public class ExitServer : MainMenuItem
     {
@@ -9,7 +11,8 @@
 
         public override void Invoke()
         {
-            throw new System.NotImplementedException();
+            ScreepsAPI.Instance.Disconnect();
+            GameManager.ChangeMode(GameMode.Login);
         }
     }
 }

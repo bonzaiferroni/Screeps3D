@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/main.unity
     guid: 461bd8b3dbe736e4082c2703185c4b07
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Android.unity
     guid: 1f902d45b5e45c54683568c2a92f457c
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: 9121fbf43b0d59940824798971c4e189
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: f5a6c7d45bd86bb47b811a88681f3f65

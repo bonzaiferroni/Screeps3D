@@ -7,7 +7,6 @@ using Unity_Console;
 
 namespace Screeps3D
 {
-    [RequireComponent(typeof(ScreepsAPI))]
     public class ConsoleViewer : MonoBehaviour
     {
         [SerializeField] private UnityConsole _console;
@@ -19,12 +18,12 @@ namespace Screeps3D
             ScreepsAPI.Console.OnConsoleError += OnError;
             ScreepsAPI.Console.OnConsoleResult += OnResult;
             
-            PanelManager.OnModeChange += OnModeChange;
+            GameManager.OnModeChange += OnModeChange;
         }
 
-        private void OnModeChange(PanelMode mode)
+        private void OnModeChange(GameMode mode)
         {
-            _console._panel.SetVisibility(mode != PanelMode.Login);
+            _console._panel.SetVisibility(mode != GameMode.Login);
         }
 
         private void OnInput(string obj)

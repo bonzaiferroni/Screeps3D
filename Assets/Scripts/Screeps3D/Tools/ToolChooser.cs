@@ -22,14 +22,14 @@ namespace Screeps3D.Tools
             _flagToggle.onValueChanged.AddListener(isOn => ToggleInput(isOn, ToolType.Flag));
             _constructionToggle.onValueChanged.AddListener(isOn => ToggleInput(isOn, ToolType.Construction));
 
-            PanelManager.OnModeChange += OnModeChange;
+            GameManager.OnModeChange += OnModeChange;
             
             _vis.Hide(true);
         }
 
-        private void OnModeChange(PanelMode mode)
+        private void OnModeChange(GameMode mode)
         {
-            _vis.SetVisibility(mode == PanelMode.Room);
+            _vis.SetVisibility(mode == GameMode.Room);
         }
 
         private void ToggleInput(bool isOn, ToolType toolType)

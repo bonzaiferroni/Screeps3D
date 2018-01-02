@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Resources;
 using System.Text;
 using Svg;
 using UnityEngine;
@@ -16,11 +17,17 @@ namespace Screeps_API
         
         private BadgePathGenerator _badgePaths = new BadgePathGenerator();
         private BadgeColorGenerator _badgeColors = new BadgeColorGenerator();
-        private Dictionary<string, Texture2D> _badges = new Dictionary<string, Texture2D>();
+        private Dictionary<string, Texture2D> _badges;
 
         private void Start()
         {
             Invader = GenerateInvader();
+            Reset();
+        }
+
+        internal void Reset()
+        {
+            _badges = new Dictionary<string, Texture2D>();
         }
 
         private Texture2D GenerateInvader(Color color = default(Color))

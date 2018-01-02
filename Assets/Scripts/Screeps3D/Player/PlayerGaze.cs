@@ -21,7 +21,7 @@ namespace Screeps3D.Player
 
         private void Update()
         {
-            if (!ScreepsAPI.Instance || !ScreepsAPI.IsConnected)
+            if (!ScreepsAPI.IsConnected)
                 return;
             
             DisplayObjects();

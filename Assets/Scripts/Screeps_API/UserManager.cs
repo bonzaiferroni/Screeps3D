@@ -5,19 +5,24 @@ namespace Screeps_API
 {
     public class UserManager
     {
-        private Dictionary<string, ScreepsUser> users = new Dictionary<string, ScreepsUser>();
+        private Dictionary<string, ScreepsUser> _users = new Dictionary<string, ScreepsUser>();
 
         public ScreepsUser GetUser(string id)
         {
             if (id == null)
                 return null;
-            if (users.ContainsKey(id))
+            if (_users.ContainsKey(id))
             {
-                return users[id];
+                return _users[id];
             } else
             {
                 return null;
             }
+        }
+
+        internal void Reset()
+        {
+            _users = new Dictionary<string, ScreepsUser>();
         }
         
         internal ScreepsUser CacheUser(JSONObject data)
@@ -25,7 +30,7 @@ namespace Screeps_API
 
             var id = data["_id"].str;
             
-            if (users.ContainsKey(id)) return users[id];
+            if (_users.ContainsKey(id)) return _users[id];
 
             Texture2D badge = null;
             var isNpc = false;
@@ -55,7 +60,7 @@ namespace Screeps_API
             }
 
             var user = new ScreepsUser(id, username, cpu, badge, isNpc);
-            users[id] = user;
+            _users[id] = user;
             return user;
         }
     }

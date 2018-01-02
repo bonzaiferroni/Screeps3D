@@ -26,8 +26,7 @@ namespace Screeps_API
 
         private string _token;
 
-
-        public override void Awake()
+        public void Awake()
         {
             base.Awake();
 
@@ -50,7 +49,18 @@ namespace Screeps_API
                 NotifyText.Message("Success", Color.green, 1);
                 Socket.Connect();
                 Http.GetUser(AssignUser);
-            }, () => { Debug.Log("login failed"); });
+            }, () =>
+            {
+                Debug.Log("login failed");
+            });
+        }
+
+        public void Disconnect()
+        {
+            SetConnectionStatus(false);
+            Badges.Reset();
+            UserManager.Reset();
+            Socket.Disconnect();
         }
 
         internal void IncrementTime()

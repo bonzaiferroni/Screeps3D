@@ -131,14 +131,12 @@ namespace Screeps_API
             _subscriptions[path] = callback;
         }
 
-        public void Unsub(string path, Action<JSONObject> callback = null)
+        public void Unsub(string path, bool remove = true)
         {
             Debug.Log("unsub " + path);
             Socket.Send(string.Format("unsubscribe {0}", path));
-            if (callback != null)
-            {
-                _subscriptions[path] = callback;
-            }
+            if (remove)
+                _subscriptions.Remove(path);
         }
 
         private void UnsubAll()
@@ -146,8 +144,15 @@ namespace Screeps_API
             if (Socket == null) return;
             foreach (var kvp in _subscriptions)
             {
-                Unsub(kvp.Key);
+                Unsub(kvp.Key, false);
             }
+            _subscriptions.Clear();
+        }
+
+        public void Disconnect()
+        {
+            UnsubAll();
+            Socket.Close();
         }
     }
 }
