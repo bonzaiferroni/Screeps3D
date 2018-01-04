@@ -93,15 +93,18 @@ namespace Screeps_API
 
         private void ProcessMessage(MessageEventArgs e)
         {
-            if (e.Data == null)
+            if (e == null || e.Data == null)
             {
+                Debug.Log("recieved null data from server");
                 return;
             }
             
-            if (e.Data.Substring(0, 3) == "gz:")
-            {
+            if (e.Data.Substring(0, 5) == "[\"err")
                 Debug.Log(e.Data);
-            }
+            
+            if (e.Data.Substring(0, 3) == "gz:")
+                Debug.Log(e.Data);
+            
             // Debug.Log(string.Format("Socket Message: {0}", e.Data));
             var parse = e.Data.Split(' ');
             if (parse.Length == 3 && parse[0] == "auth" && parse[1] == "ok")
