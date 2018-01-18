@@ -108,7 +108,7 @@ namespace Screeps3D.RoomObjects
             {
                 Fatigue = fatigueData.n;
             }
-
+            
             Body.Unpack(data);
         }
         
